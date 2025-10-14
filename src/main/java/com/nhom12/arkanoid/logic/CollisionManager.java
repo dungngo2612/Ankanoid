@@ -1,4 +1,4 @@
-package logic;
+package com.nhom12.arkanoid.logic;
 
 public class CollisionManager {
 }
