@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.nhom12.arkanoid.controller.MenuController"
+           alignment="CENTER">
+
+    <!-- 🎥 Background video view -->
+    <MediaView fx:id="mediaView" fitWidth="1280" fitHeight="720" preserveRatio="true"/>
+
+    <!-- 🕹️ Title text -->
+    <Label text="ARKANOID CLASSIC" textFill="gold">
+        <font>
+            <Font name="Serif" size="48"/>
+        </font>
+    </Label>
+
+</StackPane>
