@@ -9,13 +9,19 @@ public class Ball {
     private double dx;
     private double dy;
 
-    public Ball(double x, double y, double radius, double dx, double dy) {
+    //Vận tốc của bóng
+    private double speed;
+
+
+
+    public Ball(double x, double y, double radius, double dx, double dy, double speed) {
         this.x = x;
         this.y = y;
         this.radius = radius;
         this.dx = dx;
         this.dy = dy;
     }
+
 
     //Cập nhật vị trí quả bóng
     public void move() {
@@ -62,4 +68,17 @@ public class Ball {
     public void setDy(double dy) {
         this.dy = dy;
     }
+
+
+    // Đổi hướng đi của bóng
+    public void reverseX() {
+        dx = - dx;
+    }
+
+    public void reverseY() {
+        dy = -dy;
+    }
+
+
+
 }
