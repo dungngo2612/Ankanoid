@@ -15,6 +15,10 @@ public class GameEngine {
     // Update logic game mỗi frame
     public void update() {
 
+        if (gameState.isGameOver() || gameState.isGameWon()) {
+            return;
+        }
+
         // Di chuyển bóng
         gameState.getBall().move();
 
