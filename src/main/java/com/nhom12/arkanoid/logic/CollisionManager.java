@@ -55,17 +55,67 @@ public class CollisionManager {
         }
     }
 
-    // kiểm tra xem ball có chạm brick
-    public boolean checkBallHitsBrick(Ball ball, Brick brick) {
+    // Handle bóng va chạm với brick
+    public boolean handleBrickCollision(Ball ball, Brick brick) {
+        if (brick.isDestroyed()) {
+            return false;
+        }
 
-        double ballBottom = ball.getY() + ball.getRadius();
-        double ballLeft = ball.getX() - ball.getRadius();
-        double ballRight = ball.getX() + ball.getRadius();
+        //Bóng
+        double ballX = ball.getX();
+        double ballY = ball.getY();
+        double ballRadius = ball.getRadius();
 
-        if ((ballBottom >= brick.getY()) && (ball.getY() <= brick.getY())) {
-            if (ballLeft >= brick.getX() && ballRight <= brick.getY()) {
-                return true;
+        //Brick
+        double brickX = brick.getX();
+        double brickY = brick.getY();
+        double brickWidth = brick.getWidth();
+        double brickHeight = brick.getHeight();
+
+        double closestX;
+        if (ballX < brickX) {
+            closestX = brickX;
+        } else if (ballX > brickX + brickWidth) {
+            closestX = brickX + brickWidth;
+        } else {
+            closestX = ballX;
+        }
+
+        double closestY;
+        if (ballY < brickY) {
+            closestY = brickY;
+        } else if (ballY > brickY + brickHeight) {
+            closestY = brickY + brickHeight;
+        } else {
+            closestY = ballY;
+        }
+
+        double distanceX = ballX - closestX;
+        double distanceY = ballY - closestY;
+
+        double distance = Math.sqrt((distanceX * distanceX) + (distanceY * distanceY));
+
+        boolean isColliding = distance < ballRadius;
+        if (isColliding) {
+            brick.hit();
+            //Tính phần giao nhau giữa ball và brick ở các phía
+            double overlapLeft = (ballX + ballRadius) - brickX;
+            double overlapRight = (brickX + brickWidth) - (ballX - ballRadius);
+            double overlapTop = (ballY + ballRadius) - brickY;
+            double overlapBottom = (brickY + brickHeight) - (ballY - ballRadius);
+
+            // Tìm ra giá trị giao nhau nhỏ nhất.
+            double minOverlapX = Math.min(overlapLeft, overlapRight);
+            double minOverlapY = Math.min(overlapTop, overlapBottom);
+
+            if (minOverlapX < minOverlapY) {
+                //-->Bóng va vào cạnh ngang
+                ball.reverseX();
+            } else {
+                //-->Bóng va vào cạnh dọc
+                ball.reverseY();
             }
+            return true;
         }
         return false;
     }
