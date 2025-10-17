@@ -3,6 +3,7 @@ package com.nhom12.arkanoid.controller;
 import com.nhom12.arkanoid.logic.GameEngine;
 import com.nhom12.arkanoid.model.GameState;
 import com.nhom12.arkanoid.model.Paddle;
+import com.nhom12.arkanoid.model.Ball;
 import com.nhom12.arkanoid.utils.Constants;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
@@ -46,6 +47,7 @@ public class GameController {
                 updatePaddlePosition();
                 //Cập nhật logic game
                 gameEngine.update();
+                render();
             }
         };
 
@@ -97,5 +99,25 @@ public class GameController {
                 paddle.setX(Constants.SCENE_WIDTH - Constants.PADDLE_WIDTH);
             }
         }
+    }
+
+    private void render() {
+        GameState state = gameEngine.getGameState();
+
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0, 0, Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT);
+
+        // Vẽ thanh đỡ
+        gc.setFill(Color.BLUE);
+        Paddle paddle = state.getPaddle();
+        gc.fillRect(paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight());
+
+        // Vẽ bóng
+        gc.setFill(Color.WHITE);
+        Ball ball = state.getBall();
+        double tmpX = ball.getX() - ball.getRadius();
+        double tmpY = ball.getY() - ball.getRadius();
+        double tmpWidth = ball.getRadius() * 2;
+        gc.fillOval(tmpX, tmpY, tmpWidth, tmpWidth);
     }
 }
