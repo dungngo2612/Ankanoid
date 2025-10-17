@@ -134,6 +134,9 @@ public class GameController {
         gc.setFill(Color.GREEN);
         List<Brick> list = state.getBricks();
         for (Brick brick : list) {
+            if (brick.isDestroyed()) {
+                continue;
+            }
             double x = brick.getX();
             double y = brick.getY();
             gc.fillRect(x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT);

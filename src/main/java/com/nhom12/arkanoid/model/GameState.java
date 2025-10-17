@@ -3,7 +3,13 @@ package com.nhom12.arkanoid.model;
 import com.nhom12.arkanoid.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.nhom12.arkanoid.logic.GameEngine;
+import com.nhom12.arkanoid.model.Brick;
+import com.nhom12.arkanoid.model.GameState;
+import com.nhom12.arkanoid.model.Paddle;
+import com.nhom12.arkanoid.model.Ball;
+import com.nhom12.arkanoid.utils.Constants;
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -23,8 +29,16 @@ public class GameState {
 
     private boolean ballLaunched = false;
 
+    @FXML
+    private Canvas gameCanvas;
+    @FXML
+    private Text scoreText;
+    @FXML
+    private Text livesText;
+
 
     public GameState() {
+
         this.paddle = new Paddle(
                 (Constants.SCENE_WIDTH - Constants.PADDLE_WIDTH) / 2,
                 Constants.PADDLE_START_Y,
@@ -41,6 +55,7 @@ public class GameState {
 
         initializeBricks();
         resetBall();
+
     }
 
     // Khởi tạo danh sách các viên gạch
@@ -113,7 +128,6 @@ public class GameState {
 
     public void loseLife() {
         this.lives--;
-
         if (this.lives <= 0) {
             this.isGameOver = true;
         } else {
