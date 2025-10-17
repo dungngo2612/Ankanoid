@@ -28,7 +28,20 @@ public class GameEngine {
         }
 
         // Di chuyển bóng
+        gameState.getBall().move();// Nếu bóng chưa được phóng, gắn nó theo paddle
+        if (!gameState.isBallLaunched()) {
+            gameState.getBall().setX(
+                    gameState.getPaddle().getX() + gameState.getPaddle().getWidth() / 2
+            );
+            gameState.getBall().setY(
+                    gameState.getPaddle().getY() - gameState.getBall().getRadius() - 2
+            );
+            return;
+        }
+
+        // Nếu đã phóng → bóng bay
         gameState.getBall().move();
+
 
         //Xử lý va chạm
         collisionManager.handleWallCollision(gameState.getBall());
