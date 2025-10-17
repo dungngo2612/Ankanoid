@@ -1,5 +1,6 @@
 package com.nhom12.arkanoid;
 
+
 import com.nhom12.arkanoid.utils.ScreenManager;
 import javafx.application.Application;
 import javafx.stage.Stage;

@@ -25,7 +25,7 @@ public class ScreenManager {
             }
 
             Parent root = FXMLLoader.load(resource);
-            Scene scene = new Scene(root, 1280, 720);
+            Scene scene = new Scene(root, Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT);
 
             primaryStage.setTitle(title);
             primaryStage.setScene(scene);
