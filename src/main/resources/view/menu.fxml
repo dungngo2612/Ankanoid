@@ -10,7 +10,7 @@
 <?import javafx.geometry.Pos?>
 
 <?import java.net.URL?>
-<StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml"
+<StackPane fx:id="menu" xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.nhom12.arkanoid.controller.MenuController"
            alignment="CENTER">
 
@@ -40,7 +40,6 @@
             <Button text="HIGHSCORE" onAction="#onHighscoreClicked" styleClass="button"/>
             <Button text="SETTINGS" onAction="#onSettingsClicked" styleClass="button"/>
             <Button text="EXIT" onAction="#onExitClicked" styleClass="button"/>
-
         </VBox>
     </VBox>
 </StackPane>

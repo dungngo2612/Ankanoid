@@ -1,5 +1,6 @@
 package com.nhom12.arkanoid.controller;
 
+import com.nhom12.arkanoid.utils.ScreenManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
@@ -16,7 +17,7 @@ public class MenuController implements Initializable {
 
     // 🧱 This connects to fx:id="root" in FXML
     @FXML
-    private StackPane root;
+    private StackPane menu;
 
     @FXML
     private MediaView mediaView;
@@ -46,13 +47,13 @@ public class MenuController implements Initializable {
     @FXML
     private void onStartClicked() {
         System.out.println("Start Game clicked!");
-        // TODO: load your game scene here
+        ScreenManager.switchScene("/view/game.fxml","Arkanoid");
     }
 
     @FXML
     private void onSettingsClicked() {
         System.out.println("Settings clicked!");
-        // TODO: open settings scene
+        ScreenManager.switchScene("/view/win.fxml","Arkanoid");
     }
 
     @FXML
