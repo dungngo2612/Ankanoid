@@ -1,23 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.control.Label?>
-
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
 
+<?import java.net.URL?>
 <StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.nhom12.arkanoid.controller.MenuController"
            alignment="CENTER">
 
-    <!-- 🎥 Background video view -->
-    <MediaView fx:id="mediaView" fitWidth="1280" fitHeight="720" preserveRatio="true"/>
+    <stylesheets>
+        <URL value="@menu.css"/>
+    </stylesheets>
 
-    <!-- 🕹️ Title text -->
-    <Label text="ARKANOID CLASSIC" textFill="gold">
-        <font>
-            <Font name="Serif" size="48"/>
-        </font>
-    </Label>
+    <!-- 🎥 Background video -->
+    <MediaView fx:id="mediaView" preserveRatio="true"/>
 
+    <!-- 🕹️ Overlay UI -->
+    <VBox alignment="CENTER" spacing="20">
+        <!-- Game title -->
+        <Label text="ARKANOID CLASSIC" textFill="gold">
+            <style>-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);</style>
+            <font>
+                <Font name="Serif" size="48"/>
+            </font>
+        </Label>
+
+        <!-- Buttons -->
+        <VBox alignment="CENTER" spacing="15">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Button text="START" onAction="#onStartClicked" styleClass="button"/>
+            <Button text="HIGHSCORE" onAction="#onHighscoreClicked" styleClass="button"/>
+            <Button text="SETTINGS" onAction="#onSettingsClicked" styleClass="button"/>
+            <Button text="EXIT" onAction="#onExitClicked" styleClass="button"/>
+
+        </VBox>
+    </VBox>
 </StackPane>
