@@ -1,6 +1,9 @@
 package com.nhom12.arkanoid.controller;
 
 import com.nhom12.arkanoid.logic.GameEngine;
+import com.nhom12.arkanoid.model.GameState;
+import com.nhom12.arkanoid.model.Paddle;
+import com.nhom12.arkanoid.utils.Constants;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -39,6 +42,8 @@ public class GameController {
             public void handle(long now) {
                 //Handle sự kiện input
                 setupInputHandling();
+                //Cập nhật vị trí paddle
+                updatePaddlePosition();
                 //Cập nhật logic game
                 gameEngine.update();
             }
@@ -72,6 +77,25 @@ public class GameController {
             isLeftKeyPressed = false;
         } else if (event.getCode() == KeyCode.RIGHT) {
             isRightKeyPressed = false;
+        }
+    }
+
+    //Cập nhật vị trí paddle
+    private void updatePaddlePosition() {
+        Paddle paddle = gameEngine.getGameState().getPaddle();
+        if (isLeftKeyPressed) {
+            if (paddle.getX() - Constants.PADDLE_SPEED > 0) {
+                paddle.setX(paddle.getX() - Constants.PADDLE_SPEED);
+            } else {
+                paddle.setX(0);
+            }
+        }
+        if (isRightKeyPressed) {
+            if (paddle.getX() + Constants.PADDLE_WIDTH + Constants.PADDLE_SPEED < Constants.SCENE_WIDTH) {
+                paddle.setX(paddle.getX() + Constants.PADDLE_SPEED);
+            } else {
+                paddle.setX(Constants.SCENE_WIDTH - Constants.PADDLE_WIDTH);
+            }
         }
     }
 }
