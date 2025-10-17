@@ -37,6 +37,8 @@ public class GameController {
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                //Handle sự kiện input
+                setupInputHandling();
                 //Cập nhật logic game
                 gameEngine.update();
             }
@@ -45,4 +47,31 @@ public class GameController {
         gameLoop.start();
     }
 
+    private void setupInputHandling() {
+        gameCanvas.setFocusTraversable(true);
+        gameCanvas.setOnKeyPressed(event -> {
+            this.handleKeyPressed(event);
+        });
+        gameCanvas.setOnKeyReleased(event -> {
+            this.handleKeyReleased(event);
+        });
+    }
+
+    //Xử lý nhấn phím
+    private void handleKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.LEFT) {
+            isLeftKeyPressed = true;
+        } else if (event.getCode() == KeyCode.RIGHT) {
+            isRightKeyPressed = true;
+        }
+    }
+
+    //Xử lý nhả phím
+    private void handleKeyReleased(KeyEvent event) {
+        if (event.getCode() == KeyCode.LEFT) {
+            isLeftKeyPressed = false;
+        } else if (event.getCode() == KeyCode.RIGHT) {
+            isRightKeyPressed = false;
+        }
+    }
 }
