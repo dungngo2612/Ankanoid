@@ -12,6 +12,14 @@ public class GameEngine {
         this.collisionManager = new CollisionManager();
     }
 
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public CollisionManager getCollisionManager() {
+        return collisionManager;
+    }
+
     // Update logic game mỗi frame
     public void update() {
 
@@ -33,5 +41,10 @@ public class GameEngine {
                 }
             }
         });
+
+        //Kiểm tra bóng rơi xuống dưới màn hình
+        if (gameState.getBall().getY() > Constants.SCENE_HEIGHT) {
+            gameState.loseLife();
+        }
     }
 }
