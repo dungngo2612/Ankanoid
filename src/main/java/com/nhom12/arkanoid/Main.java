@@ -1,5 +1,6 @@
 package com.nhom12.arkanoid;
 
+import com.nhom12.arkanoid.utils.Constants;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,9 +12,10 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/view/menu.fxml")
         );
-        Scene scene = new Scene(loader.load(), 1280, 720);
+        Scene scene = new Scene(loader.load(), Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT);
         stage.setScene(scene);
         stage.setTitle("Arkanoid Menu");
+        stage.setResizable(false);
         stage.show();
     }
 
