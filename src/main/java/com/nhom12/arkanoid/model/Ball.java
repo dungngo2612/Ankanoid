@@ -9,12 +9,8 @@ public class Ball {
     private double dx;
     private double dy;
 
-    //Vận tốc của bóng
-    private double speed;
 
-
-
-    public Ball(double x, double y, double radius, double dx, double dy, double speed) {
+    public Ball(double x, double y, double radius, double dx, double dy) {
         this.x = x;
         this.y = y;
         this.radius = radius;
