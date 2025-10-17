@@ -9,6 +9,7 @@ public class Ball {
     private double dx;
     private double dy;
 
+
     public Ball(double x, double y, double radius, double dx, double dy) {
         this.x = x;
         this.y = y;
@@ -21,6 +22,15 @@ public class Ball {
     public void move() {
         x += dx;
         y += dy;
+    }
+
+    // Đổi hướng đi của bóng
+    public void reverseX() {
+        dx = -dx;
+    }
+
+    public void reverseY() {
+        dy = -dy;
     }
 
     public double getX() {
@@ -62,4 +72,5 @@ public class Ball {
     public void setDy(double dy) {
         this.dy = dy;
     }
+
 }
