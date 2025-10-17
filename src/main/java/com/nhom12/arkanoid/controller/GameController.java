@@ -37,15 +37,12 @@ public class GameController {
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                //Update vị trí paddle
-                updatePaddlePosition();
                 //Cập nhật logic game
                 gameEngine.update();
-                //Vẽ ra màn hình
-                render();
             }
         };
 
         gameLoop.start();
     }
+
 }
