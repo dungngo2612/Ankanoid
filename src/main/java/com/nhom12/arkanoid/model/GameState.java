@@ -1,9 +1,16 @@
 package com.nhom12.arkanoid.model;
 
 import com.nhom12.arkanoid.utils.Constants;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class GameState {
     private Ball ball;
@@ -13,6 +20,8 @@ public class GameState {
     private int lives;
     private boolean isGameOver;
     private boolean isGameWon;
+
+    private boolean ballLaunched = false;
 
 
     public GameState() {
@@ -52,13 +61,17 @@ public class GameState {
         ball.setY(paddle.getY() - ball.getRadius());
         ball.setDx(0);
         ball.setDy(0);
+        setBallLaunched(false);
     }
 
     public void launchBall() {
         // Chỉ phóng bóng nếu bóng đang đứng yên
-        if (ball.getDx() == 0 && ball.getDy() == 0) {
+        if (!isBallLaunched()) {
             // Bắn lên trên
+            ball.setDx(Constants.BALL_SPEED);
             ball.setDy(-Constants.BALL_SPEED);
+
+            setBallLaunched(true);
         }
     }
 
@@ -90,8 +103,17 @@ public class GameState {
         return isGameWon;
     }
 
+    public boolean isBallLaunched() {
+        return ballLaunched;
+    }
+
+    public void setBallLaunched(boolean ballLaunched) {
+        this.ballLaunched = ballLaunched;
+    }
+
     public void loseLife() {
         this.lives--;
+
         if (this.lives <= 0) {
             this.isGameOver = true;
         } else {
