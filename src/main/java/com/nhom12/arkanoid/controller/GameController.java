@@ -1,6 +1,7 @@
 package com.nhom12.arkanoid.controller;
 
 import com.nhom12.arkanoid.logic.GameEngine;
+import com.nhom12.arkanoid.model.Brick;
 import com.nhom12.arkanoid.model.GameState;
 import com.nhom12.arkanoid.model.Paddle;
 import com.nhom12.arkanoid.model.Ball;
@@ -13,6 +14,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+
+import java.text.BreakIterator;
+import java.util.List;
 
 public class GameController {
 
@@ -27,6 +31,7 @@ public class GameController {
 
     private GraphicsContext gc;
     private GameEngine gameEngine;
+    private GameState gameState;
     private AnimationTimer gameLoop;
 
     private boolean isLeftKeyPressed = false;
@@ -36,6 +41,7 @@ public class GameController {
     public void initialize() {
         gc = gameCanvas.getGraphicsContext2D();
         gameEngine = new GameEngine();
+        gameState = gameEngine.getGameState();
 
         // Tạo vòng lặp game
         gameLoop = new AnimationTimer() {
@@ -70,6 +76,9 @@ public class GameController {
             isLeftKeyPressed = true;
         } else if (event.getCode() == KeyCode.RIGHT) {
             isRightKeyPressed = true;
+        } else if (event.getCode() == KeyCode.SPACE) {
+            gameState.launchBall();
+            messageText.setText("");
         }
     }
 
@@ -101,6 +110,7 @@ public class GameController {
         }
     }
 
+
     private void render() {
         GameState state = gameEngine.getGameState();
 
@@ -119,5 +129,14 @@ public class GameController {
         double tmpY = ball.getY() - ball.getRadius();
         double tmpWidth = ball.getRadius() * 2;
         gc.fillOval(tmpX, tmpY, tmpWidth, tmpWidth);
+
+        // Vẽ gạch
+        gc.setFill(Color.GREEN);
+        List<Brick> list = state.getBricks();
+        for (Brick brick : list) {
+            double x = brick.getX();
+            double y = brick.getY();
+            gc.fillRect(x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT);
+        }
     }
 }
