@@ -18,11 +18,19 @@ public class Ball {
         this.dy = dy;
     }
 
-
     //Cập nhật vị trí quả bóng
     public void move() {
         x += dx;
         y += dy;
+    }
+
+    // Đổi hướng đi của bóng
+    public void reverseX() {
+        dx = -dx;
+    }
+
+    public void reverseY() {
+        dy = -dy;
     }
 
     public double getX() {
@@ -64,17 +72,5 @@ public class Ball {
     public void setDy(double dy) {
         this.dy = dy;
     }
-
-
-    // Đổi hướng đi của bóng
-    public void reverseX() {
-        dx = - dx;
-    }
-
-    public void reverseY() {
-        dy = -dy;
-    }
-
-
 
 }
