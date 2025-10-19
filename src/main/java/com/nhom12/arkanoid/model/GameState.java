@@ -94,7 +94,11 @@ public class GameState {
         return ball;
     }
 
-    public Paddle getPaddle() {
+    public void setLives(int lives) {
+        this.lives = Math.min(lives , Constants.MAX_LIVES);
+    }
+
+    public  Paddle getPaddle() {
         return paddle;
     }
 
