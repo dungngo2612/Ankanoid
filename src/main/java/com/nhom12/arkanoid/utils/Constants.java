@@ -21,7 +21,7 @@ public class Constants {
     public static final double BRICK_HEIGHT = 20;
     public static final double BRICK_GAP = 5;
 
-    public static final double MAX_LIVES = 3;
+    public static final int MAX_LIVES = 3;
 
 
 }
