@@ -63,6 +63,24 @@ public class GameEngine {
 
         gameState.getBricks().forEach(brick -> {
             if (collisionManager.handleBrickCollision(gameState.getBall(), brick)) {
+
+                if(brick instanceof BrickGroup){
+                    BrickGroup b = (BrickGroup) brick;
+
+                    switch(b.getType()) {
+                        case UNBREAKABLE :
+                            break;
+                        case EXPLOSIVE:
+                            b.hit();
+                            handleExplosiveBrick(b);
+                            break;
+                        default:  b.hit();
+                    }
+                } else {
+                    brick.hit();
+                }
+
+
                 if (brick.isDestroyed()) {
                     gameState.incrementScore(10);
                     spawnItemIfPossible(brick);
@@ -120,6 +138,26 @@ public class GameEngine {
                 it.remove();
             }
 
+        }
+    }
+
+    // xử lí nếu phá vỡ viên gạch nổ=> các viên gạch xung quanh cũng sẽ bị mất 1 máu
+    private void handleExplosiveBrick(BrickGroup centerBrick){
+        List<Brick> bricks = gameState.getBricks();
+
+        for(Brick brick :  bricks){
+            if(!brick.isDestroyed()){
+
+                if(brick.isDestroyed()) continue;
+                if(centerBrick.isDestroyed()) continue;
+                // tìm ô gạch nào ở xung quanh
+                double dx= Math.abs(brick.getX() - centerBrick.getX());
+                double dy = Math.abs(brick.getY() - centerBrick.getY());
+
+                if(dx <= Math.max( brick.getWidth(), brick.getHeight() ) && dy <= Math.max( brick.getWidth(),brick.getHeight())  ) {
+                    brick.hit();
+                }
+            }
         }
     }
 

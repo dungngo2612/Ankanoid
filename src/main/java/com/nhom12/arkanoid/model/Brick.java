@@ -1,7 +1,6 @@
 package com.nhom12.arkanoid.model;
 
 public class Brick {
-
     private double x;
     private double y;
     private double width;
