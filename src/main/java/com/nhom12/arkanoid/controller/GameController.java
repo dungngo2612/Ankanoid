@@ -6,15 +6,20 @@ import com.nhom12.arkanoid.model.GameState;
 import com.nhom12.arkanoid.model.Paddle;
 import com.nhom12.arkanoid.model.Ball;
 import com.nhom12.arkanoid.utils.Constants;
+import com.nhom12.arkanoid.utils.ImageManager;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Text;
 
+import javafx.scene.shape.Rectangle;
 import java.text.BreakIterator;
 import java.util.List;
 
@@ -114,24 +119,24 @@ public class GameController {
     private void render() {
         GameState state = gameEngine.getGameState();
 
-        gc.setFill(Color.BLACK);
-        gc.fillRect(0, 0, Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT);
+        Image background = ImageManager.getInstance().showImage("background");
+        gc.drawImage(background, 0, 0, 800, 600);
 
         // Vẽ thanh đỡ
-        gc.setFill(Color.BLUE);
+        Image paddleImg = ImageManager.getInstance().showImage("paddle");
         Paddle paddle = state.getPaddle();
-        gc.fillRect(paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight());
+        gc.drawImage(paddleImg, paddle.getX(), paddle.getY(), paddle.getWidth() , paddle.getHeight());
 
         // Vẽ bóng
-        gc.setFill(Color.WHITE);
+        Image ballImg = ImageManager.getInstance().showImage("ball");
         Ball ball = state.getBall();
         double tmpX = ball.getX() - ball.getRadius();
         double tmpY = ball.getY() - ball.getRadius();
         double tmpWidth = ball.getRadius() * 2;
-        gc.fillOval(tmpX, tmpY, tmpWidth, tmpWidth);
+        gc.drawImage(ballImg, tmpX, tmpY, tmpWidth, tmpWidth);
 
         // Vẽ gạch
-        gc.setFill(Color.GREEN);
+        Image brickImg = ImageManager.getInstance().showImage("brick");
         List<Brick> list = state.getBricks();
         for (Brick brick : list) {
             if (brick.isDestroyed()) {
@@ -139,7 +144,7 @@ public class GameController {
             }
             double x = brick.getX();
             double y = brick.getY();
-            gc.fillRect(x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT);
+            gc.drawImage(brickImg, x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT);
         }
     }
 }
