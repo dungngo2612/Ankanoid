@@ -23,6 +23,6 @@ public class WinController {
     @FXML
     private void onAgainClicked() {
         System.out.println("Again clicked!");
-        ScreenManager.switchScene("/view/game.fxml","Arkanoid");
+        ScreenManager.switchScene("/view/game.fxml", "Arkanoid");
     }
 }

@@ -2,6 +2,8 @@ package com.nhom12.arkanoid.logic;
 
 import com.nhom12.arkanoid.model.*;
 import com.nhom12.arkanoid.utils.Constants;
+import com.nhom12.arkanoid.utils.ScreenManager;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,7 +40,7 @@ public class GameEngine {
     public void update() {
 
         if (gameState.isGameOver() || gameState.isGameWon()) {
-            return;
+           return;
         }
 
         if (!gameState.isBallLaunched()) {

@@ -4,6 +4,7 @@ import com.nhom12.arkanoid.logic.GameEngine;
 import com.nhom12.arkanoid.model.*;
 import com.nhom12.arkanoid.utils.Constants;
 import com.nhom12.arkanoid.utils.ImageManager;
+import com.nhom12.arkanoid.utils.ScreenManager;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -57,10 +58,10 @@ public class GameController {
                 render();
                 if (gameState.isGameOver()) {
                     gameLoop.stop();
-                    System.out.println("GAME OVER");
+                    ScreenManager.switchScene("/view/lose.fxml","Arkanoid");
                 } else if (gameState.isGameWon()) {
                     gameLoop.stop();
-                    System.out.println("GAME WON!");
+                    ScreenManager.switchScene("/view/win.fxml","Arkanoid");
                 }
             }
         };
