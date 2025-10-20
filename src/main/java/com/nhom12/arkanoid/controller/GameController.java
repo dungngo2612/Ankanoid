@@ -1,10 +1,7 @@
 package com.nhom12.arkanoid.controller;
 
 import com.nhom12.arkanoid.logic.GameEngine;
-import com.nhom12.arkanoid.model.Brick;
-import com.nhom12.arkanoid.model.GameState;
-import com.nhom12.arkanoid.model.Paddle;
-import com.nhom12.arkanoid.model.Ball;
+import com.nhom12.arkanoid.model.*;
 import com.nhom12.arkanoid.utils.Constants;
 import com.nhom12.arkanoid.utils.ImageManager;
 import javafx.animation.AnimationTimer;
@@ -20,6 +17,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Text;
 
 import javafx.scene.shape.Rectangle;
+
 import java.text.BreakIterator;
 import java.util.List;
 
@@ -57,6 +55,13 @@ public class GameController {
                 //Cập nhật logic game
                 gameEngine.update();
                 render();
+                if (gameState.isGameOver()) {
+                    gameLoop.stop();
+                    System.out.println("GAME OVER");
+                } else if (gameState.isGameWon()) {
+                    gameLoop.stop();
+                    System.out.println("GAME WON!");
+                }
             }
         };
 
@@ -125,7 +130,7 @@ public class GameController {
         // Vẽ thanh đỡ
         Image paddleImg = ImageManager.getInstance().showImage("paddle");
         Paddle paddle = state.getPaddle();
-        gc.drawImage(paddleImg, paddle.getX(), paddle.getY(), paddle.getWidth() , paddle.getHeight());
+        gc.drawImage(paddleImg, paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight());
 
         // Vẽ bóng
         Image ballImg = ImageManager.getInstance().showImage("ball");
@@ -145,6 +150,17 @@ public class GameController {
             double x = brick.getX();
             double y = brick.getY();
             gc.drawImage(brickImg, x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT);
+        }
+
+        scoreText.setText("Score: " + state.getScore());
+        livesText.setText("Lives: " + state.getLives());
+
+        // Vẽ các vật phẩm đang rơi
+        for (Items item : gameEngine.getItems()) {
+            if (item.isActive()) {
+                gc.setFill(Color.YELLOW);
+                gc.fillRect(item.getX(), item.getY(), item.getWidth(), item.getHeight());
+            }
         }
     }
 }
