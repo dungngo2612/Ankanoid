@@ -92,7 +92,6 @@ public class GameState {
             // Bắn lên trên
             ball.setDx(randomNumber);
             ball.setDy(-Constants.BALL_SPEED);
-
             setBallLaunched(true);
         }
     }
