@@ -52,8 +52,6 @@ public class GameController {
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                //Handle sự kiện input
-                setupInputHandling();
                 //Cập nhật vị trí paddle
                 updatePaddlePosition();
                 //Cập nhật logic game
@@ -63,6 +61,8 @@ public class GameController {
         };
 
         gameLoop.start();
+        //Handle sự kiện input
+        setupInputHandling();
     }
 
     private void setupInputHandling() {
