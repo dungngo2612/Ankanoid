@@ -1,8 +1,11 @@
 package com.nhom12.arkanoid.model;
 
 import com.nhom12.arkanoid.utils.Constants;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import com.nhom12.arkanoid.logic.GameEngine;
 import com.nhom12.arkanoid.model.Brick;
 import com.nhom12.arkanoid.model.GameState;
@@ -17,6 +20,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+
 
 public class GameState {
     private Ball ball;
@@ -80,10 +84,12 @@ public class GameState {
     }
 
     public void launchBall() {
+        Random rand = new Random();
+        double randomNumber = rand.nextDouble(Constants.BALL_SPEED + Constants.BALL_SPEED + 1) - Constants.BALL_SPEED;
         // Chỉ phóng bóng nếu bóng đang đứng yên
         if (!isBallLaunched()) {
             // Bắn lên trên
-            ball.setDx(Constants.BALL_SPEED);
+            ball.setDx(randomNumber);
             ball.setDy(-Constants.BALL_SPEED);
 
             setBallLaunched(true);
@@ -95,10 +101,10 @@ public class GameState {
     }
 
     public void setLives(int lives) {
-        this.lives = Math.min(lives , Constants.MAX_LIVES);
+        this.lives = Math.min(lives, Constants.MAX_LIVES);
     }
 
-    public  Paddle getPaddle() {
+    public Paddle getPaddle() {
         return paddle;
     }
 
