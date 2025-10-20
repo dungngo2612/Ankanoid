@@ -150,7 +150,7 @@ public class GameController {
             }
             double x = brick.getX();
             double y = brick.getY();
-            gc.drawImage(brickImg, x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT);
+            gc.drawImage(brickImg, x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT );
         }
 
         scoreText.setText("Score: " + state.getScore());

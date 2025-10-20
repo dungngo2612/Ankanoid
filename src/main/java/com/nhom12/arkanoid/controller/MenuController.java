@@ -1,6 +1,7 @@
 package com.nhom12.arkanoid.controller;
 
 import com.nhom12.arkanoid.utils.ScreenManager;
+import com.nhom12.arkanoid.utils.SoundManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
@@ -32,7 +33,7 @@ public class MenuController implements Initializable {
         player.setCycleCount(MediaPlayer.INDEFINITE);
         player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
         player.setAutoPlay(true);
-
+        SoundManager.getInstance().playBackgroundMusic();
         mediaView.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
                 mediaView.fitWidthProperty().bind(newScene.widthProperty());
