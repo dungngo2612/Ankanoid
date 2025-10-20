@@ -41,8 +41,6 @@ public class GameEngine {
             return;
         }
 
-        // Di chuyển bóng
-        gameState.getBall().move();// Nếu bóng chưa được phóng, gắn nó theo paddle
         if (!gameState.isBallLaunched()) {
             gameState.getBall().setX(
                     gameState.getPaddle().getX() + gameState.getPaddle().getWidth() / 2
