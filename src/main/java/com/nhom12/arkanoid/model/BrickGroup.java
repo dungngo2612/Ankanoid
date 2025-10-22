@@ -15,7 +15,7 @@ public class BrickGroup extends Brick{
     private final Type type;
 
 
-    public BrickGroup(double x, double y, double width, double height, int health, Type type) {
+    public BrickGroup(double x, double y, double width, double height, Type type) {
         super(x, y, width, height, getDefaultHealth(type));
         this.type = type;
     }
