@@ -20,3 +20,5 @@ com\nhom12\arkanoid\controller\SettingsController.class
 com\nhom12\arkanoid\model\Paddle.class
 com\nhom12\arkanoid\controller\GameController$1.class
 com\nhom12\arkanoid\logic\GameEngine$1.class
+com\nhom12\arkanoid\model\LevelManager$LevelDifficulty.class
+com\nhom12\arkanoid\model\LevelManager.class

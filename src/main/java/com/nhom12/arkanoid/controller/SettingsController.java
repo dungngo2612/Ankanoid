@@ -26,9 +26,6 @@ public class SettingsController implements Initializable {
     private MediaView mediaView;
 
     @FXML
-    private ComboBox<String> resolutionCombo;
-
-    @FXML
     private CheckBox musicCheckBox;
 
     @FXML
@@ -62,9 +59,6 @@ public class SettingsController implements Initializable {
         });
 
         mediaView.setMediaPlayer(player);
-
-        resolutionCombo.getItems().addAll("800x600", "1024x768", "1280x720", "1920x1080");
-        resolutionCombo.setValue("800x600");
 
         diff.getItems().addAll("Easy", "Medium", "Hard");
         diff.setValue("Easy");
