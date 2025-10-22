@@ -36,9 +36,9 @@ public class SettingsController implements Initializable {
 
     Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
 
+    String difficulty = prefs.get("difficulty","Easy");
     boolean musicEnabled = prefs.getBoolean("musicEnabled", true);
     boolean sfxEnabled = prefs.getBoolean("sfxEnabled", true);
-    String resolution = prefs.get("resolution", "800x600");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -61,18 +61,22 @@ public class SettingsController implements Initializable {
         mediaView.setMediaPlayer(player);
 
         diff.getItems().addAll("Easy", "Medium", "Hard");
-        diff.setValue("Easy");
+        diff.setValue(difficulty);
 
         // Load saved settings (if you implement persistent config later)
-        musicCheckBox.setSelected(true);
-        sfxCheckBox.setSelected(true);
+        musicCheckBox.setSelected(musicEnabled);
+        sfxCheckBox.setSelected(sfxEnabled);
     }
 
     // 🎮 Button actions
     @FXML
     private void onBackClicked() {
         System.out.println("Saving settings...");
-        // You could save user preferences here later
+        prefs.putBoolean("musicEnabled", musicCheckBox.isSelected());
+        prefs.putBoolean("sfxEnabled", sfxCheckBox.isSelected());
+        prefs.put("difficulty", diff.getValue());
+
+
         ScreenManager.switchScene("/view/menu.fxml", "Arkanoid Menu");
     }
 }

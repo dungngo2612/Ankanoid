@@ -38,7 +38,6 @@
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
-            <ComboBox fx:id="resolutionCombo" promptText="Resolution" prefWidth="200"/>
             <ComboBox fx:id="diff" promptText="Difficulty" prefWidth="200"/>
             <CheckBox fx:id="musicCheckBox" text="Enable Music" textFill="white"/>
             <CheckBox fx:id="sfxCheckBox" text="Enable Sound Effects" textFill="white"/>
