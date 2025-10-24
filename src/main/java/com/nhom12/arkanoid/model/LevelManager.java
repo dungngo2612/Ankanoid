@@ -62,7 +62,7 @@ public class LevelManager {
                 }
             }
 
-            for(int col = Constants.BRICK_COLS / 2; col < Constants.BRICK_COLS; col++) {
+            for(int col = 1 + Constants.BRICK_COLS / 2; col < Constants.BRICK_COLS; col++) {
                 double x = col * (Constants.BRICK_WIDTH + Constants.BRICK_GAP) + Constants.BRICK_GAP;
                 double y = row * (Constants.BRICK_HEIGHT + Constants.BRICK_GAP) + Constants.BRICK_GAP + 30;
                 if(col == (Constants.BRICK_COLS - 1) )
