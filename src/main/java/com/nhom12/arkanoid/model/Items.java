@@ -22,8 +22,8 @@ public class Items {
     public Items(double x, double y) {
         this.x = x;
         this.y = y;
-        this.width = 30;
-        this.height = 15;
+        this.width = 50;
+        this.height = 30;
         this.speedY =  3;
         this.active = true;
 

@@ -1,6 +1,7 @@
 package com.nhom12.arkanoid.controller;
 
 import com.nhom12.arkanoid.utils.ScreenManager;
+import com.nhom12.arkanoid.utils.SoundManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -40,6 +41,7 @@ public class SettingsController implements Initializable {
     boolean musicEnabled = prefs.getBoolean("musicEnabled", true);
     boolean sfxEnabled = prefs.getBoolean("sfxEnabled", true);
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         URL mediaUrl = getClass().getResource("/test.mp4");
@@ -66,6 +68,16 @@ public class SettingsController implements Initializable {
         // Load saved settings (if you implement persistent config later)
         musicCheckBox.setSelected(musicEnabled);
         sfxCheckBox.setSelected(sfxEnabled);
+
+        //Setting background music
+        musicCheckBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+            if (isSelected) {
+                SoundManager.getInstance().playBackgroundMusic();
+            } else {
+                SoundManager.getInstance().stopBackgroundMusic();
+            }
+        });
+
     }
 
     // 🎮 Button actions
