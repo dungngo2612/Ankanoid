@@ -53,7 +53,25 @@ public class CollisionManager {
 
         if (isColliding) {
             SoundManager.getInstance().playEffect("hit_paddle");
-            ball.reverseY();
+            // xét nếu vị trí va chạm lệch về bên trái paddle
+            if (closestX < paddleX +45) {
+                if(ball.getDx() > 0) {// nếu hướng quả bóng bay từ trái->phải vs va chạm paddle =>ball bay ngược lại
+                    ball.reverseX();
+                    ball.reverseY();
+                } else {
+                    ball.reverseY();// bóng chỉ đổi hướng lên xuống khi bóng bay từ phải->trái hay bay từ thẳng xuống
+                }
+            }  else if(closestX > paddleX + 55){// xét vị trí va chạm lệch về bên phải paddle
+                if(ball.getDx() < 0) {//nếu hướng quả bóng bay từ phải->trái vs va chạm paddle =>ball bay ngược lại
+                    ball.reverseX();
+                    ball.reverseY();
+                } else {
+                    ball.reverseY();// bóng chỉ đổi hướng lên xuống khi bóng bay từ trái->phải hay bay từ thẳng xuống
+                }
+
+            } else {
+                ball.reverseY();// xét vị trí va chạm ở chính giữa paddle
+            }
 
             // Đặt lại vị trí Y của bóng ngay phía trên paddle để tránh bị kẹt
             ball.setY(paddle.getY() - ball.getRadius() - 1);
