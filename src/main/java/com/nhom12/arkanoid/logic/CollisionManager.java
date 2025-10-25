@@ -1,11 +1,12 @@
 package com.nhom12.arkanoid.logic;
 
+import com.nhom12.arkanoid.controller.SettingsController;
 import com.nhom12.arkanoid.model.*;
 import com.nhom12.arkanoid.utils.Constants;
+import com.nhom12.arkanoid.utils.SoundManager;
 
 
 public class CollisionManager {
-
     // Handle bóng va chạm với paddle;
     public void handlePaddleCollision(Ball ball, Paddle paddle) {
 
@@ -51,11 +52,13 @@ public class CollisionManager {
         boolean isColliding = distance < ballRadius;
 
         if (isColliding) {
+            SoundManager.getInstance().playEffect("hit_paddle");
             ball.reverseY();
 
             // Đặt lại vị trí Y của bóng ngay phía trên paddle để tránh bị kẹt
             ball.setY(paddle.getY() - ball.getRadius() - 1);
         }
+
     }
 
     // Handle bóng va chạm với brick
@@ -100,6 +103,7 @@ public class CollisionManager {
 
         boolean isColliding = distance < ballRadius;
         if (isColliding) {
+            SoundManager.getInstance().playEffect("hit_brick");
             brick.hit();
             //Tính phần giao nhau giữa ball và brick ở các phía
             double overlapLeft = (ballX + ballRadius) - brickX;
@@ -127,11 +131,14 @@ public class CollisionManager {
     public void handleWallCollision(Ball ball) {
         // Tường trái và phải
         if (ball.getX() - ball.getRadius() <= 0 || ball.getX() + ball.getRadius() >= Constants.SCENE_WIDTH) {
+            SoundManager.getInstance().playEffect("ball_bounce");
             ball.reverseX();
         }
         // Tường trên
         if (ball.getY() - ball.getRadius() <= 0) {
+            SoundManager.getInstance().playEffect("ball_bounce");
             ball.reverseY();
         }
+
     }
 }

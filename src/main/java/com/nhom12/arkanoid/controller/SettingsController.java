@@ -1,6 +1,7 @@
 package com.nhom12.arkanoid.controller;
 
 import com.nhom12.arkanoid.utils.ScreenManager;
+import com.nhom12.arkanoid.utils.SoundManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -26,9 +27,6 @@ public class SettingsController implements Initializable {
     private MediaView mediaView;
 
     @FXML
-    private ComboBox<String> resolutionCombo;
-
-    @FXML
     private CheckBox musicCheckBox;
 
     @FXML
@@ -39,9 +37,10 @@ public class SettingsController implements Initializable {
 
     Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
 
+    String difficulty = prefs.get("difficulty","Easy");
     boolean musicEnabled = prefs.getBoolean("musicEnabled", true);
     boolean sfxEnabled = prefs.getBoolean("sfxEnabled", true);
-    String resolution = prefs.get("resolution", "800x600");
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -63,22 +62,33 @@ public class SettingsController implements Initializable {
 
         mediaView.setMediaPlayer(player);
 
-        resolutionCombo.getItems().addAll("800x600", "1024x768", "1280x720", "1920x1080");
-        resolutionCombo.setValue("800x600");
-
         diff.getItems().addAll("Easy", "Medium", "Hard");
-        diff.setValue("Easy");
+        diff.setValue(difficulty);
 
         // Load saved settings (if you implement persistent config later)
-        musicCheckBox.setSelected(true);
-        sfxCheckBox.setSelected(true);
+        musicCheckBox.setSelected(musicEnabled);
+        sfxCheckBox.setSelected(sfxEnabled);
+
+        //Setting background music
+        musicCheckBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+            if (isSelected) {
+                SoundManager.getInstance().playBackgroundMusic();
+            } else {
+                SoundManager.getInstance().stopBackgroundMusic();
+            }
+        });
+
     }
 
     // 🎮 Button actions
     @FXML
     private void onBackClicked() {
         System.out.println("Saving settings...");
-        // You could save user preferences here later
+        prefs.putBoolean("musicEnabled", musicCheckBox.isSelected());
+        prefs.putBoolean("sfxEnabled", sfxCheckBox.isSelected());
+        prefs.put("difficulty", diff.getValue());
+
+
         ScreenManager.switchScene("/view/menu.fxml", "Arkanoid Menu");
     }
 }

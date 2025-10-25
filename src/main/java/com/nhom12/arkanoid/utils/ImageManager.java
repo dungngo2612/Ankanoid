@@ -13,10 +13,12 @@ public class ImageManager {
     private ImageManager() {
         images = new HashMap<>();
         images.put("default", new Image("Image/default.png"));
-        images.put("background", new Image("Image/background.png"));
-        images.put("brick", new Image("Image/Brick.png"));
-        images.put("paddle", new Image("Image/Paddle.png"));
+        images.put("background", new Image("Image/backgrounds.png"));
+        images.put("brick1", new Image("Image/Brick1.png"));
+        images.put("paddle", new Image("Image/Paddles.png"));
         images.put("ball", new Image("Image/Ball.png"));
+        images.put("extra_life", new Image("Image/Extra_Life.png"));
+        images.put("multi_balls", new Image("Image/MultiBall.png"));
     }
 
     public static ImageManager getInstance() {

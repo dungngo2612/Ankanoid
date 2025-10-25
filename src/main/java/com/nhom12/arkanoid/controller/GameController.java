@@ -142,7 +142,7 @@ public class GameController {
         gc.drawImage(ballImg, tmpX, tmpY, tmpWidth, tmpWidth);
 
         // Vẽ gạch
-        Image brickImg = ImageManager.getInstance().showImage("brick");
+        Image brickImg = ImageManager.getInstance().showImage("brick1");
         List<Brick> list = state.getBricks();
         for (Brick brick : list) {
             if (brick.isDestroyed()) {
@@ -159,8 +159,13 @@ public class GameController {
         // Vẽ các vật phẩm đang rơi
         for (Items item : gameEngine.getItems()) {
             if (item.isActive()) {
-                gc.setFill(Color.YELLOW);
-                gc.fillRect(item.getX(), item.getY(), item.getWidth(), item.getHeight());
+                Image item_type = null;
+                if (item.getType() == Items.ItemType.EXTRA_LIFE) {
+                    item_type = ImageManager.getInstance().showImage("extra_life");
+                }
+                if (item_type != null) {
+                    gc.drawImage(item_type, item.getX(), item.getY(), item.getWidth(), item.getHeight());
+                }
             }
         }
     }

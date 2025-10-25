@@ -1,10 +1,12 @@
 package com.nhom12.arkanoid.model;
 
+import com.nhom12.arkanoid.controller.SettingsController;
 import com.nhom12.arkanoid.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.prefs.Preferences;
 
 import com.nhom12.arkanoid.logic.GameEngine;
 import com.nhom12.arkanoid.model.Brick;
@@ -57,22 +59,31 @@ public class GameState {
         this.isGameOver = false;
         this.isGameWon = false;
 
-        initializeBricks();
+        Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
+        String difficulty = prefs.get("difficulty", "Easy");
+        LevelManager.LevelDifficulty diff;
+
+        switch(difficulty) {
+            case "Easy":
+                diff = LevelManager.LevelDifficulty.EASY;
+                break;
+            case "Medium":
+                diff = LevelManager.LevelDifficulty.NORMAL;
+                break;
+            case "Hard":
+                diff = LevelManager.LevelDifficulty.DIFFICULLT;
+                break;
+            default:
+                diff = LevelManager.LevelDifficulty.EASY;
+        }
+
+        // khởi tạo bricks theo difficulty
+        this.bricks = LevelManager.createLevel(diff);
+
         resetBall();
 
     }
 
-    // Khởi tạo danh sách các viên gạch
-    private void initializeBricks() {
-        bricks.clear();
-        for (int row = 0; row < Constants.BRICK_ROWS; row++) {
-            for (int col = 0; col < Constants.BRICK_COLS; col++) {
-                double x = col * (Constants.BRICK_WIDTH + Constants.BRICK_GAP) + Constants.BRICK_GAP;
-                double y = row * (Constants.BRICK_HEIGHT + Constants.BRICK_GAP) + Constants.BRICK_GAP + 30;
-                bricks.add(new Brick(x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT, 1));
-            }
-        }
-    }
 
     // Đặt lại bóng về vị trí trên thanh đỡ
     public void resetBall() {

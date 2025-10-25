@@ -23,6 +23,8 @@ public class MenuController implements Initializable {
     @FXML
     private MediaView mediaView;
 
+    SettingsController settingsController;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         URL mediaUrl = getClass().getResource("/test.mp4");
@@ -33,7 +35,12 @@ public class MenuController implements Initializable {
         player.setCycleCount(MediaPlayer.INDEFINITE);
         player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
         player.setAutoPlay(true);
-        SoundManager.getInstance().playBackgroundMusic();
+
+        settingsController = new SettingsController();
+        if (settingsController.musicEnabled) {
+            SoundManager.getInstance().playBackgroundMusic();
+        }
+
         mediaView.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null) {
                 mediaView.fitWidthProperty().bind(newScene.widthProperty());
@@ -48,6 +55,10 @@ public class MenuController implements Initializable {
     @FXML
     private void onStartClicked() {
         System.out.println("Start Game clicked!");
+        SoundManager.getInstance().stopBackgroundMusic();
+        if (settingsController.musicEnabled) {
+            SoundManager.getInstance().playPlayingMusic();
+        }
         ScreenManager.switchScene("/view/game.fxml","Arkanoid");
     }
 
