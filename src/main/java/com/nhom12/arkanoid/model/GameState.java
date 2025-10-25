@@ -66,12 +66,15 @@ public class GameState {
         switch(difficulty) {
             case "Easy":
                 diff = LevelManager.LevelDifficulty.EASY;
+                System.out.println("Easy");
                 break;
             case "Medium":
                 diff = LevelManager.LevelDifficulty.NORMAL;
+                System.out.println("Normal");
                 break;
             case "Hard":
                 diff = LevelManager.LevelDifficulty.DIFFICULLT;
+                System.out.println("Difficult");
                 break;
             default:
                 diff = LevelManager.LevelDifficulty.EASY;

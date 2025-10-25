@@ -5,6 +5,7 @@ import com.nhom12.arkanoid.model.*;
 import com.nhom12.arkanoid.utils.Constants;
 import com.nhom12.arkanoid.utils.ImageManager;
 import com.nhom12.arkanoid.utils.ScreenManager;
+import com.nhom12.arkanoid.utils.SoundManager;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -59,9 +60,11 @@ public class GameController {
                 if (gameState.isGameOver()) {
                     gameLoop.stop();
                     ScreenManager.switchScene("/view/lose.fxml","Arkanoid");
+                    SoundManager.getInstance().stopPlayingMusic();
                 } else if (gameState.isGameWon()) {
                     gameLoop.stop();
                     ScreenManager.switchScene("/view/win.fxml","Arkanoid");
+                    SoundManager.getInstance().stopPlayingMusic();
                 }
             }
         };
