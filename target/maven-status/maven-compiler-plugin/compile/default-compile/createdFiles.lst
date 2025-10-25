@@ -4,9 +4,11 @@ com\nhom12\arkanoid\model\Ball.class
 com\nhom12\arkanoid\utils\Constants.class
 com\nhom12\arkanoid\logic\CollisionManager.class
 com\nhom12\arkanoid\controller\GameController.class
+com\nhom12\arkanoid\model\BrickGroup$1.class
 com\nhom12\arkanoid\controller\LoseController.class
 com\nhom12\arkanoid\controller\MenuController.class
 com\nhom12\arkanoid\model\BrickGroup.class
+com\nhom12\arkanoid\model\LevelManager$1.class
 com\nhom12\arkanoid\utils\SoundManager.class
 com\nhom12\arkanoid\Main.class
 com\nhom12\arkanoid\utils\ScreenManager.class
@@ -20,3 +22,5 @@ com\nhom12\arkanoid\controller\SettingsController.class
 com\nhom12\arkanoid\model\Paddle.class
 com\nhom12\arkanoid\controller\GameController$1.class
 com\nhom12\arkanoid\logic\GameEngine$1.class
+com\nhom12\arkanoid\model\LevelManager$LevelDifficulty.class
+com\nhom12\arkanoid\model\LevelManager.class

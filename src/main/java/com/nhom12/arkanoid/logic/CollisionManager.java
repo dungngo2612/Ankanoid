@@ -52,6 +52,9 @@ public class CollisionManager {
 
         if (isColliding) {
             ball.reverseY();
+
+            // Đặt lại vị trí Y của bóng ngay phía trên paddle để tránh bị kẹt
+            ball.setY(paddle.getY() - ball.getRadius() - 1);
         }
     }
 

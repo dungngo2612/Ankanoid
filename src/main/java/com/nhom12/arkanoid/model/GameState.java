@@ -85,9 +85,7 @@ public class GameState {
 
     public void launchBall() {
         Random rand = new Random();
-        double randomNumber = rand.nextDouble(Constants.BALL_SPEED + Constants.BALL_SPEED + 1) - Constants.BALL_SPEED;
-        // Chỉ phóng bóng nếu bóng đang đứng yên
-
+        double randomNumber = rand.nextDouble(-Constants.BALL_SPEED, Constants.BALL_SPEED);
         if (!isBallLaunched()) {
             // Bắn lên trên
             ball.setDx(randomNumber);
