@@ -1,11 +1,13 @@
 package com.nhom12.arkanoid.utils;
 
+import com.nhom12.arkanoid.controller.SettingsController;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.prefs.Preferences;
 
 public class SoundManager {
     private static SoundManager instance;
@@ -13,6 +15,8 @@ public class SoundManager {
     private MediaPlayer backgroundMusic;
     private MediaPlayer playingMusic;
     private HashMap<String, AudioClip> effects;
+
+    Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
 
     private SoundManager() {
         effects = new HashMap<>();
@@ -73,6 +77,10 @@ public class SoundManager {
     }
 
     public void playEffect(String name) {
+        //Neu sfx tat thi ko play sound effects
+        boolean play = prefs.getBoolean("sfxEnabled", true);
+        if (!play) return;
+
         AudioClip clip = effects.get(name);
         if (clip != null) {
             clip.play();

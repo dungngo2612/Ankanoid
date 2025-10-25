@@ -5,6 +5,7 @@ import com.nhom12.arkanoid.model.*;
 import com.nhom12.arkanoid.utils.Constants;
 import com.nhom12.arkanoid.utils.ImageManager;
 import com.nhom12.arkanoid.utils.ScreenManager;
+import com.nhom12.arkanoid.utils.SoundManager;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -57,11 +58,17 @@ public class GameController {
                 gameEngine.update();
                 render();
                 if (gameState.isGameOver()) {
+                    HighScoreController highScoreController = new HighScoreController();
+                    highScoreController.saveScore(gameState.getScore());
                     gameLoop.stop();
                     ScreenManager.switchScene("/view/lose.fxml","Arkanoid");
+                    SoundManager.getInstance().stopPlayingMusic();
                 } else if (gameState.isGameWon()) {
+                    HighScoreController highScoreController = new HighScoreController();
+                    highScoreController.saveScore(gameState.getScore());
                     gameLoop.stop();
                     ScreenManager.switchScene("/view/win.fxml","Arkanoid");
+                    SoundManager.getInstance().stopPlayingMusic();
                 }
             }
         };
