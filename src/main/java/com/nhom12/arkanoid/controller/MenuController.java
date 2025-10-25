@@ -77,5 +77,6 @@ public class MenuController implements Initializable {
     @FXML
     private void onHighscoreClicked() {
         System.out.println("Highscore clicked!");
+        ScreenManager.switchScene("/view/highscore.fxml","Arkanoid");
     }
 }

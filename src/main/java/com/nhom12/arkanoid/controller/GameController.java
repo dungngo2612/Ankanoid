@@ -58,10 +58,14 @@ public class GameController {
                 gameEngine.update();
                 render();
                 if (gameState.isGameOver()) {
+                    HighScoreController highScoreController = new HighScoreController();
+                    highScoreController.saveScore(gameState.getScore());
                     gameLoop.stop();
                     ScreenManager.switchScene("/view/lose.fxml","Arkanoid");
                     SoundManager.getInstance().stopPlayingMusic();
                 } else if (gameState.isGameWon()) {
+                    HighScoreController highScoreController = new HighScoreController();
+                    highScoreController.saveScore(gameState.getScore());
                     gameLoop.stop();
                     ScreenManager.switchScene("/view/win.fxml","Arkanoid");
                     SoundManager.getInstance().stopPlayingMusic();
