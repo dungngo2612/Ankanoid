@@ -6,9 +6,10 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+<AnchorPane fx:id="gameRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
             prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nhom12.arkanoid.controller.GameController">
+
     <children>
         <Canvas fx:id="gameCanvas" height="600.0" width="800.0"/>
         <Text fx:id="scoreText" fill="WHITE" layoutX="10.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0"
