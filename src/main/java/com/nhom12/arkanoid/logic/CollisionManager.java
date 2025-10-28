@@ -53,41 +53,20 @@ public class CollisionManager {
 
         if (isColliding) {
             SoundManager.getInstance().playEffect("hit_paddle");
-            // xét nếu vị trí va chạm lệch về bên trái paddle
 
-            if (closestX < paddleX +45) {
+            // tính vị trí va chạm tương đối trên paddle (từ -1 đến 1)
+            double locationX = (ballX - (paddleX + paddleWidth / 2)) / (paddleWidth / 2);
 
-                if(ball.getDx() > 0) {// nếu hướng quả bóng bay từ trái->phải vs va chạm paddle =>ball bay ngược lại
+            // tính góc phản xạ: càng lệch thì góc càng lớn
+            double bounceAngle = locationX * Math.toRadians(75); // độ lệch 75 độ
 
-                    ball.reverseX();
+            // tính vận tốc mới
+            double speed = Math.sqrt(ball.getDx() * ball.getDx() + ball.getDy() * ball.getDy());
+            ball.setDx(speed * Math.sin(bounceAngle));
+            ball.setDy(-Math.abs(speed * Math.cos(bounceAngle))); // luôn đi lên
 
-                    ball.reverseY();
-
-                } else {
-
-                    ball.reverseY();// bóng chỉ đổi hướng lên xuống khi bóng bay từ phải->trái hay bay từ thẳng xuống
-
-                }
-
-            } else if(closestX > paddleX + 55){// xét vị trí va chạm lệch về bên phải paddle
-
-                if(ball.getDx() < 0) {//nếu hướng quả bóng bay từ phải->trái vs va chạm paddle =>ball bay ngược lại
-
-                    ball.reverseX();
-
-                    ball.reverseY();
-
-                } else {
-                    ball.reverseY();// bóng chỉ đổi hướng lên xuống khi bóng bay từ trái->phải hay bay từ thẳng xuống
-
-                }
-            } else {
-
-                ball.reverseY();// xét vị trí va chạm ở chính giữa paddle
-
-            }
-            // Đặt lại vị trí Y của bóng ngay phía trên paddle để tránh bị kẹt
-            ball.setY(paddle.getY() - ball.getRadius() - 1);
+            // Đặt lại vị trí bóng để tránh kẹt
+            ball.setY(paddleY - ballRadius - 1);
         }
 
 
