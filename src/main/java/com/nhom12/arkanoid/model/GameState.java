@@ -35,6 +35,9 @@ public class GameState {
 
     private boolean ballLaunched = false;
 
+    private boolean paddleHasLaser = false;
+    private List<LaserBullet> bullets = new ArrayList<>();
+
     @FXML
     private Canvas gameCanvas;
     @FXML
@@ -95,6 +98,9 @@ public class GameState {
         ball.setDx(0);
         ball.setDy(0);
         setBallLaunched(false);
+        // Tắt laze khi reset
+        setPaddleHasLaser(false);
+        bullets.clear();
     }
 
     public void launchBall() {
@@ -164,4 +170,18 @@ public class GameState {
             isGameWon = true;
         }
     }
+
+
+    public boolean isPaddleHasLaser() {
+        return paddleHasLaser;
+    }
+
+    public void setPaddleHasLaser(boolean paddleHasLaser) {
+        this.paddleHasLaser = paddleHasLaser;
+    }
+
+    public List<LaserBullet> getBullets() {
+        return bullets;
+    }
+
 }

@@ -90,7 +90,7 @@ public class GameEngine {
         });
         //câp nhật vật phẩm
         updateItems();
-
+        updateLasers();
         Paddle paddle = gameState.getPaddle();
         //Kiểm tra bóng rơi xuống dưới màn hình
         for (Items item : items) {
@@ -205,7 +205,42 @@ public class GameEngine {
                 }
                 paddle.setWidth(shrinkWidth);
                 break;
+            case LASER_PADDLE:
+                gameState.setPaddleHasLaser(true);
+                break;
         }
     }
 
+    private void updateLasers() {
+        Iterator<LaserBullet> it = gameState.getBullets().iterator();
+        while (it.hasNext()) {
+            LaserBullet bullet = it.next();
+            bullet.move();
+
+            // Kiểm tra va chạm đạn với tất cả gạch
+            for (Brick brick : gameState.getBricks()) {
+                if (bullet.collision(brick)) {
+                    if(brick instanceof BrickGroup){
+                        BrickGroup b = (BrickGroup) brick;
+                        if(b.getType() != BrickGroup.Type.UNBREAKABLE) {
+                            b.hit();
+                        }
+                    } else {
+                        brick.hit();
+                    }
+
+                    if (brick.isDestroyed()) {
+                        gameState.incrementScore(10);
+                        spawnItemIfPossible(brick);
+                    }
+                    it.remove();
+                    break;
+                }
+            }
+            // Xóa đạn nếu bay ra khỏi màn hình
+            if (!bullet.isActive()) {
+                it.remove();
+            }
+        }
+    }
 }
