@@ -24,4 +24,8 @@ public class Constants {
 
     public static final int MAX_LIVES = 3;
 
+    public static final double LASER_BULLET_WIDTH = 5;
+    public static final double LASER_BULLET_HEIGHT = 15;
+    public static final double LASER_BULLET_SPEED = -8.0;
+
 }

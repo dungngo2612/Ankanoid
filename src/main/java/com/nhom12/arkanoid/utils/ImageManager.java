@@ -21,6 +21,8 @@ public class ImageManager {
         images.put("multi_balls", new Image("Image/MultiBall.png"));
         images.put("paddle_shrink", new Image("Image/PaddleShrink.png"));
         images.put("paddle_expand", new Image("Image/PaddleExpand.png"));
+        images.put("laser_paddle", new Image("Image/LaserPaddle.png"));
+        images.put("laser_bullet", new Image("Image/LaserBullet.png"));
     }
 
     public static ImageManager getInstance() {
