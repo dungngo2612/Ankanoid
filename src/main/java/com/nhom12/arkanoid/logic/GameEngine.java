@@ -40,7 +40,7 @@ public class GameEngine {
     public void update() {
 
         if (gameState.isGameOver() || gameState.isGameWon()) {
-           return;
+            return;
         }
 
         if (!gameState.isBallLaunched()) {
@@ -64,17 +64,18 @@ public class GameEngine {
         gameState.getBricks().forEach(brick -> {
             if (collisionManager.handleBrickCollision(gameState.getBall(), brick)) {
 
-                if(brick instanceof BrickGroup){
+                if (brick instanceof BrickGroup) {
                     BrickGroup b = (BrickGroup) brick;
 
-                    switch(b.getType()) {
-                        case UNBREAKABLE :
+                    switch (b.getType()) {
+                        case UNBREAKABLE:
                             break;
                         case EXPLOSIVE:
                             b.hit();
                             handleExplosiveBrick(b);
                             break;
-                        default:  b.hit();
+                        default:
+                            b.hit();
                     }
                 } else {
                     brick.hit();
@@ -92,13 +93,14 @@ public class GameEngine {
 
         Paddle paddle = gameState.getPaddle();
         //Kiểm tra bóng rơi xuống dưới màn hình
-        for(Items item: items) {
+        for (Items item : items) {
 
         }
         if (gameState.getBall().getY() > Constants.SCENE_HEIGHT) {
             gameState.loseLife();
         }
     }
+
     private void spawnItemIfPossible(Brick brick) {
         // Nếu hiện có ít hơn 2 vật phẩm thì mới cho spawn thêm
         if (items.size() < MAX_ITEMS) {
@@ -119,9 +121,9 @@ public class GameEngine {
     private void updateItems() {
         Paddle paddle = gameState.getPaddle();
 
-        Iterator<Items> it =items.iterator();
+        Iterator<Items> it = items.iterator();
 
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Items item = it.next();
             // cho vật phẩm rơi xuống
             item.removeItem();
@@ -134,7 +136,7 @@ public class GameEngine {
 
             //Nếu vật phẩm ngoài màn hình => xoá liền
 
-            if(item.getY() > Constants.SCENE_HEIGHT || !item.isActive()){
+            if (item.getY() > Constants.SCENE_HEIGHT || !item.isActive()) {
                 it.remove();
             }
 
@@ -142,19 +144,19 @@ public class GameEngine {
     }
 
     // xử lí nếu phá vỡ viên gạch nổ=> các viên gạch xung quanh cũng sẽ bị mất 1 máu
-    private void handleExplosiveBrick(BrickGroup centerBrick){
+    private void handleExplosiveBrick(BrickGroup centerBrick) {
         List<Brick> bricks = gameState.getBricks();
 
-        for(Brick brick :  bricks){
-            if(!brick.isDestroyed()){
+        for (Brick brick : bricks) {
+            if (!brick.isDestroyed()) {
 
-                if(brick.isDestroyed()) continue;
-                if(centerBrick.isDestroyed()) continue;
+                if (brick.isDestroyed()) continue;
+                if (centerBrick.isDestroyed()) continue;
                 // tìm ô gạch nào ở xung quanh
-                double dx= Math.abs(brick.getX() - centerBrick.getX());
+                double dx = Math.abs(brick.getX() - centerBrick.getX());
                 double dy = Math.abs(brick.getY() - centerBrick.getY());
 
-                if(dx <= Math.max( brick.getWidth(), brick.getHeight() ) && dy <= Math.max( brick.getWidth(),brick.getHeight())  ) {
+                if (dx <= Math.max(brick.getWidth(), brick.getHeight()) && dy <= Math.max(brick.getWidth(), brick.getHeight())) {
                     brick.hit();
                 }
             }
@@ -164,7 +166,7 @@ public class GameEngine {
     // xử lý khi ăn được vật phẩm
     private void applyItemEffect(Items.ItemType type) {
         Paddle paddle = gameState.getPaddle();
-         Ball ball = gameState.getBall();
+        Ball ball = gameState.getBall();
 
         switch (type) {
             case EXTRA_LIFE:
@@ -181,10 +183,10 @@ public class GameEngine {
                 // Tăng 20% vận tốc theo từng trục
                 dx *= 1.2;
                 dy *= 1.2;
-                double newSpeed = Math.sqrt(dx*dx + dy*dy);
+                double newSpeed = Math.sqrt(dx * dx + dy * dy);
                 if (newSpeed > Constants.MAX_BALL_SPEED) {
-                    dx = (Constants.MAX_BALL_SPEED/newSpeed) * dx;
-                    dy = (Constants.MAX_BALL_SPEED/newSpeed) * dy;
+                    dx = (Constants.MAX_BALL_SPEED / newSpeed) * dx;
+                    dy = (Constants.MAX_BALL_SPEED / newSpeed) * dy;
                 }
                 ball.setDx(dx);
                 ball.setDy(dy);
@@ -196,8 +198,14 @@ public class GameEngine {
                 }
                 paddle.setWidth(newWidth);
                 break;
+            case PADDLE_SHRINK:
+                double shrinkWidth = paddle.getWidth() - 20;
+                if (shrinkWidth < Constants.MIN_PADDLE_WIDTH) {
+                    shrinkWidth = Constants.MIN_PADDLE_WIDTH;
+                }
+                paddle.setWidth(shrinkWidth);
+                break;
         }
-
     }
 
 }

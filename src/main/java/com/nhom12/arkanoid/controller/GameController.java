@@ -74,13 +74,13 @@ public class GameController {
                     HighScoreController highScoreController = new HighScoreController();
                     highScoreController.saveScore(gameState.getScore());
                     gameLoop.stop();
-                    ScreenManager.switchScene("/view/lose.fxml","Arkanoid");
+                    ScreenManager.switchScene("/view/lose.fxml", "Arkanoid");
                     SoundManager.getInstance().stopPlayingMusic();
                 } else if (gameState.isGameWon()) {
                     HighScoreController highScoreController = new HighScoreController();
                     highScoreController.saveScore(gameState.getScore());
                     gameLoop.stop();
-                    ScreenManager.switchScene("/view/win.fxml","Arkanoid");
+                    ScreenManager.switchScene("/view/win.fxml", "Arkanoid");
                     SoundManager.getInstance().stopPlayingMusic();
                 }
             }
@@ -100,7 +100,7 @@ public class GameController {
     public void goToMainMenu() {
         gameLoop.stop(); // Dừng game trước khi chuyển cảnh
         SoundManager.getInstance().stopPlayingMusic();
-        ScreenManager.switchScene("/view/menu.fxml","Arkanoid");
+        ScreenManager.switchScene("/view/menu.fxml", "Arkanoid");
     }
 
     /**
@@ -252,7 +252,7 @@ public class GameController {
             }
             double x = brick.getX();
             double y = brick.getY();
-            gc.drawImage(brickImg, x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT );
+            gc.drawImage(brickImg, x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT);
         }
 
         scoreText.setText("Score: " + state.getScore());
@@ -264,6 +264,8 @@ public class GameController {
                 Image item_type = null;
                 if (item.getType() == Items.ItemType.EXTRA_LIFE) {
                     item_type = ImageManager.getInstance().showImage("extra_life");
+                } else if (item.getType() == Items.ItemType.PADDLE_SHRINK) {
+                    item_type = ImageManager.getInstance().showImage("paddle_shrink");
                 }
                 if (item_type != null) {
                     gc.drawImage(item_type, item.getX(), item.getY(), item.getWidth(), item.getHeight());
