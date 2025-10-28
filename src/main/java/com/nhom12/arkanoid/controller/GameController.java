@@ -187,8 +187,15 @@ public class GameController {
         } else if (event.getCode() == KeyCode.SPACE) {
             gameState.launchBall();
             messageText.setText("");
+        } else if (event.getCode() == KeyCode.SHIFT) {
+            // Chỉ bắn khi đang có item laze
+            if (gameState.isPaddleHasLaser()) {
+                Paddle p = gameState.getPaddle();
+                // Bắn 2 viên đạn từ 2 đầu paddle
+                gameState.getBullets().add(new LaserBullet(p.getX() + 10, p.getY()));
+                gameState.getBullets().add(new LaserBullet(p.getX() + p.getWidth() - 10, p.getY()));
+            }
         }
-
 
         // (MỚI) Chỉ xử lý phím game nếu không bị tạm dừng
     }
@@ -243,6 +250,11 @@ public class GameController {
         double tmpWidth = ball.getRadius() * 2;
         gc.drawImage(ballImg, tmpX, tmpY, tmpWidth, tmpWidth);
 
+        Image bulletImg = ImageManager.getInstance().showImage("laser_bullet");
+        for (LaserBullet bullet : state.getBullets()) {
+            gc.drawImage(bulletImg, bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight());
+        }
+
         // Vẽ gạch
         Image brickImg = ImageManager.getInstance().showImage("brick1");
         List<Brick> list = state.getBricks();
@@ -268,6 +280,8 @@ public class GameController {
                     item_type = ImageManager.getInstance().showImage("paddle_shrink");
                 } else if (item.getType() == Items.ItemType.PADDLE_EXPAND) {
                     item_type = ImageManager.getInstance().showImage("paddle_expand");
+                } else if (item.getType() == Items.ItemType.LASER_PADDLE) {
+                    item_type = ImageManager.getInstance().showImage("laser_paddle");
                 }
                 if (item_type != null) {
                     gc.drawImage(item_type, item.getX(), item.getY(), item.getWidth(), item.getHeight());
