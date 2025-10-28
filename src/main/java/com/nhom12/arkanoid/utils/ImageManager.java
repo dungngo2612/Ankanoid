@@ -24,6 +24,7 @@ public class ImageManager {
         images.put("laser_paddle", new Image("Image/LaserPaddle.png"));
         images.put("laser_bullet", new Image("Image/LaserBullet.png"));
         images.put("speed_up", new Image("Image/SpeedUp.png"));
+        images.put("speed_down", new Image("Image/SpeedDown.png"));
     }
 
     public static ImageManager getInstance() {

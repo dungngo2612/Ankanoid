@@ -8,6 +8,7 @@ public class Items {
     public enum ItemType {
         EXTRA_LIFE,      // Tăng 1 mạng
         SPEED_UP,        // Tăng tốc bóng
+        SPEED_DOWN,
         PADDLE_EXPAND,    // Mở rộng thanh paddle
         PADDLE_SHRINK,   // Thu nhỏ paddle
         MULTI_BALL,      // Tạo thêm 2 quả bóng
@@ -33,8 +34,8 @@ public class Items {
         // sẽ sử dụng hàm random để lựa chọn vật phẩm
         ItemType[] itemType = ItemType.values();
         Random rand = new Random();
-        this.type = itemType[rand.nextInt(itemType.length)];
-        //this.type = ItemType.SPEED_UP;
+        //this.type = itemType[rand.nextInt(itemType.length)];
+        this.type = ItemType.SPEED_DOWN;
     }
 
     public void removeItem() {

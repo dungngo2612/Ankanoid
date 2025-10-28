@@ -15,6 +15,7 @@ public class Constants {
     public static final double BALL_RADIUS = 8;
     public static final double BALL_SPEED = 2;
     public static final double MAX_BALL_SPEED = 12.0;
+    public static final double MIN_BALL_SPEED = 1.0;
 
     public static final int BRICK_ROWS = 6;
     public static final int BRICK_COLS = 10;

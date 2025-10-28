@@ -284,6 +284,8 @@ public class GameController {
                     item_type = ImageManager.getInstance().showImage("laser_paddle");
                 } else if (item.getType() == Items.ItemType.SPEED_UP) {
                     item_type = ImageManager.getInstance().showImage("speed_up");
+                } else if (item.getType() == Items.ItemType.SPEED_DOWN) {
+                    item_type = ImageManager.getInstance().showImage("speed_down");
                 }
                 if (item_type != null) {
                     gc.drawImage(item_type, item.getX(), item.getY(), item.getWidth(), item.getHeight());

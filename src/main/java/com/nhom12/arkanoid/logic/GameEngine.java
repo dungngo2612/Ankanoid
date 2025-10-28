@@ -202,6 +202,21 @@ public class GameEngine {
                 ball.setDx(dx);
                 ball.setDy(dy);
                 break;
+            case SPEED_DOWN:
+                double currentDx = ball.getDx();
+                double currentDy = ball.getDy();
+
+                // Giảm 20% tốc độ (nhân với 0.8)
+                currentDx *= 0.8;
+                currentDy *= 0.8;
+                double currentSpeed = Math.sqrt(currentDx * currentDx + currentDy * currentDy);
+                if (currentSpeed < Constants.MIN_BALL_SPEED) {
+                    currentDx = (Constants.MIN_BALL_SPEED / currentSpeed) * currentDx;
+                    currentDy = (Constants.MIN_BALL_SPEED / currentSpeed) * currentDy;
+                }
+                ball.setDx(currentDx);
+                ball.setDy(currentDy);
+                break;
             case PADDLE_EXPAND:
                 double newWidth = paddle.getWidth() + 20;
                 if (newWidth > Constants.MAX_PADDLE_WIDTH) {
