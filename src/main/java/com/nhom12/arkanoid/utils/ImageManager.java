@@ -20,6 +20,7 @@ public class ImageManager {
         images.put("extra_life", new Image("Image/Extra_Life.png"));
         images.put("multi_balls", new Image("Image/MultiBall.png"));
         images.put("paddle_shrink", new Image("Image/PaddleShrink.png"));
+        images.put("paddle_expand", new Image("Image/PaddleExpand.png"));
     }
 
     public static ImageManager getInstance() {

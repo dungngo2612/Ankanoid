@@ -266,6 +266,8 @@ public class GameController {
                     item_type = ImageManager.getInstance().showImage("extra_life");
                 } else if (item.getType() == Items.ItemType.PADDLE_SHRINK) {
                     item_type = ImageManager.getInstance().showImage("paddle_shrink");
+                } else if (item.getType() == Items.ItemType.PADDLE_EXPAND) {
+                    item_type = ImageManager.getInstance().showImage("paddle_expand");
                 }
                 if (item_type != null) {
                     gc.drawImage(item_type, item.getX(), item.getY(), item.getWidth(), item.getHeight());
