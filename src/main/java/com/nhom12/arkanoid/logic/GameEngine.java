@@ -88,6 +88,17 @@ public class GameEngine {
                 }
             }
         });
+
+        // Thêm logic kiểm tra thời gian laser
+        if (gameState.isPaddleHasLaser()) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime > gameState.getLaserEndTime()) {
+                // Hết thời gian, tắt laze
+                gameState.setPaddleHasLaser(false);
+                gameState.setLaserEndTime(0);
+            }
+        }
+
         //câp nhật vật phẩm
         updateItems();
         updateLasers();
@@ -207,6 +218,9 @@ public class GameEngine {
                 break;
             case LASER_PADDLE:
                 gameState.setPaddleHasLaser(true);
+                // Tính thời điểm hết hạn = thời gian hiện tại + thời gian hiệu lực
+                long currentTime = System.currentTimeMillis();
+                gameState.setLaserEndTime(currentTime + Constants.LASER_DURATION_MS);
                 break;
         }
     }

@@ -37,7 +37,8 @@ public class GameState {
 
     private boolean paddleHasLaser = false;
     private List<LaserBullet> bullets = new ArrayList<>();
-
+    // Biến lưu thời điểm hết hiệu ứng
+    private long laserEndTime = 0;
     @FXML
     private Canvas gameCanvas;
     @FXML
@@ -101,6 +102,7 @@ public class GameState {
         // Tắt laze khi reset
         setPaddleHasLaser(false);
         bullets.clear();
+        laserEndTime = 0;
     }
 
     public void launchBall() {
@@ -184,4 +186,11 @@ public class GameState {
         return bullets;
     }
 
+    public long getLaserEndTime() {
+        return laserEndTime;
+    }
+
+    public void setLaserEndTime(long laserEndTime) {
+        this.laserEndTime = laserEndTime;
+    }
 }
