@@ -19,6 +19,12 @@ public class ImageManager {
         images.put("ball", new Image("Image/Ball.png"));
         images.put("extra_life", new Image("Image/Extra_Life.png"));
         images.put("multi_balls", new Image("Image/MultiBall.png"));
+        images.put("paddle_shrink", new Image("Image/PaddleShrink.png"));
+        images.put("paddle_expand", new Image("Image/PaddleExpand.png"));
+        images.put("laser_paddle", new Image("Image/LaserPaddle.png"));
+        images.put("laser_bullet", new Image("Image/LaserBullet.png"));
+        images.put("speed_up", new Image("Image/SpeedUp.png"));
+        images.put("speed_down", new Image("Image/SpeedDown.png"));
     }
 
     public static ImageManager getInstance() {

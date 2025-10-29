@@ -35,6 +35,10 @@ public class GameState {
 
     private boolean ballLaunched = false;
 
+    private boolean paddleHasLaser = false;
+    private List<LaserBullet> bullets = new ArrayList<>();
+    // Biến lưu thời điểm hết hiệu ứng
+    private long laserEndTime = 0;
     @FXML
     private Canvas gameCanvas;
     @FXML
@@ -95,6 +99,10 @@ public class GameState {
         ball.setDx(0);
         ball.setDy(0);
         setBallLaunched(false);
+        // Tắt laze khi reset
+        setPaddleHasLaser(false);
+        bullets.clear();
+        laserEndTime = 0;
     }
 
     public void launchBall() {
@@ -163,5 +171,26 @@ public class GameState {
         if (bricks.stream().allMatch(Brick::isDestroyed)) {
             isGameWon = true;
         }
+    }
+
+
+    public boolean isPaddleHasLaser() {
+        return paddleHasLaser;
+    }
+
+    public void setPaddleHasLaser(boolean paddleHasLaser) {
+        this.paddleHasLaser = paddleHasLaser;
+    }
+
+    public List<LaserBullet> getBullets() {
+        return bullets;
+    }
+
+    public long getLaserEndTime() {
+        return laserEndTime;
+    }
+
+    public void setLaserEndTime(long laserEndTime) {
+        this.laserEndTime = laserEndTime;
     }
 }

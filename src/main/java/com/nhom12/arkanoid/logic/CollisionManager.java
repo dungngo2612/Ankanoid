@@ -53,11 +53,22 @@ public class CollisionManager {
 
         if (isColliding) {
             SoundManager.getInstance().playEffect("hit_paddle");
-            ball.reverseY();
 
-            // Đặt lại vị trí Y của bóng ngay phía trên paddle để tránh bị kẹt
-            ball.setY(paddle.getY() - ball.getRadius() - 1);
+            // tính vị trí va chạm tương đối trên paddle (từ -1 đến 1)
+            double locationX = (ballX - (paddleX + paddleWidth / 2)) / (paddleWidth / 2);
+
+            // tính góc phản xạ: càng lệch thì góc càng lớn
+            double bounceAngle = locationX * Math.toRadians(75); // độ lệch 75 độ
+
+            // tính vận tốc mới
+            double speed = Math.sqrt(ball.getDx() * ball.getDx() + ball.getDy() * ball.getDy());
+            ball.setDx(speed * Math.sin(bounceAngle));
+            ball.setDy(-Math.abs(speed * Math.cos(bounceAngle))); // luôn đi lên
+
+            // Đặt lại vị trí bóng để tránh kẹt
+            ball.setY(paddleY - ballRadius - 1);
         }
+
 
     }
 

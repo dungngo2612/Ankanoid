@@ -27,7 +27,7 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        URL mediaUrl = getClass().getResource("/test.mp4");
+        URL mediaUrl = getClass().getResource("/test1.mp4");
         Objects.requireNonNull(mediaUrl, "Video file not found!");
 
         Media media = new Media(mediaUrl.toExternalForm());

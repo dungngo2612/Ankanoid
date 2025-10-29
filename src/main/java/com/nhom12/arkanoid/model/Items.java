@@ -8,7 +8,11 @@ public class Items {
     public enum ItemType {
         EXTRA_LIFE,      // Tăng 1 mạng
         SPEED_UP,        // Tăng tốc bóng
-        PADDLE_EXPAND    // Mở rộng thanh paddle
+        SPEED_DOWN,
+        PADDLE_EXPAND,    // Mở rộng thanh paddle
+        PADDLE_SHRINK,   // Thu nhỏ paddle
+        MULTI_BALL,      // Tạo thêm 2 quả bóng
+        LASER_PADDLE     // Paddle có thể bắn laze
     }
 
     private double x;
@@ -31,7 +35,7 @@ public class Items {
         ItemType[] itemType = ItemType.values();
         Random rand = new Random();
         this.type = itemType[rand.nextInt(itemType.length)];
-
+        //this.type = ItemType.SPEED_DOWN;
     }
 
     public void removeItem() {
