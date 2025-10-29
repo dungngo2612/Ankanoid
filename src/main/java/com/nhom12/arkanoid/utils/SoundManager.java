@@ -1,5 +1,6 @@
 package com.nhom12.arkanoid.utils;
 
+import com.nhom12.arkanoid.controller.PauseMenuController;
 import com.nhom12.arkanoid.controller.SettingsController;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
@@ -17,7 +18,7 @@ public class SoundManager {
     private HashMap<String, AudioClip> effects;
 
     Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
-
+    Preferences prefs1 = Preferences.userNodeForPackage(PauseMenuController.class);
     private SoundManager() {
         effects = new HashMap<>();
         effects.put("hit_brick", new AudioClip(getClass().getResource("/Sound/hitbrick.mp3").toExternalForm()));
@@ -79,7 +80,8 @@ public class SoundManager {
     public void playEffect(String name) {
         //Neu sfx tat thi ko play sound effects
         boolean play = prefs.getBoolean("sfxEnabled", true);
-        if (!play) return;
+        boolean play1 = prefs1.getBoolean("sfxEnabled", true);
+        if (!play || !play1) return;
 
         AudioClip clip = effects.get(name);
         if (clip != null) {
