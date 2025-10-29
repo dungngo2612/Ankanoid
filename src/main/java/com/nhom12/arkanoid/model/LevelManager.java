@@ -12,8 +12,8 @@ public class LevelManager {
         DIFFICULLT
     }
 
-    public static List<Brick> createLevel(LevelDifficulty level) {
-        List<Brick> Bricks = new ArrayList<>();
+    public static List<BrickGroup> createLevel(LevelDifficulty level) {
+        List<BrickGroup> Bricks = new ArrayList<>();
 
         switch (level) {
             case EASY :
@@ -31,8 +31,8 @@ public class LevelManager {
     }
 
     //Map của màn dễ
-    private static List<Brick> buildEasyLevel(){
-        List<Brick> Bricks = new ArrayList<>();
+    private static List<BrickGroup> buildEasyLevel(){
+        List<BrickGroup> Bricks = new ArrayList<>();
         for (int row = 0; row < Constants.BRICK_ROWS; row++) {
             for (int col = 0; col < Constants.BRICK_COLS; col++) {
                 double x = col * (Constants.BRICK_WIDTH + Constants.BRICK_GAP) + Constants.BRICK_GAP;
@@ -44,8 +44,8 @@ public class LevelManager {
     }
 
     // Map của màn trung bình
-    private static List<Brick> buildNormalLevel() {
-        List<Brick> Bricks = new ArrayList<>();
+    private static List<BrickGroup> buildNormalLevel() {
+        List<BrickGroup> Bricks = new ArrayList<>();
 
         for(int row = 1; row < Constants.BRICK_ROWS - 1; row++) {
             for(int col = 0; col < Constants.BRICK_COLS / 2; col++) {
@@ -85,8 +85,8 @@ public class LevelManager {
     }
 
     // Map của màn khó
-    private static List<Brick> buildDifficultyLevel() {
-        List<Brick> Bricks = new ArrayList<>();
+    private static List<BrickGroup> buildDifficultyLevel() {
+        List<BrickGroup> Bricks = new ArrayList<>();
 
         for(int row = Constants.BRICK_ROWS - 2; row >=1; row--) {
             for(int col = 0; col < (Constants.BRICK_COLS / 2) - row + 1; col++) {

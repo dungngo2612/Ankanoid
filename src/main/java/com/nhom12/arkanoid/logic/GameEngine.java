@@ -156,7 +156,7 @@ public class GameEngine {
 
     // xử lí nếu phá vỡ viên gạch nổ=> các viên gạch xung quanh cũng sẽ bị mất 1 máu
     private void handleExplosiveBrick(BrickGroup centerBrick) {
-        List<Brick> bricks = gameState.getBricks();
+        List<BrickGroup> bricks = gameState.getBricks();
 
         for (Brick brick : bricks) {
             if (!brick.isDestroyed()) {

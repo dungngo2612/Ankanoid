@@ -256,15 +256,24 @@ public class GameController {
         }
 
         // Vẽ gạch
-        Image brickImg = ImageManager.getInstance().showImage("brick1");
-        List<Brick> list = state.getBricks();
-        for (Brick brick : list) {
+        List<BrickGroup> list = state.getBricks();
+        for (BrickGroup brick : list) {
+            Image brickImg = null;
             if (brick.isDestroyed()) {
                 continue;
             }
             double x = brick.getX();
             double y = brick.getY();
-            gc.drawImage(brickImg, x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT);
+            if (brick.getType() == BrickGroup.Type.NORMAL) {
+                brickImg = ImageManager.getInstance().showImage("brick1");
+            } else if (brick.getType() == BrickGroup.Type.UNBREAKABLE) {
+                brickImg = ImageManager.getInstance().showImage("impassable");
+            } else if (brick.getType() == BrickGroup.Type.STRONG) {
+                brickImg = ImageManager.getInstance().showImage("brick2");
+            }
+            if (brickImg != null) {
+                gc.drawImage(brickImg, x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT);
+            }
         }
 
         scoreText.setText("Score: " + state.getScore());

@@ -34,8 +34,8 @@ public class Items {
         // sẽ sử dụng hàm random để lựa chọn vật phẩm
         ItemType[] itemType = ItemType.values();
         Random rand = new Random();
-        this.type = itemType[rand.nextInt(itemType.length)];
-        //this.type = ItemType.SPEED_DOWN;
+        //this.type = itemType[rand.nextInt(itemType.length)];
+        this.type = ItemType.LASER_PADDLE;
     }
 
     public void removeItem() {
