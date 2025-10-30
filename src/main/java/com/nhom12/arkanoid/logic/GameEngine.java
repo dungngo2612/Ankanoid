@@ -64,7 +64,7 @@ public class GameEngine {
 
         gameState.getBricks().forEach(brick -> {
             if (collisionManager.handleBrickCollision(gameState.getBall(), brick)) {
-                brick.hit();
+                brick.hit(1.0);
                 if (brick.isDestroyed()) {
                     gameState.incrementScore(10);
                     spawnItemIfPossible(brick);
@@ -155,7 +155,7 @@ public class GameEngine {
                 double dy = Math.abs(brick.getY() - centerBrick.getY());
 
                 if (dx <= Math.max(brick.getWidth(), brick.getHeight()) && dy <= Math.max(brick.getWidth(), brick.getHeight())) {
-                    brick.hit();
+                    brick.hit(1.0);
                 }
             }
         }
@@ -236,7 +236,7 @@ public class GameEngine {
             // Kiểm tra va chạm đạn với tất cả gạch
             for (Brick brick : gameState.getBricks()) {
                 if (bullet.collision(brick)) {
-                    brick.hit();
+                    brick.hit(0.5);
 
                     if (brick.isDestroyed()) {
                         gameState.incrementScore(10);
