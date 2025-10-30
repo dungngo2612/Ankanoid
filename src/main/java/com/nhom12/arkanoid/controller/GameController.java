@@ -1,5 +1,10 @@
 package com.nhom12.arkanoid.controller;
 
+import com.nhom12.arkanoid.model.Brick;
+import com.nhom12.arkanoid.model.NormalBrick;
+import com.nhom12.arkanoid.model.StrongBrick;
+import com.nhom12.arkanoid.model.UnbreakableBrick;
+import com.nhom12.arkanoid.model.ExplosiveBrick;
 import com.nhom12.arkanoid.logic.GameEngine;
 import com.nhom12.arkanoid.model.*;
 import com.nhom12.arkanoid.utils.Constants;
@@ -256,20 +261,23 @@ public class GameController {
         }
 
         // Vẽ gạch
-        List<BrickGroup> list = state.getBricks();
-        for (BrickGroup brick : list) {
+        List<Brick> list = state.getBricks();
+        for (Brick brick : list) {
             Image brickImg = null;
             if (brick.isDestroyed()) {
                 continue;
             }
             double x = brick.getX();
             double y = brick.getY();
-            if (brick.getType() == BrickGroup.Type.NORMAL) {
+            if (brick instanceof NormalBrick) {
                 brickImg = ImageManager.getInstance().showImage("brick1");
-            } else if (brick.getType() == BrickGroup.Type.UNBREAKABLE) {
+            } else if (brick instanceof UnbreakableBrick) {
                 brickImg = ImageManager.getInstance().showImage("impassable");
-            } else if (brick.getType() == BrickGroup.Type.STRONG) {
+            } else if (brick instanceof StrongBrick) {
                 brickImg = ImageManager.getInstance().showImage("brick2");
+            }else if (brick instanceof ExplosiveBrick) {
+                // Tạm thời dùng "brick1"
+                brickImg = ImageManager.getInstance().showImage("brick1");
             }
             if (brickImg != null) {
                 gc.drawImage(brickImg, x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT);
