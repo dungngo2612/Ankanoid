@@ -3,7 +3,8 @@ package com.nhom12.arkanoid.logic;
 import com.nhom12.arkanoid.model.*;
 import com.nhom12.arkanoid.utils.Constants;
 import com.nhom12.arkanoid.utils.ScreenManager;
-
+import com.nhom12.arkanoid.model.Brick;
+import com.nhom12.arkanoid.model.ExplosiveBrick;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -63,28 +64,14 @@ public class GameEngine {
 
         gameState.getBricks().forEach(brick -> {
             if (collisionManager.handleBrickCollision(gameState.getBall(), brick)) {
-
-                if (brick instanceof BrickGroup) {
-                    BrickGroup b = (BrickGroup) brick;
-
-                    switch (b.getType()) {
-                        case UNBREAKABLE:
-                            break;
-                        case EXPLOSIVE:
-                            b.hit();
-                            handleExplosiveBrick(b);
-                            break;
-                        default:
-                            b.hit();
-                    }
-                } else {
-                    brick.hit();
-                }
-
-
+                brick.hit();
                 if (brick.isDestroyed()) {
                     gameState.incrementScore(10);
                     spawnItemIfPossible(brick);
+                    // Chỉ xử lý nổ sau khi gạch đã bị phá hủy
+                    if (brick instanceof ExplosiveBrick) {
+                        handleExplosiveBrick((ExplosiveBrick) brick);
+                    }
                 }
             }
         });
@@ -155,8 +142,8 @@ public class GameEngine {
     }
 
     // xử lí nếu phá vỡ viên gạch nổ=> các viên gạch xung quanh cũng sẽ bị mất 1 máu
-    private void handleExplosiveBrick(BrickGroup centerBrick) {
-        List<BrickGroup> bricks = gameState.getBricks();
+    private void handleExplosiveBrick(ExplosiveBrick centerBrick) {
+        List<Brick> bricks = gameState.getBricks();
 
         for (Brick brick : bricks) {
             if (!brick.isDestroyed()) {
@@ -249,19 +236,18 @@ public class GameEngine {
             // Kiểm tra va chạm đạn với tất cả gạch
             for (Brick brick : gameState.getBricks()) {
                 if (bullet.collision(brick)) {
-                    if(brick instanceof BrickGroup){
-                        BrickGroup b = (BrickGroup) brick;
-                        if(b.getType() != BrickGroup.Type.UNBREAKABLE) {
-                            b.hit();
-                        }
-                    } else {
-                        brick.hit();
-                    }
+                    brick.hit();
 
                     if (brick.isDestroyed()) {
                         gameState.incrementScore(10);
                         spawnItemIfPossible(brick);
+
+                        // Xử lý nổ nếu là gạch nổ
+                        if (brick instanceof ExplosiveBrick) {
+                            handleExplosiveBrick((ExplosiveBrick) brick);
+                        }
                     }
+                    // Xóa đạn
                     it.remove();
                     break;
                 }
