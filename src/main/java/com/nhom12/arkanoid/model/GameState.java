@@ -27,7 +27,7 @@ import javafx.scene.text.Text;
 public class GameState {
     private Ball ball;
     private Paddle paddle;
-    private List<BrickGroup> bricks;
+    private List<Brick> bricks;
     private int score;
     private int lives;
     private boolean isGameOver;
@@ -128,7 +128,7 @@ public class GameState {
         return paddle;
     }
 
-    public List<BrickGroup> getBricks() {
+    public List<Brick> getBricks() {
         return bricks;
     }
 
