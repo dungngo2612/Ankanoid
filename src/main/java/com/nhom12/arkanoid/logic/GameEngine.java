@@ -44,6 +44,33 @@ public class GameEngine {
             return;
         }
 
+        //Cập nhật vật phẩm
+        updateItems();
+
+        //Cập nhật laser
+        updateLasers();
+
+        // Thêm logic kiểm tra thời gian laser
+        if (gameState.isPaddleHasLaser()) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime > gameState.getLaserEndTime()) {
+                // Hết thời gian, tắt laze
+                gameState.setPaddleHasLaser(false);
+                gameState.setLaserEndTime(0);
+                gameState.setNextLaserFireTime(0);
+            }
+            // Nếu còn buff, kiểm tra xem đã đến lúc tự động bắn chưa
+            else if (currentTime >= gameState.getNextLaserFireTime()) {
+                // Đã đến lúc, tạo 2 viên đạn
+                Paddle p = gameState.getPaddle();
+                gameState.getBullets().add(new LaserBullet(p.getX() + 10, p.getY()));
+                gameState.getBullets().add(new LaserBullet(p.getX() + p.getWidth() - 10, p.getY()));
+
+                // Đặt lại thời gian cho lần bắn tiếp theo
+                gameState.setNextLaserFireTime(currentTime + Constants.LASER_FIRE_RATE_MS);
+            }
+        }
+
         if (!gameState.isBallLaunched()) {
             gameState.getBall().setX(
                     gameState.getPaddle().getX() + gameState.getPaddle().getWidth() / 2
@@ -76,30 +103,6 @@ public class GameEngine {
             }
         });
 
-        // Thêm logic kiểm tra thời gian laser
-        if (gameState.isPaddleHasLaser()) {
-            long currentTime = System.currentTimeMillis();
-            if (currentTime > gameState.getLaserEndTime()) {
-                // Hết thời gian, tắt laze
-                gameState.setPaddleHasLaser(false);
-                gameState.setLaserEndTime(0);
-                gameState.setNextLaserFireTime(0);
-            }
-            // Nếu còn buff, kiểm tra xem đã đến lúc tự động bắn chưa
-            else if (currentTime >= gameState.getNextLaserFireTime()) {
-                // Đã đến lúc, tạo 2 viên đạn
-                Paddle p = gameState.getPaddle();
-                gameState.getBullets().add(new LaserBullet(p.getX() + 10, p.getY()));
-                gameState.getBullets().add(new LaserBullet(p.getX() + p.getWidth() - 10, p.getY()));
-
-                // Đặt lại thời gian cho lần bắn tiếp theo
-                gameState.setNextLaserFireTime(currentTime + Constants.LASER_FIRE_RATE_MS);
-            }
-        }
-
-        //câp nhật vật phẩm
-        updateItems();
-        updateLasers();
         Paddle paddle = gameState.getPaddle();
         //Kiểm tra bóng rơi xuống dưới màn hình
         for (Items item : items) {
