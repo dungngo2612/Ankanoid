@@ -39,6 +39,8 @@ public class GameState {
     private List<LaserBullet> bullets = new ArrayList<>();
     // Biến lưu thời điểm hết hiệu ứng
     private long laserEndTime = 0;
+    // Biến lưu thời điểm được phép bắn laze tiếp theo
+    private long nextLaserFireTime = 0;
     @FXML
     private Canvas gameCanvas;
     @FXML
@@ -192,5 +194,13 @@ public class GameState {
 
     public void setLaserEndTime(long laserEndTime) {
         this.laserEndTime = laserEndTime;
+    }
+
+    public long getNextLaserFireTime() {
+        return nextLaserFireTime;
+    }
+
+    public void setNextLaserFireTime(long nextLaserFireTime) {
+        this.nextLaserFireTime = nextLaserFireTime;
     }
 }

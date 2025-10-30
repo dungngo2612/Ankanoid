@@ -192,17 +192,18 @@ public class GameController {
         } else if (event.getCode() == KeyCode.SPACE) {
             gameState.launchBall();
             messageText.setText("");
-        } else if (event.getCode() == KeyCode.SHIFT) {
-            // Chỉ bắn khi đang có item laze
-            if (gameState.isPaddleHasLaser()) {
-                Paddle p = gameState.getPaddle();
-                // Bắn 2 viên đạn từ 2 đầu paddle
-                gameState.getBullets().add(new LaserBullet(p.getX() + 10, p.getY()));
-                gameState.getBullets().add(new LaserBullet(p.getX() + p.getWidth() - 10, p.getY()));
-            }
         }
+//        else if (event.getCode() == KeyCode.SHIFT) {
+//            // Chỉ bắn khi đang có item laze
+//            if (gameState.isPaddleHasLaser()) {
+//                Paddle p = gameState.getPaddle();
+//                // Bắn 2 viên đạn từ 2 đầu paddle
+//                gameState.getBullets().add(new LaserBullet(p.getX() + 10, p.getY()));
+//                gameState.getBullets().add(new LaserBullet(p.getX() + p.getWidth() - 10, p.getY()));
+//            }
+//        }
 
-        // (MỚI) Chỉ xử lý phím game nếu không bị tạm dừng
+        // Chỉ xử lý phím game nếu không bị tạm dừng
     }
 
     //Xử lý nhả phím

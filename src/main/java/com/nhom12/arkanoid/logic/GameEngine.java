@@ -83,6 +83,17 @@ public class GameEngine {
                 // Hết thời gian, tắt laze
                 gameState.setPaddleHasLaser(false);
                 gameState.setLaserEndTime(0);
+                gameState.setNextLaserFireTime(0);
+            }
+            // Nếu còn buff, kiểm tra xem đã đến lúc tự động bắn chưa
+            else if (currentTime >= gameState.getNextLaserFireTime()) {
+                // Đã đến lúc, tạo 2 viên đạn
+                Paddle p = gameState.getPaddle();
+                gameState.getBullets().add(new LaserBullet(p.getX() + 10, p.getY()));
+                gameState.getBullets().add(new LaserBullet(p.getX() + p.getWidth() - 10, p.getY()));
+
+                // Đặt lại thời gian cho lần bắn tiếp theo
+                gameState.setNextLaserFireTime(currentTime + Constants.LASER_FIRE_RATE_MS);
             }
         }
 
@@ -223,6 +234,7 @@ public class GameEngine {
                 // Tính thời điểm hết hạn = thời gian hiện tại + thời gian hiệu lực
                 long currentTime = System.currentTimeMillis();
                 gameState.setLaserEndTime(currentTime + Constants.LASER_DURATION_MS);
+                gameState.setNextLaserFireTime(currentTime);
                 break;
         }
     }
