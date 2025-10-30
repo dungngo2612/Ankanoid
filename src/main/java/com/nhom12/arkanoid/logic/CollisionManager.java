@@ -115,7 +115,6 @@ public class CollisionManager {
         boolean isColliding = distance < ballRadius;
         if (isColliding) {
             SoundManager.getInstance().playEffect("hit_brick");
-            brick.hit();
             //Tính phần giao nhau giữa ball và brick ở các phía
             double overlapLeft = (ballX + ballRadius) - brickX;
             double overlapRight = (brickX + brickWidth) - (ballX - ballRadius);
