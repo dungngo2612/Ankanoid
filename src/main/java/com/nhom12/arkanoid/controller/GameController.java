@@ -61,7 +61,7 @@ public class GameController {
     @FXML
     public void initialize() {
         gc = gameCanvas.getGraphicsContext2D();
-        gameEngine = new GameEngine();
+        gameEngine = new GameEngine(gameRoot);
         gameState = gameEngine.getGameState();
 
         loadPauseMenu();
