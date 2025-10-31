@@ -170,7 +170,7 @@ public class GameState {
     public void incrementScore(int points) {
         this.score += points;
         // Kiểm tra điều kiện thắng game
-        if (bricks.stream().allMatch(Brick::isDestroyed)) {
+        if (bricks.stream().filter(Brick::isDestructible).allMatch(Brick::isDestroyed)) {
             isGameWon = true;
         }
     }

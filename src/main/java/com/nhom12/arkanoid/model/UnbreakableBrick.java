@@ -10,4 +10,8 @@ public class UnbreakableBrick extends Brick {
     @Override
     public void hit(double damageAmount) {
     }
+    @Override
+    public boolean isDestructible() {
+        return false;
+    }
 }

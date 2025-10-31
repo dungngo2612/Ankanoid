@@ -68,4 +68,8 @@ public class Brick {
     public boolean isDestroyed() {
         return isDestroyed;
     }
+
+    public boolean isDestructible() {
+        return true; //mặc đinh là gạch có thể phá
+    }
 }
