@@ -13,7 +13,7 @@ public class Constants {
     public static final double MAX_PADDLE_HEIGHT = 60;
 
     public static final double BALL_RADIUS = 8;
-    public static final double BALL_SPEED = 2;
+    public static final double BALL_SPEED = 4;
     public static final double MAX_BALL_SPEED = 12.0;
     public static final double MIN_BALL_SPEED = 1.0;
 

@@ -2,9 +2,16 @@ package com.nhom12.arkanoid.logic;
 
 import com.nhom12.arkanoid.model.*;
 import com.nhom12.arkanoid.utils.Constants;
-import com.nhom12.arkanoid.utils.ScreenManager;
 import com.nhom12.arkanoid.model.Brick;
 import com.nhom12.arkanoid.model.ExplosiveBrick;
+import com.nhom12.arkanoid.utils.ImageManager;
+import com.nhom12.arkanoid.utils.ParticleManager;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,13 +21,15 @@ import java.util.Random;
 public class GameEngine {
     private final GameState gameState;
     private final CollisionManager collisionManager;
+    private Pane gameRoot;
 
     private final List<Items> items = new ArrayList<>();
 
     private static final int MAX_ITEMS = 3; // tối đa 2 vật phẩm trong 1 màn
     private int itemsSpawned = 0; // đếm số vật phẩm đã sinh ra
 
-    public GameEngine() {
+    public GameEngine(AnchorPane gameRoot) {
+        this.gameRoot = gameRoot;
         this.gameState = new GameState();
         this.collisionManager = new CollisionManager();
     }
@@ -99,6 +108,18 @@ public class GameEngine {
                     if (brick instanceof ExplosiveBrick) {
                         handleExplosiveBrick((ExplosiveBrick) brick);
                     }
+                    String imageKey = "brick1";
+                    if (brick instanceof StrongBrick) imageKey = "brick2";
+                    else if (brick instanceof UnbreakableBrick) imageKey = "impassable";
+                    else if (brick instanceof ExplosiveBrick) imageKey = "brick1"; // hoặc ảnh riêng nếu có
+
+                    Image brickImage = ImageManager.getInstance().showImage(imageKey);
+                    ParticleManager.spawnBrickFragments(
+                            brick.getX() + brick.getWidth() / 2,
+                            brick.getY() + brick.getHeight() / 2,
+                            brickImage,
+                            gameRoot
+                    );
                 }
             }
         });
