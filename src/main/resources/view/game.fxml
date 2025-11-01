@@ -12,6 +12,15 @@
 
     <children>
         <Canvas fx:id="gameCanvas" height="600.0" width="800.0"/>
+        <Text fx:id="timerText"
+              layoutX="350.0" layoutY="25.0"
+              text="Time: 00:00s"
+              style="-fx-font-size: 24px; -fx-fill: white;"
+              strokeType="OUTSIDE" strokeWidth="0.0" fill="WHITE">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Text>
         <Text fx:id="scoreText" fill="WHITE" layoutX="10.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0"
               text="Score: 0">
             <font>

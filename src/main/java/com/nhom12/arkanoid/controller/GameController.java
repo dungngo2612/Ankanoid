@@ -59,7 +59,14 @@ public class GameController {
     private PauseMenuController pauseMenuController;
 
     @FXML
+    private Text timerText;
+    private long startTime = 0;
+    private boolean isTimerStarted = false;
+
+
+    @FXML
     public void initialize() {
+        startTime = System.currentTimeMillis();
         gc = gameCanvas.getGraphicsContext2D();
         gameEngine = new GameEngine(gameRoot);
         gameState = gameEngine.getGameState();
@@ -68,8 +75,19 @@ public class GameController {
 
         // Tạo vòng lặp game
         gameLoop = new AnimationTimer() {
+
+
             @Override
             public void handle(long now) {
+                if (isTimerStarted) {
+                    long currentTime = System.currentTimeMillis();
+                    long elapsedMillis = currentTime - startTime;
+                    long seconds = elapsedMillis / 1000;
+                    long minutes = seconds / 60;
+                    long secs = seconds % 60;
+                    timerText.setText(String.format("Time: %02d:%02d", minutes, secs));
+                }
+
                 //Cập nhật vị trí paddle
                 updatePaddlePosition();
                 //Cập nhật logic game
@@ -192,6 +210,12 @@ public class GameController {
         } else if (event.getCode() == KeyCode.SPACE) {
             gameState.launchBall();
             messageText.setText("");
+
+            // ⏱ Bắt đầu đếm thời gian nếu chưa bắt đầu
+            if (!isTimerStarted) {
+                startTime = System.currentTimeMillis();
+                isTimerStarted = true;
+            }
         }
 //        else if (event.getCode() == KeyCode.SHIFT) {
 //            // Chỉ bắn khi đang có item laze
