@@ -32,7 +32,7 @@
         </Label>
 
         <!-- Buttons -->
-        <VBox alignment="CENTER" spacing="15">
+        <VBox fx:id="mainButtonsVBox" alignment="CENTER" spacing="15">
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
@@ -40,6 +40,16 @@
             <Button text="HIGHSCORE" onAction="#onHighscoreClicked" styleClass="button"/>
             <Button text="SETTINGS" onAction="#onSettingsClicked" styleClass="button"/>
             <Button text="EXIT" onAction="#onExitClicked" styleClass="button"/>
+        </VBox>
+
+        <VBox fx:id="modeSelectionVBox" alignment="CENTER" spacing="15"
+              visible="false" managed="false">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Button text="CHALLENGE MODE" onAction="#onChallengeModeClicked" styleClass="button"/>
+            <Button text="EVIL MODE"  styleClass="button"/>
+            <Button text="BACK" onAction="#onBackToMainClicked" styleClass="button"/>
         </VBox>
     </VBox>
 </StackPane>
