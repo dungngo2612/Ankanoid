@@ -19,7 +19,7 @@
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#handleRestart" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #555555; -fx-text-fill: white;" text="Restart Game">
+                <Button mnemonicParsing="false" onAction="#handleRestart" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #555555; -fx-text-fill: white;" text="Restart Level">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -34,13 +34,18 @@
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Button>
+            <Button mnemonicParsing="false" onAction="#handleSelectLevel" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #555555; -fx-text-fill: white;" text="Select Level">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Button>
             </children>
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
 
         </VBox>
-      <VBox fx:id="goToMainMenuConfirmationVBox" alignment="CENTER" layoutX="203.0" layoutY="210.0" prefHeight="194.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: #333333; -fx-background-radius: 10; -fx-border-color: #555555; -fx-border-width: 2; -fx-border-radius: 10;">
+      <VBox fx:id="goToMainMenuConfirmationVBox" alignment="CENTER" layoutX="203.0" layoutY="210.0" prefHeight="194.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: #333333; -fx-background-radius: 10; -fx-border-color: #555555; -fx-border-width: 2; -fx-border-radius: 10;" visible="false">
          <children>
             <Label text="Do you really want quit ?" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -62,7 +67,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <VBox fx:id="restartConfirmationVBox" alignment="CENTER" layoutX="213.0" layoutY="220.0" prefHeight="194.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: #333333; -fx-background-radius: 10; -fx-border-color: #555555; -fx-border-width: 2; -fx-border-radius: 10;">
+      <VBox fx:id="restartConfirmationVBox" alignment="CENTER" layoutX="213.0" layoutY="220.0" prefHeight="194.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: #333333; -fx-background-radius: 10; -fx-border-color: #555555; -fx-border-width: 2; -fx-border-radius: 10;" visible="false">
          <children>
             <Label text="Do you really want to restart ?" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -84,7 +89,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <VBox fx:id="settingsVBox" alignment="CENTER" layoutX="223.0" layoutY="230.0" prefHeight="194.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: #333333; -fx-background-radius: 10; -fx-border-color: #555555; -fx-border-width: 2; -fx-border-radius: 10;">
+      <VBox fx:id="settingsVBox" alignment="CENTER" layoutX="223.0" layoutY="230.0" prefHeight="194.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: #333333; -fx-background-radius: 10; -fx-border-color: #555555; -fx-border-width: 2; -fx-border-radius: 10;" visible="false">
          <children>
             <Label text="Settings" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -101,11 +106,34 @@
                   <Font size="18.0" />
                </font>
             </CheckBox>
-            <Button mnemonicParsing="false" text="Quit" onAction="#handleCancelExit" />
+            <Button mnemonicParsing="false" onAction="#handleCancelExit" text="Quit" />
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
+
+        <VBox fx:id="selectLevelVBox" alignment="CENTER" layoutX="213.0" layoutY="220.0" prefHeight="194.0" prefWidth="394.0" spacing="20.0" style="-fx-background-color: #333333; -fx-background-radius: 10; -fx-border-color: #555555; -fx-border-width: 2; -fx-border-radius: 10;" visible="false">
+        <children>
+            <Label text="Do you really want to quit ?" textAlignment="CENTER" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#handleConfirmSelectLevel" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #555555; -fx-text-fill: white;" text="Yes">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleCancelExit" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #555555; -fx-text-fill: white;" text="No">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Button>
+        </children>
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        </padding>
+        </VBox>
     </children>
 </AnchorPane>

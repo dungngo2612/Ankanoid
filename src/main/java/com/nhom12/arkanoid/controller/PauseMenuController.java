@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import jdk.jfr.BooleanFlag;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,7 +36,8 @@ public class PauseMenuController implements Initializable {
     private CheckBox musicEnable;
     @FXML
     private CheckBox effectsEnable;
-
+    @FXML
+    private VBox selectLevelVBox;
     Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
     boolean musicEnabled = prefs.getBoolean("musicEnabled", true);
     boolean sfxEnabled = prefs.getBoolean("sfxEnabled", true);
@@ -109,8 +111,11 @@ public class PauseMenuController implements Initializable {
 
     @FXML
     private void handleResume() {
-        System.out.println("Resume Game");
-        hidePauseMenu(); // Ẩn menu và tiếp tục game
+        if (gameController != null) {
+            System.out.println("Resume Game");
+            gameController.resumeGame();
+            hidePauseMenu(); // Ẩn menu và tiếp tục game
+        }
     }
 
     public void showPauseMenu() {
@@ -129,6 +134,10 @@ public class PauseMenuController implements Initializable {
         if (settingsVBox != null) {
             settingsVBox.setVisible(false);
             settingsVBox.setManaged(false);
+        }
+        if (selectLevelVBox != null) {
+            selectLevelVBox.setManaged(false);
+            selectLevelVBox.setManaged(false);
         }
 
         pauseMenuRoot.setVisible(true);
@@ -155,6 +164,9 @@ public class PauseMenuController implements Initializable {
         restartConfirmationVBox.setVisible(false);
         restartConfirmationVBox.setManaged(false);
 
+        selectLevelVBox.setManaged(false);
+        selectLevelVBox.setVisible(false);
+
         if (settingsVBox.isVisible()) {
             prefs.putBoolean("musicEnabled", musicEnable.isSelected());
             prefs.putBoolean("sfxEnabled", effectsEnable.isSelected());
@@ -164,5 +176,18 @@ public class PauseMenuController implements Initializable {
 
         mainPauseButtonsVBox.setVisible(true);
         mainPauseButtonsVBox.setManaged(true);
+    }
+
+    @FXML
+    private void handleSelectLevel() {
+        System.out.println("Open Select Level");
+        selectLevelVBox.setVisible(true);
+        selectLevelVBox.setManaged(true);
+    }
+
+    @FXML
+    private void handleConfirmSelectLevel() {
+        System.out.println("Selecting Level");
+        ScreenManager.switchScene("/view/level_select.fxml", "Arkanoid");
     }
 }
