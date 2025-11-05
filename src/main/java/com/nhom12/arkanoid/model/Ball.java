@@ -9,6 +9,7 @@ public class Ball {
     private double dx;
     private double dy;
 
+    public Ball(){}
 
     public Ball(double x, double y, double radius, double dx, double dy) {
         this.x = x;

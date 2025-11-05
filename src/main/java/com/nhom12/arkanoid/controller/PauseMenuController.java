@@ -23,7 +23,6 @@ public class PauseMenuController implements Initializable {
 
     @FXML
     private AnchorPane pauseMenuRoot;
-
     @FXML
     private VBox mainPauseButtonsVBox;
     @FXML

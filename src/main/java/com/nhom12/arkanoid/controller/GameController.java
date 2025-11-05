@@ -18,19 +18,12 @@ import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.SwipeEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Text;
 
-import javafx.scene.shape.Rectangle;
-
 import java.io.IOException;
-import java.text.BreakIterator;
 import java.util.List;
 
 public class GameController {
@@ -274,11 +267,12 @@ public class GameController {
 
         // Vẽ bóng
         Image ballImg = ImageManager.getInstance().showImage("ball");
-        Ball ball = state.getBall();
-        double tmpX = ball.getX() - ball.getRadius();
-        double tmpY = ball.getY() - ball.getRadius();
-        double tmpWidth = ball.getRadius() * 2;
-        gc.drawImage(ballImg, tmpX, tmpY, tmpWidth, tmpWidth);
+        for (Ball ball : state.getBalls()) { // Lặp qua danh sách bóng
+            double tmpX = ball.getX() - ball.getRadius();
+            double tmpY = ball.getY() - ball.getRadius();
+            double tmpWidth = ball.getRadius() * 2;
+            gc.drawImage(ballImg, tmpX, tmpY, tmpWidth, tmpWidth);
+        }
 
         Image bulletImg = ImageManager.getInstance().showImage("laser_bullet");
         for (LaserBullet bullet : state.getBullets()) {
@@ -300,9 +294,9 @@ public class GameController {
                 brickImg = ImageManager.getInstance().showImage("impassable");
             } else if (brick instanceof StrongBrick) {
                 brickImg = ImageManager.getInstance().showImage("brick2");
-            }else if (brick instanceof ExplosiveBrick) {
+            } else if (brick instanceof ExplosiveBrick) {
                 // Tạm thời dùng "brick1"
-                brickImg = ImageManager.getInstance().showImage("brick1");
+                brickImg = ImageManager.getInstance().showImage("explosive_brick");
             }
             if (brickImg != null) {
                 gc.drawImage(brickImg, x, y, Constants.BRICK_WIDTH, Constants.BRICK_HEIGHT);
@@ -328,6 +322,8 @@ public class GameController {
                     item_type = ImageManager.getInstance().showImage("speed_up");
                 } else if (item.getType() == Items.ItemType.SPEED_DOWN) {
                     item_type = ImageManager.getInstance().showImage("speed_down");
+                } else if (item.getType() == Items.ItemType.MULTI_BALL) {
+                    item_type = ImageManager.getInstance().showImage("multi_balls");
                 }
                 if (item_type != null) {
                     gc.drawImage(item_type, item.getX(), item.getY(), item.getWidth(), item.getHeight());

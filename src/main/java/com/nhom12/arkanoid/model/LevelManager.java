@@ -39,6 +39,7 @@ public class LevelManager {
                 double x = col * (Constants.BRICK_WIDTH + Constants.BRICK_GAP) + Constants.BRICK_GAP;
                 double y = row * (Constants.BRICK_HEIGHT + Constants.BRICK_GAP) + Constants.BRICK_GAP + 30;
                 Bricks.add(new NormalBrick(x, y));
+//                Bricks.add(new ExplosiveBrick(x, y));
             }
         }
         return Bricks;

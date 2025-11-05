@@ -23,7 +23,7 @@ public class GameEngine {
 
     private final List<Items> items = new ArrayList<>();
 
-    private static final int MAX_ITEMS = 3; // tối đa 2 vật phẩm trong 1 màn
+    private static final int MAX_ITEMS = 100; // tối đa 2 vật phẩm trong 1 màn
     private int itemsSpawned = 0; // đếm số vật phẩm đã sinh ra
 
     public GameEngine(AnchorPane gameRoot) {
@@ -80,61 +80,70 @@ public class GameEngine {
         }
 
         if (!gameState.isBallLaunched()) {
-            gameState.getBall().setX(
+            gameState.getMainBall().setX(
                     gameState.getPaddle().getX() + gameState.getPaddle().getWidth() / 2
             );
-            gameState.getBall().setY(
-                    gameState.getPaddle().getY() - gameState.getBall().getRadius() - 2
+            gameState.getMainBall().setY(
+                    gameState.getPaddle().getY() - gameState.getMainBall().getRadius() - 2
             );
             return;
         }
 
-        // Nếu đã phóng → bóng bay
-        gameState.getBall().move();
 
+        Iterator<Ball> ballIterator = gameState.getBalls().iterator();
+        while (ballIterator.hasNext()) {
+            Ball ball = ballIterator.next();
 
-        //Xử lý va chạm
-        collisionManager.handleWallCollision(gameState.getBall());
-        collisionManager.handlePaddleCollision(gameState.getBall(), gameState.getPaddle());
+            // 1. Di chuyển bóng
+            ball.move();
 
-        gameState.getBricks().forEach(brick -> {
-            if (collisionManager.handleBrickCollision(gameState.getBall(), brick)) {
-                brick.hit(1.0);
-                if (brick.isDestroyed()) {
-                    gameState.incrementScore(10);
-                    spawnItemIfPossible(brick);
-                    // Chỉ xử lý nổ sau khi gạch đã bị phá hủy
-                    if (brick instanceof ExplosiveBrick) {
-                        handleExplosiveBrick((ExplosiveBrick) brick);
+            // 2. Xử lý va chạm tường và paddle
+            collisionManager.handleWallCollision(ball);
+            collisionManager.handlePaddleCollision(ball, gameState.getPaddle());
+
+            // 3. Xử lý bóng rơi (và xóa bóng an toàn)
+            if (ball.getY() > Constants.SCENE_HEIGHT) {
+                ballIterator.remove(); // Xóa bóng
+                continue; // Chuyển sang bóng tiếp theo
+            }
+
+            // Lặp qua tất cả gạch cho mỗi quả bóng
+            for (Brick brick : gameState.getBricks()) {
+                if (collisionManager.handleBrickCollision(ball, brick)) { // Kiểm tra va chạm cho bóng hiện tại
+                    brick.hit(1.0);
+                    if (brick.isDestroyed()) {
+                        gameState.incrementScore(10);
+                        spawnItemIfPossible(brick);
+                        // Chỉ xử lý nổ sau khi gạch đã bị phá hủy
+                        if (brick instanceof ExplosiveBrick) {
+                            handleExplosiveBrick((ExplosiveBrick) brick);
+                        }
+
+                        // lấy màu của mảnh vỡ theo màu chủ đạo của từng loại brick
+                        String imageKey = "brick1";
+                        if (brick instanceof StrongBrick) imageKey = "brick2";
+                        else if (brick instanceof UnbreakableBrick) imageKey = "impassable";
+                        else if (brick instanceof ExplosiveBrick) imageKey = "explosive_brick";
+
+                        Image brickImage = ImageManager.getInstance().showImage(imageKey);
+
+                        ParticleManager.spawnBrickFragments(
+                                brick.getX() + brick.getWidth() / 2,
+                                brick.getY() + brick.getHeight() / 2,
+                                brickImage,
+                                gameRoot
+                        );
                     }
-
-                    // lấy màu của mảnh vỡ theo màu chủ đạo của từng loại brick
-                    String imageKey = "brick1";
-                    if (brick instanceof StrongBrick) imageKey = "brick2";
-                    else if (brick instanceof UnbreakableBrick) imageKey = "impassable";
-                    else if (brick instanceof ExplosiveBrick) imageKey = "brick1";
-
-                    Image brickImage = ImageManager.getInstance().showImage(imageKey);
-
-                    ParticleManager.spawnBrickFragments(
-                            brick.getX() + brick.getWidth() / 2,
-                            brick.getY() + brick.getHeight() / 2,
-                            brickImage,
-                            gameRoot
-                    );
                 }
             }
-        });
-
-        Paddle paddle = gameState.getPaddle();
-        //Kiểm tra bóng rơi xuống dưới màn hình
-        for (Items item : items) {
-
         }
-        if (gameState.getBall().getY() > Constants.SCENE_HEIGHT) {
+
+        // Kiểm tra mất mạng (chỉ khi không còn bóng nào)
+        if (gameState.getBalls().isEmpty()) {
             gameState.loseLife();
         }
     }
+
 
     private void spawnItemIfPossible(Brick brick) {
         // Nếu hiện có ít hơn 2 vật phẩm thì mới cho spawn thêm
@@ -184,8 +193,6 @@ public class GameEngine {
 
         for (Brick brick : bricks) {
             if (!brick.isDestroyed()) {
-
-                if (brick.isDestroyed()) continue;
                 if (centerBrick.isDestroyed()) continue;
                 // tìm ô gạch nào ở xung quanh
                 double dx = Math.abs(brick.getX() - centerBrick.getX());
@@ -201,7 +208,7 @@ public class GameEngine {
     // xử lý khi ăn được vật phẩm
     private void applyItemEffect(Items.ItemType type) {
         Paddle paddle = gameState.getPaddle();
-        Ball ball = gameState.getBall();
+        Ball ball = gameState.getMainBall();
 
         switch (type) {
             case EXTRA_LIFE:
@@ -211,7 +218,7 @@ public class GameEngine {
                 break;
             case SPEED_UP:
 
-                Ball balls = gameState.getBall();
+                Ball balls = gameState.getMainBall();
                 double dx = balls.getDx();
                 double dy = balls.getDy();
 
@@ -261,6 +268,21 @@ public class GameEngine {
                 long currentTime = System.currentTimeMillis();
                 gameState.setLaserEndTime(currentTime + Constants.LASER_DURATION_MS);
                 gameState.setNextLaserFireTime(currentTime);
+                break;
+            case MULTI_BALL:
+                System.out.println("Multi_ball activated");
+                double x = gameState.getBalls().get(0).getX();
+                double y = gameState.getBalls().get(0).getY();
+                double vx = gameState.getBalls().get(0).getDx();
+                double vy = gameState.getBalls().get(0).getDy();
+                Random rand = new Random();
+                // Vận tốc x ngẫu nhiên từ -2 đến 2 (nhưng không quá gần 0)
+                double newDx1 = (rand.nextDouble() * 2.0 + 1.0) * (rand.nextBoolean() ? 1 : -1); // từ 1-3 hoặc -1 đến -3
+                double newDx2 = (rand.nextDouble() * 2.0 + 1.0) * (rand.nextBoolean() ? 1 : -1); // từ 1-3 hoặc -1 đến -3
+
+                // Thêm 2 bóng mới vào danh sách
+                gameState.getBalls().add(new Ball(x, y, Constants.BALL_RADIUS, newDx1, vy));
+                gameState.getBalls().add(new Ball(x, y, Constants.BALL_RADIUS, newDx2, vy));
                 break;
         }
     }
