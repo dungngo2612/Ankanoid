@@ -109,30 +109,65 @@ public class GameEngine {
 
             // Lặp qua tất cả gạch cho mỗi quả bóng
             for (Brick brick : gameState.getBricks()) {
-                if (collisionManager.handleBrickCollision(ball, brick)) { // Kiểm tra va chạm cho bóng hiện tại
-                    brick.hit(1.0);
-                    if (brick.isDestroyed()) {
-                        gameState.incrementScore(10);
-                        spawnItemIfPossible(brick);
-                        // Chỉ xử lý nổ sau khi gạch đã bị phá hủy
-                        if (brick instanceof ExplosiveBrick) {
-                            handleExplosiveBrick((ExplosiveBrick) brick);
+                // nếu ăn item  molten thì kiểm tra va chạm với brick
+                if (gameState.isMoltenBallActive()) {
+                    // nếu là loại normal, Strong, hay explosive thì bóng sẽ đi qua và brick đó bị vỡ
+                    if (brick.isDestructible() && !brick.isDestroyed()) {
+                        boolean collided = collisionManager.handleBrickCollision(ball, brick, gameState.isMoltenBallActive()); // ✅ kiểm tra va chạm
+                        if (collided) {
+                            brick.hit(1.0);
+                            if (brick.isDestroyed()) {
+                                gameState.incrementScore(10);
+                                spawnItemIfPossible(brick);
+                                if (brick instanceof ExplosiveBrick) {
+                                    handleExplosiveBrick((ExplosiveBrick) brick);
+                                }
+
+                                String imageKey = "brick1";
+                                if (brick instanceof StrongBrick) imageKey = "brick2";
+                                else if (brick instanceof ExplosiveBrick) imageKey = "explosive_brick";
+
+                                Image brickImage = ImageManager.getInstance().showImage(imageKey);
+                                ParticleManager.spawnBrickFragments(
+                                        brick.getX() + brick.getWidth() / 2,
+                                        brick.getY() + brick.getHeight() / 2,
+                                        brickImage,
+                                        gameRoot
+                                );
+                                gameState.checkWinCondition();
+                            }
                         }
+                    } else if (brick instanceof UnbreakableBrick) { // nếu là unbreakable thì bóng sẽ bị nảy như bình thường
+                        collisionManager.handleBrickCollision(ball, brick, false);
+                    }
+                    gameState.checkWinCondition();
+                } else {
+                    if (collisionManager.handleBrickCollision(ball, brick,false)) { // Kiểm tra va chạm cho bóng hiện tại
+                        brick.hit(1.0);
+                        if (brick.isDestroyed()) {
+                            gameState.incrementScore(10);
+                            spawnItemIfPossible(brick);
+                            // Chỉ xử lý nổ sau khi gạch đã bị phá hủy
+                            if (brick instanceof ExplosiveBrick) {
+                                handleExplosiveBrick((ExplosiveBrick) brick);
+                            }
 
-                        // lấy màu của mảnh vỡ theo màu chủ đạo của từng loại brick
-                        String imageKey = "brick1";
-                        if (brick instanceof StrongBrick) imageKey = "brick2";
-                        else if (brick instanceof UnbreakableBrick) imageKey = "impassable";
-                        else if (brick instanceof ExplosiveBrick) imageKey = "explosive_brick";
+                            // lấy màu của mảnh vỡ theo màu chủ đạo của từng loại brick
+                            String imageKey = "brick1";
+                            if (brick instanceof StrongBrick) imageKey = "brick2";
+                            else if (brick instanceof UnbreakableBrick) imageKey = "impassable";
+                            else if (brick instanceof ExplosiveBrick) imageKey = "explosive_brick";
 
-                        Image brickImage = ImageManager.getInstance().showImage(imageKey);
+                            Image brickImage = ImageManager.getInstance().showImage(imageKey);
 
-                        ParticleManager.spawnBrickFragments(
-                                brick.getX() + brick.getWidth() / 2,
-                                brick.getY() + brick.getHeight() / 2,
-                                brickImage,
-                                gameRoot
-                        );
+                            ParticleManager.spawnBrickFragments(
+                                    brick.getX() + brick.getWidth() / 2,
+                                    brick.getY() + brick.getHeight() / 2,
+                                    brickImage,
+                                    gameRoot
+                            );
+                        }
+                        gameState.checkWinCondition();// check win
                     }
                 }
             }
@@ -284,6 +319,28 @@ public class GameEngine {
                 gameState.getBalls().add(new Ball(x, y, Constants.BALL_RADIUS, newDx1, vy));
                 gameState.getBalls().add(new Ball(x, y, Constants.BALL_RADIUS, newDx2, vy));
                 break;
+            case MOLTEN_BALL:
+                gameState.setMoltenBallActive(true);
+                gameState.setMoltenBallEndTime(System.currentTimeMillis() + 5000);
+
+                ball = gameState.getMainBall();
+                dx = ball.getDx();
+                dy = ball.getDy();
+
+                dx *= 1.5;
+                dy *= 1.5;
+
+                // Giới hạn không vượt quá MAX_BALL_SPEED
+                double speed = Math.sqrt(dx * dx + dy * dy);
+                if (speed > Constants.MAX_BALL_SPEED) {
+                    dx = (Constants.MAX_BALL_SPEED / speed) * dx;
+                    dy = (Constants.MAX_BALL_SPEED / speed) * dy;
+                }
+
+                ball.setDx(dx);
+                ball.setDy(dy);
+                break;
+
         }
     }
 

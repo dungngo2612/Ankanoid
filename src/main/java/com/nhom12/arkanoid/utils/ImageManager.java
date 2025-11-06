@@ -19,6 +19,7 @@ public class ImageManager {
         images.put("ball", new Image("Image/Ball.png"));
         images.put("extra_life", new Image("Image/Extra_Life.png"));
         images.put("multi_balls", new Image("Image/MultiBall.png"));
+        images.put("molten_ball", new Image("Image/MoltenBall.png"));
         images.put("paddle_shrink", new Image("Image/PaddleShrink.png"));
         images.put("paddle_expand", new Image("Image/PaddleExpand.png"));
         images.put("laser_paddle", new Image("Image/LaserPaddle.png"));
@@ -28,6 +29,7 @@ public class ImageManager {
         images.put("impassable", new Image("Image/Impassable_brick.png"));
         images.put("brick2", new Image("Image/Brick2_normal.png"));
         images.put("explosive_brick", new Image("Image/explosive.png"));
+
     }
 
     public static ImageManager getInstance() {

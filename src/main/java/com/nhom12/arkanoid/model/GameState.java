@@ -30,6 +30,15 @@ public class GameState {
     private long laserEndTime = 0;
     // Biến lưu thời điểm được phép bắn laze tiếp theo
     private long nextLaserFireTime = 0;
+
+    //
+    private boolean moltenBallActive = false;
+    private long moltenBallEndTime = 0;
+
+    private boolean allowWinCheck = true;
+
+    public boolean isAllowWinCheck() { return allowWinCheck; }
+    public void setAllowWinCheck(boolean allowWinCheck) { this.allowWinCheck = allowWinCheck; }
     @FXML
     private Canvas gameCanvas;
     @FXML
@@ -90,6 +99,8 @@ public class GameState {
         ball.add(new Ball(paddle.getX() + paddle.getWidth() / 2,
                 paddle.getY() - Constants.BALL_RADIUS, Constants.BALL_RADIUS, 0, 0));
         setBallLaunched(false);
+        setMoltenBallActive(false);
+        setMoltenBallEndTime(0);
         // Tắt laze khi reset
         setPaddleHasLaser(false);
         bullets.clear();
@@ -162,7 +173,8 @@ public class GameState {
 
     public void incrementScore(int points) {
         this.score += points;
-        // Kiểm tra điều kiện thắng game
+    }
+    public void checkWinCondition() {
         if (bricks.stream().filter(Brick::isDestructible).allMatch(Brick::isDestroyed)) {
             isGameWon = true;
         }
@@ -195,5 +207,21 @@ public class GameState {
 
     public void setNextLaserFireTime(long nextLaserFireTime) {
         this.nextLaserFireTime = nextLaserFireTime;
+    }
+
+    public boolean isMoltenBallActive() {
+        return moltenBallActive;
+    }
+
+    public void setMoltenBallActive(boolean moltenBallActive) {
+        this.moltenBallActive = moltenBallActive;
+    }
+
+    public long getMoltenBallEndTime() {
+        return moltenBallEndTime;
+    }
+
+    public void setMoltenBallEndTime(long moltenBallEndTime) {
+        this.moltenBallEndTime = moltenBallEndTime;
     }
 }

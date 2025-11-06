@@ -266,11 +266,24 @@ public class GameController {
         gc.drawImage(paddleImg, paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight());
 
         // Vẽ bóng
-        Image ballImg = ImageManager.getInstance().showImage("ball");
-        for (Ball ball : state.getBalls()) { // Lặp qua danh sách bóng
+//        Image ballImg = ImageManager.getInstance().showImage("ball");
+//        for (Ball ball : state.getBalls()) { // Lặp qua danh sách bóng
+//            double tmpX = ball.getX() - ball.getRadius();
+//            double tmpY = ball.getY() - ball.getRadius();
+//            double tmpWidth = ball.getRadius() * 2;
+//            gc.drawImage(ballImg, tmpX, tmpY, tmpWidth, tmpWidth);
+//        }
+        Image ballImg;
+        if (state.isMoltenBallActive()) {
+            ballImg = ImageManager.getInstance().showImage("molten_ball"); // ảnh bóng hiệu ứng
+        } else {
+            ballImg = ImageManager.getInstance().showImage("ball"); // ảnh bóng thường
+        }
+
+        for (Ball ball : state.getBalls()) {
             double tmpX = ball.getX() - ball.getRadius();
             double tmpY = ball.getY() - ball.getRadius();
-            double tmpWidth = ball.getRadius() * 2;
+            double tmpWidth = ball.getRadius() * 2 ;
             gc.drawImage(ballImg, tmpX, tmpY, tmpWidth, tmpWidth);
         }
 
@@ -324,6 +337,8 @@ public class GameController {
                     item_type = ImageManager.getInstance().showImage("speed_down");
                 } else if (item.getType() == Items.ItemType.MULTI_BALL) {
                     item_type = ImageManager.getInstance().showImage("multi_balls");
+                } else if (item.getType() == Items.ItemType.MOLTEN_BALL) {
+                    item_type = ImageManager.getInstance().showImage("molten_ball");
                 }
                 if (item_type != null) {
                     gc.drawImage(item_type, item.getX(), item.getY(), item.getWidth(), item.getHeight());

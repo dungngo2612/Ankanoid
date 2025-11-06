@@ -12,7 +12,8 @@ public class Items {
         PADDLE_EXPAND,    // Mở rộng thanh paddle
         PADDLE_SHRINK,   // Thu nhỏ paddle
         MULTI_BALL,      // Tạo thêm 2 quả bóng
-        LASER_PADDLE     // Paddle có thể bắn laze
+        LASER_PADDLE,    // Paddle có thể bắn laze
+        MOLTEN_BALL
     }
 
     private double x;
@@ -35,7 +36,10 @@ public class Items {
         ItemType[] itemType = ItemType.values();
         Random rand = new Random();
 //        this.type = itemType[rand.nextInt(itemType.length)];
-        this.type = ItemType.MULTI_BALL;
+        this.type = ItemType.MOLTEN_BALL;
+//        ItemType[] itemType = ItemType.values();
+//        Random rand = new Random();
+//        this.type = itemType[rand.nextInt(itemType.length)];
     }
 
     public void removeItem() {
