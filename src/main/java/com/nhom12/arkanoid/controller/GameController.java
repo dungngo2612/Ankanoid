@@ -87,14 +87,26 @@ public class GameController {
                 gameEngine.update();
                 render();
                 if (gameState.isGameOver()) {
+                    long elapsedMillis = System.currentTimeMillis() - startTime;
+                    long seconds = elapsedMillis / 1000;
+
+                    GameResult result = new GameResult(gameState.getScore(), seconds);
+                    ScreenManager.setData(result);
+
                     HighScoreController highScoreController = new HighScoreController();
-                    highScoreController.saveScore(gameState.getScore());
+                    highScoreController.saveScore(gameState.getScore(),seconds);
                     gameLoop.stop();
-                    ScreenManager.switchScene("/view/lose.fxml", "Arkanoid");
+                    ScreenManager.switchScene("/view/win.fxml", "Arkanoid");
                     SoundManager.getInstance().stopPlayingMusic();
                 } else if (gameState.isGameWon()) {
+                    long elapsedMillis = System.currentTimeMillis() - startTime;
+                    long seconds = elapsedMillis / 1000;
+
+                    GameResult result = new GameResult(gameState.getScore(),seconds);
+                    ScreenManager.setData(result);
+
                     HighScoreController highScoreController = new HighScoreController();
-                    highScoreController.saveScore(gameState.getScore());
+                    highScoreController.saveScore(gameState.getScore(),seconds);
                     gameLoop.stop();
                     ScreenManager.switchScene("/view/win.fxml", "Arkanoid");
                     SoundManager.getInstance().stopPlayingMusic();

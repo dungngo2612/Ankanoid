@@ -33,13 +33,13 @@ public class Items {
         this.active = true;
 
         // sẽ sử dụng hàm random để lựa chọn vật phẩm
-        ItemType[] itemType = ItemType.values();
-        Random rand = new Random();
-//        this.type = itemType[rand.nextInt(itemType.length)];
-        this.type = ItemType.MOLTEN_BALL;
 //        ItemType[] itemType = ItemType.values();
 //        Random rand = new Random();
-//        this.type = itemType[rand.nextInt(itemType.length)];
+//////        this.type = itemType[rand.nextInt(itemType.length)];
+////        this.type = ItemType.MOLTEN_BALL;
+        ItemType[] itemType = ItemType.values();
+        Random rand = new Random();
+        this.type = itemType[rand.nextInt(itemType.length)];
     }
 
     public void removeItem() {

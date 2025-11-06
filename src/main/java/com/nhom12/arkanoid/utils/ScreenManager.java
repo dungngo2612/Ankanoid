@@ -11,6 +11,15 @@ import java.net.URL;
 public class ScreenManager {
 
     private static Stage primaryStage;
+    private static Object data;
+
+    public static Object getData() {
+        return data;
+    }
+
+    public static void setData(Object data) {
+        ScreenManager.data = data;
+    }
 
     // Initialize once in Main
     public static void setStage(Stage stage) {
