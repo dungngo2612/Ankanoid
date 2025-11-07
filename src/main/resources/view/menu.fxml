@@ -23,13 +23,13 @@
 
     <!-- 🕹️ Overlay UI -->
     <VBox alignment="CENTER" spacing="20">
-        <!-- Game title -->
-        <Label text="ARKANOID CLASSIC" textFill="gold">
-            <style>-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);</style>
-            <font>
-                <Font name="Serif" size="48"/>
-            </font>
-        </Label>
+<!--        &lt;!&ndash; Game title &ndash;&gt;-->
+<!--        <Label text="ARKANOID CLASSIC" textFill="gold">-->
+<!--            <style>-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);</style>-->
+<!--            <font>-->
+<!--                <Font name="Serif" size="48"/>-->
+<!--            </font>-->
+<!--        </Label>-->
 
         <!-- Buttons -->
         <VBox fx:id="mainButtonsVBox" alignment="CENTER" spacing="15">
