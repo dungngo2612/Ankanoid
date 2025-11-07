@@ -11,7 +11,8 @@
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);
 }
 
-/* 🎮 Menu buttons */
+/* Menu buttons */
+
 .button {
     -fx-font-size: 20px;
     -fx-text-fill: white;
@@ -20,10 +21,28 @@
     -fx-cursor: hand;
 }
 
-/* Hover effect */
 .button:hover {
-    -fx-background-color: rgba(255,215,0,0.9);
     -fx-text-fill: black;
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
+}
+
+.image-button {
+    /* Xóa tất cả style mặc định của JavaFX */
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+
+.image-button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.image-button:pressed {
+    -fx-scale-x: 1.0;
+    -fx-scale-y: 1.0;
 }
