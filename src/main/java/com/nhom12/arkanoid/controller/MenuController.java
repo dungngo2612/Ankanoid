@@ -34,13 +34,15 @@ public class MenuController implements Initializable {
 
     public static boolean showModeSelectionOnReturn = false;
 
+    private MediaPlayer player;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         URL mediaUrl = getClass().getResource("/test1.mp4");
         Objects.requireNonNull(mediaUrl, "Video file not found!");
 
         Media media = new Media(mediaUrl.toExternalForm());
-        MediaPlayer player = new MediaPlayer(media);
+        this.player = new MediaPlayer(media);
         player.setCycleCount(MediaPlayer.INDEFINITE);
         player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
         player.setAutoPlay(true);
@@ -73,6 +75,16 @@ public class MenuController implements Initializable {
         }
     }
 
+    private void stopVideo() {
+        if (player != null) {
+            player.stop();  // Dừng video
+            player.dispose(); // Hủy tài nguyên
+        }
+        if (mediaView != null) {
+            mediaView.setMediaPlayer(null); // Gỡ player khỏi view
+        }
+    }
+
     // 🎮 Button actions
     @FXML
     private void onStartClicked() {
@@ -85,6 +97,7 @@ public class MenuController implements Initializable {
 
     @FXML
     private void onChallengeModeClicked() {
+        stopVideo();
         System.out.println("Challenge Mode selected! Opening level map...");
         // BÂY GIỜ CHUYỂN TỚI MÀN HÌNH CHỌN LEVEL
         showModeSelectionOnReturn = true;
@@ -102,6 +115,7 @@ public class MenuController implements Initializable {
 
     @FXML
     private void onSettingsClicked() {
+        stopVideo();
         System.out.println("Settings clicked!");
         ScreenManager.switchScene("/view/settings.fxml","Arkanoid");
     }
@@ -114,6 +128,7 @@ public class MenuController implements Initializable {
 
     @FXML
     private void onHighscoreClicked() {
+        stopVideo();
         System.out.println("Highscore clicked!");
         ScreenManager.switchScene("/view/highscore.fxml","Arkanoid");
     }

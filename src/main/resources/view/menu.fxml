@@ -78,9 +78,36 @@
             <padding>
                 <Insets bottom="20" left="20" right="20" top="20" />
             </padding>
-            <Button onAction="#onChallengeModeClicked" styleClass="button" text="CHALLENGE MODE" />
-            <Button styleClass="button" text="EVIL MODE" />
-            <Button onAction="#onBackToMainClicked" styleClass="button" text="BACK" />
+
+            <Button onAction="#onChallengeModeClicked" styleClass="image-button">
+            <graphic>
+                <ImageView fitWidth="170.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../Image/challenge_mode-removebg-preview.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+            </Button>
+
+            <Button styleClass="image-button" >
+                <graphic>
+                    <ImageView fitWidth="170.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../Image/evil_mode-removebg-preview.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button onAction="#onBackToMainClicked" styleClass="image-button" >
+                <graphic>
+                    <ImageView fitWidth="170.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../Image/Back1-removebg-preview.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
         </VBox>
     </VBox>
 </StackPane>

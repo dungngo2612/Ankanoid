@@ -27,16 +27,20 @@ public class LevelSelectController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Set tooltip for each button
-        String level1Info = "\uD83D\uDD75\uFE0F\u200D♂\uFE0F Case: The Blackwood Estate\nThe Blackwood halls whisper secrets.\nWill you uncover the truth—or join the missing?";
+        String level1Info = "Unleash a wave of fiery sword energy that pierces through obstacles. The ball gains explosive power, burning through blocks and enemies alike.\n" +
+                "“The blade’s flame cuts through fate itself.”";
         level1Button.setTooltip(new Tooltip(level1Info));
 
-        String level2Info = "\uD83D\uDCA7 The Riverside Case\nA quiet riverside hides a dark secret.\nFollow the trail, gather clues, and uncover what really happened that night.";
+        String level2Info = "A lotus of pure chi blooms, restoring harmony to the battlefield. Slows time briefly and regenerates your shield’s strength.\n" +
+                "“From stillness comes renewal; from renewal, strength.”";
         level2Button.setTooltip(new Tooltip(level2Info));
 
-        String level3Info = "\uD83D\uDD73\uFE0F Secret Underground \nBeneath the city lies a hidden network of tunnels.\n Dangerous traps, coded locks, and whispers of forbidden experiments await.\n Only the brave will reach the truth.";
+        String level3Info = "Summon a protective force field infused with arcane energy. Deflects the next few hits and stabilizes the ball’s trajectory.\n" +
+                "“The heavens guard those who command the elements.”";
         level3Button.setTooltip(new Tooltip(level3Info));
 
-        String level4Info = "\uD83D\uDD12 The Final Secret Case\nYou’ve solved every mystery… but one truth remains hidden.\nSomething really terrible hiding inside ?.....";
+        String level4Info = "Awaken forbidden power from the underworld. The ball absorbs dark chi, doubling its speed and damage for a short time.\n" +
+                "“To wield the abyss, one must first embrace it.”";
         level4Button.setTooltip(new Tooltip(level4Info));
     }
 

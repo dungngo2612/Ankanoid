@@ -97,7 +97,7 @@ public class GameController {
                     ScreenManager.setData(result);
 
                     HighScoreController highScoreController = new HighScoreController();
-                    highScoreController.saveScore(gameState.getScore(),seconds);
+                    highScoreController.saveScore(gameState.getScore());
                     gameLoop.stop();
                     ScreenManager.switchScene("/view/win.fxml", "Arkanoid");
                     SoundManager.getInstance().stopPlayingMusic();
