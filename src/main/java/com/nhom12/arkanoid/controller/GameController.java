@@ -25,6 +25,9 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.List;
+import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
+import java.util.List;
 
 public class GameController {
 
@@ -293,6 +296,29 @@ public class GameController {
         }
 
         for (Ball ball : state.getBalls()) {
+
+            int i = 0;
+            double initialRadius = ball.getRadius();
+            int trailSize = ball.getRecentPositions().size();
+
+            for (Point2D pos : ball.getRecentPositions()) {
+                // Kích thước của "hạt" vệt sáng (nhỏ dần)
+                double trailRadius = initialRadius * (1.0 - (double) i / trailSize);
+                // Độ mờ của "hạt" (mờ dần)
+                double opacity = 0.5 * (1.0 - (double) i / trailSize);
+
+                // Chọn màu cho vệt sáng
+                if (state.isMoltenBallActive()) {
+                    gc.setFill(Color.rgb(255, 100, 0, opacity)); // Màu cam cho molten ball
+                } else {
+                    gc.setFill(Color.rgb(173, 216, 230, opacity)); // Màu xanh nhạt cho bóng thường
+                }
+
+                // Vẽ "hạt" của vệt sáng
+                gc.fillOval(pos.getX() - trailRadius, pos.getY() - trailRadius, trailRadius * 2, trailRadius * 2);
+                i++;
+            }
+
             double tmpX = ball.getX() - ball.getRadius();
             double tmpY = ball.getY() - ball.getRadius();
             double tmpWidth = ball.getRadius() * 2 ;
