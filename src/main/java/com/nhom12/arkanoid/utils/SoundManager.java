@@ -28,13 +28,15 @@ public class SoundManager {
 
         // Tải nhạc nền
         try {
-            URL url = getClass().getResource("/Sound/background.m4a");
-            URL url1 = getClass().getResource("/Sound/detective.mp3");
+            URL url = getClass().getResource("/Sound/background1.mp3");
+            URL url1 = getClass().getResource("/Sound/level1.mp3");
+
             backgroundMusic = new MediaPlayer(new Media(url.toExternalForm()));
             playingMusic = new MediaPlayer(new Media(url1.toExternalForm()));
             backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);
             playingMusic.setCycleCount(MediaPlayer.INDEFINITE);
         } catch (Exception e) {
+            e.printStackTrace();
             System.err.println("Lỗi tải nhạc nền: " + e.getMessage());
             backgroundMusic = null;
         }

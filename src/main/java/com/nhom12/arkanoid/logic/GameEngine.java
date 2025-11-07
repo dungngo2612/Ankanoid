@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -57,8 +58,15 @@ public class GameEngine {
 
         //Cập nhật laser
         updateLasers();
+        // Thêm logic kiểm tra thời gian molten ball
+        if (gameState.isMoltenBallActive()) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime > gameState.getMoltenBallEndTime()) {
+                gameState.setMoltenBallActive(false);
+                gameState.setMoltenBallEndTime(0);
+            }
+        }
 
-        // Thêm logic kiểm tra thời gian laser
         if (gameState.isPaddleHasLaser()) {
             long currentTime = System.currentTimeMillis();
             if (currentTime > gameState.getLaserEndTime()) {
