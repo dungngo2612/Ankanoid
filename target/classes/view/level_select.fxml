@@ -20,54 +20,54 @@
         </image>
     </ImageView>
 
-    <Button fx:id="level1Button" layoutX="197.0" layoutY="82.0" mnemonicParsing="false" onAction="#onLevel1Clicked" styleClass="map-level-button">
-      <graphic>
-            <ImageView fitHeight="169.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true">
+    <Button fx:id="level1Button" layoutX="548.0" layoutY="36.0" mnemonicParsing="false" onAction="#onLevel1Clicked" prefHeight="94.0" prefWidth="86.0" styleClass="map-level-button">
+        <graphic>
+            <ImageView fitHeight="81.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../Image/Level1.png" />
                 </image>
             </ImageView>
-      </graphic></Button>
+        </graphic></Button>
 
-    <Button fx:id="level2Button" layoutX="475.0" layoutY="82.0" mnemonicParsing="false" onAction="#onLevel2Clicked" styleClass="map-level-button">
-      <graphic>
-            <ImageView fitHeight="169.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+    <Button fx:id="level2Button" layoutX="200.0" layoutY="205.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLevel2Clicked" prefHeight="94.0" prefWidth="96.0" styleClass="map-level-button">
+        <graphic>
+            <ImageView fitHeight="87.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../Image/Level2.png" />
                 </image>
             </ImageView>
-      </graphic></Button>
+        </graphic></Button>
 
-    <Button fx:id="level3Button" layoutX="196.0" layoutY="312.0" mnemonicParsing="false" onAction="#onLevel3Clicked" styleClass="map-level-button">
-      <graphic>
-            <ImageView fitHeight="169.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true">
+    <Button fx:id="level3Button" layoutX="290.0" layoutY="374.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLevel3Clicked" prefHeight="87.0" prefWidth="96.0" styleClass="map-level-button">
+        <graphic>
+            <ImageView fitHeight="88.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../Image/Level3.png" />
                 </image>
             </ImageView>
-      </graphic></Button>
+        </graphic></Button>
 
-    <Button fx:id="level4Button" contentDisplay="CENTER" layoutX="463.0" layoutY="314.0" mnemonicParsing="false" prefHeight="114.0" prefWidth="114.0" styleClass="map-level-button" text="?" textFill="#d4c0c0">
-      <font>
-         <Font size="30.0" />
-      </font>
+    <Button fx:id="level4Button" contentDisplay="CENTER" layoutX="548.0" layoutY="430.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="87.0" prefWidth="96.0" styleClass="map-level-button" text="?" textFill="#d4c0c0">
+        <font>
+            <Font size="30.0" />
+        </font>
         <graphic>
-            <ImageView fitHeight="169.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="90.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../Image/Level4.png" />
                 </image>
-            <effect>
-               <ColorAdjust brightness="-0.5" />
-            </effect>
+                <effect>
+                    <ColorAdjust brightness="-0.5" />
+                </effect>
             </ImageView>
         </graphic></Button>
 
     <Button layoutX="351.0" layoutY="497.0" mnemonicParsing="false" onAction="#onBackClicked" styleClass="map-level-button">
-      <graphic>
+        <graphic>
             <ImageView fitHeight="102.0" fitWidth="150.0" preserveRatio="true">
                 <image>
                     <Image url="@../Image/Back1-removebg-preview.png" /> </image>
             </ImageView>
-      </graphic>
+        </graphic>
     </Button>
 </AnchorPane>
