@@ -25,8 +25,8 @@ public class Constants {
 
     public static final int MAX_LIVES = 3;
 
-    public static final double LASER_BULLET_WIDTH = 5;
-    public static final double LASER_BULLET_HEIGHT = 15;
+    public static final double LASER_BULLET_WIDTH = 50;
+    public static final double LASER_BULLET_HEIGHT = 80;
     public static final double LASER_BULLET_SPEED = -8.0;
     // Thời gian hiệu lực laze (3000ms = 3 giây)
     public static final long LASER_DURATION_MS = 3000;
