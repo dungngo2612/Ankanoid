@@ -9,7 +9,10 @@ public class EvilMap {
     private List<Brick> bricks= new ArrayList<>();
     private long lastPushTime = System.currentTimeMillis();
     private final double deathLineY = Constants.SCENE_HEIGHT - 100;
+    private int pushCount = 0;
+    private static final int MAX_PUSHES = 15;
 
+    private int triangleIndex = 0;
     private boolean isInverted = true;
 
     public EvilMap() {
@@ -35,28 +38,42 @@ public class EvilMap {
     // ktra xem có cần đùn gạch không
     public void update() {
         long now = System.currentTimeMillis();
-        if(now - lastPushTime >= 30000) {
+        if(now - lastPushTime >= 30000 && pushCount < MAX_PUSHES) {
             pushBrickDown();
             lastPushTime = now;
         }
     }
 
     public void pushBrickDown() {
-        for (Brick brick: bricks) {
-            brick.setY(brick.getY() + Constants.BRICK_GAP + Constants.BRICK_HEIGHT);
+        for (Brick brick : bricks) {
+            brick.setY(brick.getY() + Constants.BRICK_HEIGHT + Constants.BRICK_GAP);
         }
 
-        Brick[] newRow = generateTriangleRow(isInverted, 0);
-        isInverted = !isInverted;
+        Brick[] newRow = generateTriangleRow(isInverted, triangleIndex);
+
         double y = Constants.BRICK_GAP + 30;
         for (int col = 0; col < Constants.BRICK_COLS; col++) {
             if (newRow[col] != null) {
                 Brick b = newRow[col];
                 b.setY(y);
-                bricks.add(0, b); // Thêm vào đầu danh sách
+                bricks.add(0, b);
             }
         }
 
+        // Cập nhật index theo chiều tam giác
+        if (isInverted) {
+            triangleIndex++;
+            if (triangleIndex >= Constants.BRICK_ROWS) {
+                triangleIndex = Constants.BRICK_ROWS - 1;
+                isInverted = false;
+            }
+        } else {
+            triangleIndex--;
+            if (triangleIndex < 0) {
+                triangleIndex = 0;
+                isInverted = true;
+            }
+        }
     }
 
     private Brick[] generateTriangleRow(boolean isInverted, int rowIndex) {
