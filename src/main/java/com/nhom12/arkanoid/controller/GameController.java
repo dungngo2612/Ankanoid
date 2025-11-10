@@ -28,6 +28,7 @@ import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 public class GameController {
 
@@ -132,6 +133,8 @@ public class GameController {
         gameLoop.stop(); // Dừng game trước khi chuyển cảnh
         SoundManager.getInstance().stopPlayingMusic();
         ScreenManager.switchScene("/view/menu.fxml", "Arkanoid");
+        Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
+        prefs.putBoolean("evilMode", false); // Reset để lần sau không bị ảnh hưởng
     }
 
     /**
@@ -331,7 +334,17 @@ public class GameController {
         }
 
         // Vẽ gạch
-        List<Brick> list = state.getBricks();
+        List<Brick> list;
+        if (state.isEvilMode()) {
+            list = state.getEvilMap().getBricks();
+
+            // Vẽ death line màu đỏ
+            gc.setStroke(Color.RED);
+            gc.setLineWidth(2);
+            gc.strokeLine(0, state.getEvilMap().getDeathLineY(), Constants.SCENE_WIDTH, state.getEvilMap().getDeathLineY());
+        } else {
+            list = state.getBricks();
+        }
         for (Brick brick : list) {
             Image brickImg = null;
             if (brick.isDestroyed()) {

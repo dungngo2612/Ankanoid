@@ -40,7 +40,7 @@ public class Items {
         ItemType[] itemType = ItemType.values();
         Random rand = new Random();
 //        this.type = itemType[rand.nextInt(itemType.length)];
-        this.type = ItemType.SPEED_DOWN;
+        this.type = ItemType.MOLTEN_BALL;
     }
 
     public void removeItem() {

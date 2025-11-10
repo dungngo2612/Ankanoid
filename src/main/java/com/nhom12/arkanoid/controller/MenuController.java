@@ -14,6 +14,7 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 public class MenuController implements Initializable {
 
@@ -102,6 +103,19 @@ public class MenuController implements Initializable {
         // BÂY GIỜ CHUYỂN TỚI MÀN HÌNH CHỌN LEVEL
         showModeSelectionOnReturn = true;
         ScreenManager.switchScene("/view/level_select.fxml","Select Your Case");
+    }
+
+    @FXML
+    private void onEvilModeClicked() {
+        System.out.println("Evil Mode selected!");
+
+        Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
+        prefs.putBoolean("evilMode", true); // bật chế độ Evil
+
+        SoundManager.getInstance().stopBackgroundMusic();
+        SoundManager.getInstance().playPlayingMusic();
+
+        ScreenManager.switchScene("/view/game.fxml", "Evil Mode");
     }
 
     @FXML

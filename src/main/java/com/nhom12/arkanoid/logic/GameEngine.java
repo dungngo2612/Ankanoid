@@ -87,6 +87,13 @@ public class GameEngine {
             }
         }
 
+        if (gameState.isEvilMode()) {
+            gameState.getEvilMap().update();
+            if (gameState.getEvilMap().isGameOver()) {
+                gameState.setGameOver(true);
+            }
+        }
+
         if (!gameState.isBallLaunched()) {
             gameState.getMainBall().setX(
                     gameState.getPaddle().getX() + gameState.getPaddle().getWidth() / 2

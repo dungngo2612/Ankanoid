@@ -50,6 +50,7 @@ public class LevelSelectController implements Initializable {
         // Lưu lại lựa chọn độ khó
         Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
         prefs.put("difficulty", "Easy");
+        prefs.putBoolean("evilMode", false); // Tắt Evil Mode khi chọn Challenge
 
         startGame();
     }
@@ -60,6 +61,7 @@ public class LevelSelectController implements Initializable {
         System.out.println("Level 2 (Medium) selected");
         Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
         prefs.put("difficulty", "Medium");
+        prefs.putBoolean("evilMode", false); // Tắt Evil Mode khi chọn Challenge
 
         startGame();
     }
@@ -70,6 +72,7 @@ public class LevelSelectController implements Initializable {
         System.out.println("Level 3 (Hard) selected");
         Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
         prefs.put("difficulty", "Hard");
+        prefs.putBoolean("evilMode", false); // Tắt Evil Mode khi chọn Challenge
 
         startGame();
     }

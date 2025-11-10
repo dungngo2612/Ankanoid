@@ -89,7 +89,7 @@
             </graphic>
             </Button>
 
-            <Button styleClass="image-button" >
+            <Button onAction="#onEvilModeClicked" styleClass="image-button">
                 <graphic>
                     <ImageView fitWidth="170.0" preserveRatio="true">
                         <image>

@@ -37,6 +37,11 @@ public class GameState {
 
     private boolean allowWinCheck = true;
 
+    private EvilMap map = new EvilMap();
+    private boolean isEvilMode = false;
+    private List<Brick> bricksEvil; // dùng cho ChallengeMode
+
+
     public boolean isAllowWinCheck() { return allowWinCheck; }
     public void setAllowWinCheck(boolean allowWinCheck) { this.allowWinCheck = allowWinCheck; }
     @FXML
@@ -67,6 +72,14 @@ public class GameState {
         Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
         String difficulty = prefs.get("difficulty", "Easy");
         LevelManager.LevelDifficulty diff;
+        Preferences prefss = Preferences.userNodeForPackage(SettingsController.class);
+        boolean evilMode = prefss.getBoolean("evilMode", false);
+
+        if (evilMode) {
+            setEvilMode(true);
+            System.out.println("✅ Evil Mode activated!");
+            return; // không cần gọi createLevel nữa
+        }
 
         switch(difficulty) {
             case "Easy":
@@ -118,6 +131,16 @@ public class GameState {
         }
     }
 
+    public void setEvilMode(boolean value) {
+        isEvilMode = value;
+        if (value) {
+            map = new EvilMap();
+            map.initMap();
+        } else {
+            bricks = LevelManager.createLevel(LevelManager.LevelDifficulty.NORMAL); // hoặc EASY/HARD
+        }
+    }
+
     public List<Ball> getBalls() {
         return ball;
     }
@@ -135,7 +158,7 @@ public class GameState {
     }
 
     public List<Brick> getBricks() {
-        return bricks;
+        return isEvilMode ? map.getBricks() : bricks;
     }
 
     public int getScore() {
@@ -175,12 +198,22 @@ public class GameState {
         this.score += points;
     }
     public void checkWinCondition() {
-        if (bricks.stream().filter(Brick::isDestructible).allMatch(Brick::isDestroyed)) {
+        List<Brick> currentBricks = isEvilMode ? map.getBricks() : bricks;
+        if (currentBricks.stream().filter(Brick::isDestructible).allMatch(Brick::isDestroyed)) {
             isGameWon = true;
         }
     }
+    public void setGameOver(boolean value) {
+        this.isGameOver = value;
+    }
 
+    public EvilMap getEvilMap() {
+        return map;
+    }
 
+    public boolean isEvilMode() {
+        return isEvilMode;
+    }
     public boolean isPaddleHasLaser() {
         return paddleHasLaser;
     }
