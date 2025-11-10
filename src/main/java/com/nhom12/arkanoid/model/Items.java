@@ -40,7 +40,7 @@ public class Items {
         ItemType[] itemType = ItemType.values();
         Random rand = new Random();
 //        this.type = itemType[rand.nextInt(itemType.length)];
-        this.type = ItemType.LASER_PADDLE;
+        this.type = ItemType.PADDLE_SHRINK;
     }
 
     public void removeItem() {
