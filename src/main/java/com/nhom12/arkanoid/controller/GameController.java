@@ -359,7 +359,13 @@ public class GameController {
             } else if (brick instanceof UnbreakableBrick) {
                 brickImg = ImageManager.getInstance().showImage("impassable");
             } else if (brick instanceof StrongBrick) {
-                brickImg = ImageManager.getInstance().showImage("strong_brick");
+                if (brick.getHealth() == 3) {
+                    brickImg = ImageManager.getInstance().showImage("strong_brick1");
+                } else if (brick.getHealth() == 2) {
+                    brickImg = ImageManager.getInstance().showImage("strong_brick2");
+                } else if (brick.getHealth() == 1) {
+                    brickImg = ImageManager.getInstance().showImage("strong_brick3");
+                }
             } else if (brick instanceof ExplosiveBrick) {
                 // Tạm thời dùng "brick1"
                 brickImg = ImageManager.getInstance().showImage("explosive_brick");

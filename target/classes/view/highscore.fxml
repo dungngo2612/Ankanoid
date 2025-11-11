@@ -31,9 +31,7 @@
             </font>
         </Label>
 
-
         <!--Button text="Clear High Scores" onAction="#onClearClicked"/>-->
-
 
         <Button onAction="#onBackClicked" styleClass="image-button">
             <graphic>

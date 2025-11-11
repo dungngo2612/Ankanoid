@@ -20,39 +20,48 @@
         </image>
     </ImageView>
 
-    <Button fx:id="level1Button" layoutX="548.0" layoutY="36.0" mnemonicParsing="false" onAction="#onLevel1Clicked" prefHeight="94.0" prefWidth="86.0" styleClass="map-level-button">
-        <graphic>
+    <Button fx:id="level1Button" alignment="CENTER" contentDisplay="TOP" layoutX="282.0" layoutY="365.0" mnemonicParsing="false" onAction="#onLevel1Clicked" prefHeight="94.0" prefWidth="86.0" styleClass="map-level-button" text="Level 1">
+      <graphic>
             <ImageView fitHeight="81.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../Image/Level1.png" />
                 </image>
             </ImageView>
-        </graphic></Button>
+      </graphic>
+      <font>
+         <Font name="Elephant Italic" size="20.0" />
+      </font></Button>
 
-    <Button fx:id="level2Button" layoutX="200.0" layoutY="205.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLevel2Clicked" prefHeight="94.0" prefWidth="96.0" styleClass="map-level-button">
-        <graphic>
+    <Button fx:id="level2Button" alignment="CENTER" contentDisplay="TOP" layoutX="453.0" layoutY="249.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLevel2Clicked" prefHeight="125.0" prefWidth="96.0" styleClass="map-level-button" text="Level 2" textAlignment="CENTER">
+      <graphic>
             <ImageView fitHeight="87.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../Image/Level2.png" />
                 </image>
             </ImageView>
-        </graphic></Button>
+      </graphic>
+      <font>
+         <Font name="Elephant Italic" size="20.0" />
+      </font></Button>
 
-    <Button fx:id="level3Button" layoutX="290.0" layoutY="374.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLevel3Clicked" prefHeight="87.0" prefWidth="96.0" styleClass="map-level-button">
-        <graphic>
+    <Button fx:id="level3Button" contentDisplay="TOP" layoutX="206.0" layoutY="173.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLevel3Clicked" prefHeight="126.0" prefWidth="96.0" styleClass="map-level-button" text="Level 3" textAlignment="CENTER">
+      <font>
+         <Font name="Elephant Italic" size="20.0" />
+      </font>
+      <graphic>
             <ImageView fitHeight="88.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../Image/Level3.png" />
                 </image>
             </ImageView>
-        </graphic></Button>
+      </graphic></Button>
 
-    <Button fx:id="level4Button" contentDisplay="CENTER" layoutX="548.0" layoutY="430.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="87.0" prefWidth="96.0" styleClass="map-level-button" text="?" textFill="#d4c0c0">
+    <Button fx:id="level4Button" alignment="CENTER" contentDisplay="TOP" layoutX="501.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="126.0" prefWidth="96.0" styleClass="map-level-button" text="Level 4">
         <font>
-            <Font size="30.0" />
+            <Font name="Elephant Italic" size="20.0" />
         </font>
-        <graphic>
-            <ImageView fitHeight="90.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
+      <graphic>
+            <ImageView fitHeight="115.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../Image/Level4.png" />
                 </image>
@@ -60,7 +69,7 @@
                     <ColorAdjust brightness="-0.5" />
                 </effect>
             </ImageView>
-        </graphic></Button>
+      </graphic></Button>
 
     <Button layoutX="351.0" layoutY="497.0" mnemonicParsing="false" onAction="#onBackClicked" styleClass="map-level-button">
         <graphic>
