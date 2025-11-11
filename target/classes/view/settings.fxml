@@ -10,22 +10,26 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <StackPane fx:id="settings" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="com.nhom12.arkanoid.controller.SettingsController">
 
     <stylesheets>
         <URL value="@menu.css" />
     </stylesheets>
 
-    <!-- Background video -->
-    <MediaView fx:id="mediaView" preserveRatio="true" />
-
+    <ImageView fitHeight="600.0" fitWidth="800.0" preserveRatio="false">
+        <image>
+            <Image url="@../Image/back_ground_menu.png" />
+        </image>
+    </ImageView>
     <!-- Overlay UI -->
     <VBox alignment="CENTER" spacing="20">
         <!-- Settings title -->
         <Label text="SETTINGS" textFill="gold">
             <style>-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);</style>
             <font>
-                <Font name="Serif" size="48" />
+                <Font name="Comic Sans MS" size="48" />
             </font>
         </Label>
 
@@ -34,9 +38,11 @@
             <padding>
                 <Insets bottom="20" left="20" right="20" top="20" />
             </padding>
-            <CheckBox fx:id="musicCheckBox" style="-fx-font-size: 20px; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);" text="Enable Music" textFill="gold" />
+            <CheckBox fx:id="musicCheckBox" style="-fx-font-size: 20px; -fx-font-family: 'Comic Sans MS';
+                        -fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);" text="Enable Music" textFill="black" />
 
-            <CheckBox fx:id="sfxCheckBox" style="-fx-font-size: 20px; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);" text="Enable Sound Effects" textFill="gold" />
+            <CheckBox fx:id="sfxCheckBox" style="-fx-font-size: 20px; -fx-font-family: 'Comic Sans MS';
+             -fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);" text="Enable Sound Effects" textFill="gold" />
 
             <Button onAction="#onBackClicked" styleClass="button" text="Back" />
 
