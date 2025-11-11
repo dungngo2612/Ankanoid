@@ -38,7 +38,7 @@ public class EvilMap {
     // ktra xem có cần đùn gạch không
     public void update() {
         long now = System.currentTimeMillis();
-        if(now - lastPushTime >= 3000 && pushCount < MAX_PUSHES) {
+        if(now - lastPushTime >= 12000 && pushCount < MAX_PUSHES) {
             pushBrickDown();
             lastPushTime = now;
         }

@@ -147,16 +147,24 @@ public class CollisionManager {
 
     // Nếu ball chạm tường trái, phải hay là bên trên sẽ bị bật lại
     public void handleWallCollision(Ball ball) {
-        // Tường trái và phải
-        if (ball.getX() - ball.getRadius() <= 0 || ball.getX() + ball.getRadius() >= Constants.SCENE_WIDTH) {
+        // tường trái
+        if (ball.getX() - ball.getRadius() <= 0) {
             SoundManager.getInstance().playEffect("ball_bounce");
             ball.reverseX();
+            ball.setX(ball.getRadius()); // đẩy bóng ra khỏi tường trái
         }
-        // Tường trên
+        // tường phải
+        else if (ball.getX() + ball.getRadius() >= Constants.SCENE_WIDTH) {
+            SoundManager.getInstance().playEffect("ball_bounce");
+            ball.reverseX();
+            ball.setX(Constants.SCENE_WIDTH - ball.getRadius()); // đẩy bóng ra khỏi tường phải
+        }
+
+        // tường trên
         if (ball.getY() - ball.getRadius() <= 0) {
             SoundManager.getInstance().playEffect("ball_bounce");
             ball.reverseY();
+            ball.setY(ball.getRadius()); // dẩy bóng ra khỏi tường trên
         }
-
     }
 }
