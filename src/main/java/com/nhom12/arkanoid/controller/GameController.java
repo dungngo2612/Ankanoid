@@ -355,11 +355,11 @@ public class GameController {
             double x = brick.getX();
             double y = brick.getY();
             if (brick instanceof NormalBrick) {
-                brickImg = ImageManager.getInstance().showImage("brick1");
+                brickImg = ImageManager.getInstance().showImage("normal_brick");
             } else if (brick instanceof UnbreakableBrick) {
                 brickImg = ImageManager.getInstance().showImage("impassable");
             } else if (brick instanceof StrongBrick) {
-                brickImg = ImageManager.getInstance().showImage("brick2");
+                brickImg = ImageManager.getInstance().showImage("strong_brick");
             } else if (brick instanceof ExplosiveBrick) {
                 // Tạm thời dùng "brick1"
                 brickImg = ImageManager.getInstance().showImage("explosive_brick");

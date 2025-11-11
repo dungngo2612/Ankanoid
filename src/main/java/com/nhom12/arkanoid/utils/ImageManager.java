@@ -14,7 +14,7 @@ public class ImageManager {
         images = new HashMap<>();
         images.put("default", new Image("Image/default.png"));
         images.put("background", new Image("Image/backgrounds.png"));
-        images.put("brick1", new Image("Image/Brick1.png"));
+        images.put("normal_brick", new Image("Image/normal_brick.png"));
         images.put("paddle", new Image("Image/Paddles.png"));
         images.put("ball", new Image("Image/Ball.png"));
         images.put("extra_life", new Image("Image/Extra_Life.png"));
@@ -27,7 +27,7 @@ public class ImageManager {
         images.put("speed_up", new Image("Image/SpeedUp.png"));
         images.put("speed_down", new Image("Image/SpeedDown.png"));
         images.put("impassable", new Image("Image/Impassable_brick.png"));
-        images.put("brick2", new Image("Image/Brick2_normal.png"));
+        images.put("strong_brick", new Image("Image/Brick2_normal.png"));
         images.put("explosive_brick", new Image("Image/explosive.png"));
 
     }
