@@ -26,8 +26,8 @@
     <!-- Overlay UI -->
     <VBox alignment="CENTER" spacing="20">
         <!-- Settings title -->
-        <Label text="SETTINGS" textFill="gold">
-            <style>-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);</style>
+        <Label text="SETTINGS" textFill="black">
+            <style>-fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);</style>
             <font>
                 <Font name="Comic Sans MS" size="48" />
             </font>
@@ -42,10 +42,17 @@
                         -fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);" text="Enable Music" textFill="black" />
 
             <CheckBox fx:id="sfxCheckBox" style="-fx-font-size: 20px; -fx-font-family: 'Comic Sans MS';
-             -fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);" text="Enable Sound Effects" textFill="gold" />
+             -fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);" text="Enable Sound Effects" textFill="black" />
 
-            <Button onAction="#onBackClicked" styleClass="button" text="Back" />
-
+            <Button onAction="#onBackClicked" styleClass="image-button">
+                <graphic>
+                    <ImageView fitWidth="500.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../Image/back.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
         </VBox>
     </VBox>
 </StackPane>
