@@ -5,10 +5,10 @@ public class Brick {
     private double y;
     private double width;
     private double height;
-    private int health;
+    private double health;
     private boolean isDestroyed;
 
-    public Brick(double x, double y, double width, double height, int health) {
+    public Brick(double x, double y, double width, double height, double health) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -18,8 +18,8 @@ public class Brick {
     }
 
     //Giảm máu khi đánh trúng
-    public void hit() {
-        this.health--;
+    public void hit(double damageAmount) {
+        this.health -= damageAmount;
         if (this.health <= 0) {
             this.isDestroyed = true;
         }
@@ -57,15 +57,19 @@ public class Brick {
         this.height = height;
     }
 
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = health;
     }
 
     public boolean isDestroyed() {
         return isDestroyed;
+    }
+
+    public boolean isDestructible() {
+        return true; //mặc đinh là gạch có thể phá
     }
 }

@@ -11,6 +11,17 @@ import java.net.URL;
 public class ScreenManager {
 
     private static Stage primaryStage;
+    private static Object data;
+
+    private static Scene mainScene;
+
+    public static Object getData() {
+        return data;
+    }
+
+    public static void setData(Object data) {
+        ScreenManager.data = data;
+    }
 
     // Initialize once in Main
     public static void setStage(Stage stage) {
@@ -25,11 +36,20 @@ public class ScreenManager {
             }
 
             Parent root = FXMLLoader.load(resource);
-            Scene scene = new Scene(root, Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT);
+            if (mainScene == null) {
+                // Nếu là lần chạy đầu tiên, tạo Scene mới
+                mainScene = new Scene(root, Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT);
+                primaryStage.setScene(mainScene);
+            } else {
+                // Nếu Scene đã tồn tại, chỉ thay đổi nội dung (root) của nó
+                mainScene.setRoot(root);
+            }
 
             primaryStage.setTitle(title);
-            primaryStage.setScene(scene);
             primaryStage.show();
+
+            // Yêu cầu focus vào root mới để nhận sự kiện bàn phím (quan trọng cho game)
+            root.requestFocus();
 
         } catch (IOException e) {
             e.printStackTrace();

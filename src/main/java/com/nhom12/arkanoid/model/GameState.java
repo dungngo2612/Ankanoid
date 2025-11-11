@@ -8,24 +8,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.prefs.Preferences;
 
-import com.nhom12.arkanoid.logic.GameEngine;
-import com.nhom12.arkanoid.model.Brick;
-import com.nhom12.arkanoid.model.GameState;
-import com.nhom12.arkanoid.model.Paddle;
-import com.nhom12.arkanoid.model.Ball;
-import com.nhom12.arkanoid.utils.Constants;
-import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 
 public class GameState {
-    private Ball ball;
+    private List<Ball> ball;
     private Paddle paddle;
     private List<Brick> bricks;
     private int score;
@@ -39,6 +28,22 @@ public class GameState {
     private List<LaserBullet> bullets = new ArrayList<>();
     // Biến lưu thời điểm hết hiệu ứng
     private long laserEndTime = 0;
+    // Biến lưu thời điểm được phép bắn laze tiếp theo
+    private long nextLaserFireTime = 0;
+
+    //
+    private boolean moltenBallActive = false;
+    private long moltenBallEndTime = 0;
+
+    private boolean allowWinCheck = true;
+
+    private EvilMap map = new EvilMap();
+    private boolean isEvilMode = false;
+    private List<Brick> bricksEvil; // dùng cho ChallengeMode
+
+
+    public boolean isAllowWinCheck() { return allowWinCheck; }
+    public void setAllowWinCheck(boolean allowWinCheck) { this.allowWinCheck = allowWinCheck; }
     @FXML
     private Canvas gameCanvas;
     @FXML
@@ -56,7 +61,8 @@ public class GameState {
                 Constants.PADDLE_HEIGHT
         );
         // Vị trí sẽ được reset
-        this.ball = new Ball(0, 0, Constants.BALL_RADIUS, 0, 0);
+        this.ball = new ArrayList<>();
+        this.ball.add(new Ball(0, 0, Constants.BALL_RADIUS, 0, 0));
         this.bricks = new ArrayList<>();
         this.score = 0;
         this.lives = 3;
@@ -66,6 +72,14 @@ public class GameState {
         Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
         String difficulty = prefs.get("difficulty", "Easy");
         LevelManager.LevelDifficulty diff;
+        Preferences prefss = Preferences.userNodeForPackage(SettingsController.class);
+        boolean evilMode = prefss.getBoolean("evilMode", false);
+
+        if (evilMode) {
+            setEvilMode(true);
+            System.out.println("✅ Evil Mode activated!");
+            return; // không cần gọi createLevel nữa
+        }
 
         switch(difficulty) {
             case "Easy":
@@ -94,11 +108,12 @@ public class GameState {
 
     // Đặt lại bóng về vị trí trên thanh đỡ
     public void resetBall() {
-        ball.setX(paddle.getX() + paddle.getWidth() / 2);
-        ball.setY(paddle.getY() - ball.getRadius());
-        ball.setDx(0);
-        ball.setDy(0);
+        ball.clear();
+        ball.add(new Ball(paddle.getX() + paddle.getWidth() / 2,
+                paddle.getY() - Constants.BALL_RADIUS, Constants.BALL_RADIUS, 0, 0));
         setBallLaunched(false);
+        setMoltenBallActive(false);
+        setMoltenBallEndTime(0);
         // Tắt laze khi reset
         setPaddleHasLaser(false);
         bullets.clear();
@@ -110,14 +125,28 @@ public class GameState {
         double randomNumber = rand.nextDouble(-Constants.BALL_SPEED, Constants.BALL_SPEED);
         if (!isBallLaunched()) {
             // Bắn lên trên
-            ball.setDx(randomNumber);
-            ball.setDy(-Constants.BALL_SPEED);
+            ball.get(0).setDx(randomNumber);
+            ball.get(0).setDy(-Constants.BALL_SPEED);
             setBallLaunched(true);
         }
     }
 
-    public Ball getBall() {
+    public void setEvilMode(boolean value) {
+        isEvilMode = value;
+        if (value) {
+            map = new EvilMap();
+            map.initMap();
+        } else {
+            bricks = LevelManager.createLevel(LevelManager.LevelDifficulty.NORMAL); // hoặc EASY/HARD
+        }
+    }
+
+    public List<Ball> getBalls() {
         return ball;
+    }
+
+    public Ball getMainBall() {
+        return ball.get(0);
     }
 
     public void setLives(int lives) {
@@ -129,7 +158,7 @@ public class GameState {
     }
 
     public List<Brick> getBricks() {
-        return bricks;
+        return isEvilMode ? map.getBricks() : bricks;
     }
 
     public int getScore() {
@@ -167,13 +196,24 @@ public class GameState {
 
     public void incrementScore(int points) {
         this.score += points;
-        // Kiểm tra điều kiện thắng game
-        if (bricks.stream().allMatch(Brick::isDestroyed)) {
+    }
+    public void checkWinCondition() {
+        List<Brick> currentBricks = isEvilMode ? map.getBricks() : bricks;
+        if (currentBricks.stream().filter(Brick::isDestructible).allMatch(Brick::isDestroyed)) {
             isGameWon = true;
         }
     }
+    public void setGameOver(boolean value) {
+        this.isGameOver = value;
+    }
 
+    public EvilMap getEvilMap() {
+        return map;
+    }
 
+    public boolean isEvilMode() {
+        return isEvilMode;
+    }
     public boolean isPaddleHasLaser() {
         return paddleHasLaser;
     }
@@ -192,5 +232,29 @@ public class GameState {
 
     public void setLaserEndTime(long laserEndTime) {
         this.laserEndTime = laserEndTime;
+    }
+
+    public long getNextLaserFireTime() {
+        return nextLaserFireTime;
+    }
+
+    public void setNextLaserFireTime(long nextLaserFireTime) {
+        this.nextLaserFireTime = nextLaserFireTime;
+    }
+
+    public boolean isMoltenBallActive() {
+        return moltenBallActive;
+    }
+
+    public void setMoltenBallActive(boolean moltenBallActive) {
+        this.moltenBallActive = moltenBallActive;
+    }
+
+    public long getMoltenBallEndTime() {
+        return moltenBallEndTime;
+    }
+
+    public void setMoltenBallEndTime(long moltenBallEndTime) {
+        this.moltenBallEndTime = moltenBallEndTime;
     }
 }

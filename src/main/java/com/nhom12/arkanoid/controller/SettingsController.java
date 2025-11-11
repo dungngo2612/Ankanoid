@@ -36,6 +36,7 @@ public class SettingsController implements Initializable {
     private ComboBox<String> diff;
 
     Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
+    private MediaPlayer player;
 
     String difficulty = prefs.get("difficulty","Easy");
     boolean musicEnabled = prefs.getBoolean("musicEnabled", true);
@@ -44,11 +45,11 @@ public class SettingsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        URL mediaUrl = getClass().getResource("/test.mp4");
+        URL mediaUrl = getClass().getResource("/test1.mp4");
         Objects.requireNonNull(mediaUrl, "Video file not found!");
 
         Media media = new Media(mediaUrl.toExternalForm());
-        MediaPlayer player = new MediaPlayer(media);
+        this.player = new MediaPlayer(media);
         player.setCycleCount(MediaPlayer.INDEFINITE);
         player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
         player.setAutoPlay(true);
@@ -80,9 +81,20 @@ public class SettingsController implements Initializable {
 
     }
 
+    private void stopVideo() {
+        if (player != null) {
+            player.stop();  // Dừng video
+            player.dispose(); // Hủy tài nguyên
+        }
+        if (mediaView != null) {
+            mediaView.setMediaPlayer(null); // Gỡ player khỏi view
+        }
+    }
+
     // 🎮 Button actions
     @FXML
     private void onBackClicked() {
+        stopVideo();
         System.out.println("Saving settings...");
         prefs.putBoolean("musicEnabled", musicCheckBox.isSelected());
         prefs.putBoolean("sfxEnabled", sfxCheckBox.isSelected());

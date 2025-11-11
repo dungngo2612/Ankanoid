@@ -1,0 +1,100 @@
+/* CSS cho các nút chọn level */
+.level-button {
+    -fx-background-color: rgba(10, 10, 10, 0.75); /* Nền đen mờ */
+    -fx-background-radius: 60; /* Bo tròn để tạo hình tròn */
+
+    -fx-border-color: #A07C54;  /* Viền màu đồng */
+    -fx-border-width: 3;
+    -fx-border-radius: 60;      /* Bo tròn viền */
+
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: "Serif";
+    -fx-text-alignment: CENTER;
+
+    -fx-pref-width: 120px;  /* Kích thước cố định */
+    -fx-pref-height: 120px;
+    -fx-cursor: hand;
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 2);
+}
+
+.level-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.9);
+    -fx-border-color: #FFD700; /* Viền màu vàng sáng khi hover */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Nút Back (lấy từ menu.css) */
+.back-button {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-background-color: rgba(0,0,0,0.6);
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.back-button:hover {
+    -fx-background-color: rgba(255,215,0,0.9);
+    -fx-text-fill: black;
+}
+
+/* CSS cho các nút level sử dụng hình ảnh */
+.map-level-button {
+    -fx-background-color: transparent; /* Nền trong suốt */
+    -fx-padding: 0;                   /* Không có padding */
+    -fx-cursor: hand;
+    /* Xóa border và các thuộc tính khác của button mặc định nếu có */
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+}
+
+.map-level-button:hover {
+    -fx-scale-x: 1.05; /* Hiệu ứng phóng to khi hover */
+    -fx-scale-y: 1.05;
+    /* Thêm hiệu ứng sáng viền nếu bạn muốn, ví dụ: */
+    -fx-effect: dropshadow(gaussian, rgba(255,215,0,0.7), 10, 0, 0, 0);
+}
+
+/* Các nút điều hướng dưới cùng (SETTINGS, JOURNAL, BACK) */
+.bottom-nav-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5;
+    -fx-border-color: #A07C54; /* Màu viền đồng */
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+    -fx-cursor: hand;
+}
+
+.bottom-nav-button:hover {
+    -fx-background-color: rgba(255,215,0,0.2); /* Nền vàng nhạt khi hover */
+    -fx-border-color: #FFD700; /* Viền vàng sáng khi hover */
+}
+
+/* ... (giữ nguyên các quy tắc CSS khác của bạn) ... */
+
+/* Tùy chỉnh Tooltip */
+.tooltip {
+    -fx-background-color: linear-gradient(to bottom, #4b341f, #2d1d0f); /* Nền gradient nâu đậm */
+    -fx-text-fill: #FFD700; /* Màu chữ vàng đồng */
+    -fx-font-size: 14px;
+    -fx-font-family: "Serif"; /* Đảm bảo font này có sẵn hoặc thay bằng font khác */
+    -fx-padding: 10px 15px;
+    -fx-border-color: #A07C54; /* Viền màu đồng */
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px; /* Bo tròn viền */
+    -fx-background-radius: 8px; /* Bo tròn nền */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 15, 0, 0, 0); /* Hiệu ứng đổ bóng */
+}
+
+/* (Tùy chọn) Tùy chỉnh mũi tên của Tooltip nếu bạn muốn */
+.tooltip .arrow {
+    -fx-background-color: #2d1d0f; /* Màu khớp với phần dưới gradient */
+}
+
+.tooltip .arrow-button {
+    -fx-background-color: #4b341f; /* Màu khớp với phần trên gradient */
+}

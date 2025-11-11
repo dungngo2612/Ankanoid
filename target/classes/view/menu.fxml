@@ -1,45 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.text.Font?>
-<?import javafx.geometry.Insets?>
-<?import javafx.geometry.Pos?>
 
-<?import java.net.URL?>
-<StackPane fx:id="menu" xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.nhom12.arkanoid.controller.MenuController"
-           alignment="CENTER">
+<StackPane fx:id="menu" alignment="CENTER" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nhom12.arkanoid.controller.MenuController">
 
     <stylesheets>
-        <URL value="@menu.css"/>
+        <URL value="@menu.css" />
     </stylesheets>
 
     <!-- 🎥 Background video -->
-    <MediaView fx:id="mediaView" preserveRatio="true"/>
+    <MediaView fx:id="mediaView" preserveRatio="true" />
 
     <!-- 🕹️ Overlay UI -->
     <VBox alignment="CENTER" spacing="20">
-        <!-- Game title -->
-        <Label text="ARKANOID CLASSIC" textFill="gold">
-            <style>-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);</style>
-            <font>
-                <Font name="Serif" size="48"/>
-            </font>
-        </Label>
+<!--        &lt;!&ndash; Game title &ndash;&gt;-->
+<!--        <Label text="ARKANOID CLASSIC" textFill="gold">-->
+<!--            <style>-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);</style>-->
+<!--            <font>-->
+<!--                <Font name="Serif" size="48"/>-->
+<!--            </font>-->
+<!--        </Label>-->
 
         <!-- Buttons -->
-        <VBox alignment="CENTER" spacing="15">
+        <VBox fx:id="mainButtonsVBox" alignment="CENTER" spacing="15">
             <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="160.0" />
             </padding>
-            <Button text="START" onAction="#onStartClicked" styleClass="button"/>
-            <Button text="HIGHSCORE" onAction="#onHighscoreClicked" styleClass="button"/>
-            <Button text="SETTINGS" onAction="#onSettingsClicked" styleClass="button"/>
-            <Button text="EXIT" onAction="#onExitClicked" styleClass="button"/>
+            <Button onAction="#onStartClicked" styleClass="image-button">
+                <graphic>
+                    <ImageView fitWidth="170.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../Image/start.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button onAction="#onHighscoreClicked" styleClass="image-button">
+                <graphic>
+                    <ImageView fitWidth="170.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../Image/highscore.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button onAction="#onSettingsClicked" styleClass="image-button">
+                <graphic>
+                    <ImageView fitWidth="170.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../Image/setting.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button onAction="#onExitClicked" styleClass="image-button">
+                <graphic>
+                    <ImageView fitWidth="170.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../Image/exit.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </VBox>
+
+        <VBox fx:id="modeSelectionVBox" alignment="CENTER" managed="false" spacing="15" visible="false">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+
+            <Button onAction="#onChallengeModeClicked" styleClass="image-button">
+            <graphic>
+                <ImageView fitWidth="170.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../Image/challenge_mode-removebg-preview.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+            </Button>
+
+            <Button onAction="#onEvilModeClicked" styleClass="image-button">
+                <graphic>
+                    <ImageView fitWidth="170.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../Image/evil_mode-removebg-preview.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button onAction="#onBackToMainClicked" styleClass="image-button" >
+                <graphic>
+                    <ImageView fitWidth="170.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../Image/Back1-removebg-preview.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
         </VBox>
     </VBox>
 </StackPane>

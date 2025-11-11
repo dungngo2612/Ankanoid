@@ -1,5 +1,7 @@
 package com.nhom12.arkanoid.model;
-
+import javafx.geometry.Point2D;
+import java.util.Deque;
+import java.util.LinkedList;
 public class Ball {
 
     private double x;
@@ -8,7 +10,11 @@ public class Ball {
     //Vận tốc theo trục x và y
     private double dx;
     private double dy;
+    // Vệt sáng sẽ có 10 "hạt"
+    private static final int MAX_TRAIL_LENGTH = 50;
+    private Deque<Point2D> recentPositions = new LinkedList<>();
 
+    public Ball(){}
 
     public Ball(double x, double y, double radius, double dx, double dy) {
         this.x = x;
@@ -22,6 +28,14 @@ public class Ball {
     public void move() {
         x += dx;
         y += dy;
+
+        // Thêm vị trí mới vào đầu danh sách
+        recentPositions.addFirst(new Point2D(this.x, this.y));
+
+        // Xóa vị trí cũ nhất nếu vệt quá dài
+        if (recentPositions.size() > MAX_TRAIL_LENGTH) {
+            recentPositions.removeLast();
+        }
     }
 
     // Đổi hướng đi của bóng
@@ -73,4 +87,7 @@ public class Ball {
         this.dy = dy;
     }
 
+    public Deque<Point2D> getRecentPositions() {
+        return recentPositions;
+    }
 }

@@ -73,7 +73,7 @@ public class CollisionManager {
     }
 
     // Handle bóng va chạm với brick
-    public boolean handleBrickCollision(Ball ball, Brick brick) {
+    public boolean handleBrickCollision(Ball ball, Brick brick, boolean moltenBallActive) {
         if (brick.isDestroyed()) {
             return false;
         }
@@ -115,7 +115,6 @@ public class CollisionManager {
         boolean isColliding = distance < ballRadius;
         if (isColliding) {
             SoundManager.getInstance().playEffect("hit_brick");
-            brick.hit();
             //Tính phần giao nhau giữa ball và brick ở các phía
             double overlapLeft = (ballX + ballRadius) - brickX;
             double overlapRight = (brickX + brickWidth) - (ballX - ballRadius);
@@ -126,12 +125,20 @@ public class CollisionManager {
             double minOverlapX = Math.min(overlapLeft, overlapRight);
             double minOverlapY = Math.min(overlapTop, overlapBottom);
 
-            if (minOverlapX < minOverlapY) {
-                //-->Bóng va vào cạnh ngang
-                ball.reverseX();
-            } else {
-                //-->Bóng va vào cạnh dọc
-                ball.reverseY();
+//            if (minOverlapX < minOverlapY) {
+//                //-->Bóng va vào cạnh ngang
+//                ball.reverseX();
+//            } else {
+//                //-->Bóng va vào cạnh dọc
+//                ball.reverseY();
+//            }
+            // nếu bóng đang ở chế đọ molten thì sẽ không bị nảy
+            if (!moltenBallActive) {
+                if (minOverlapX < minOverlapY) {
+                    ball.reverseX();
+                } else {
+                    ball.reverseY();
+                }
             }
             return true;
         }

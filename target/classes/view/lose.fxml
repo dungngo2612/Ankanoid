@@ -6,6 +6,7 @@
 
 <?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
 <StackPane fx:id="lose"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.nhom12.arkanoid.controller.LoseController"
@@ -21,6 +22,8 @@
                 <Font name="Serif" size="48"/>
             </font>
         </Label>
+        <Text fx:id="scoreText" style="-fx-font-size: 18px; -fx-fill: white;" />
+        <Text fx:id="timeText" style="-fx-font-size: 18px; -fx-fill: white;" />
         <padding>
             <Insets top="20" right="20" bottom="20" left="20"/>
         </padding>
