@@ -15,8 +15,6 @@ public class LoseController {
     private Text scoreText;
     @FXML
     private Text timeText;
-    @FXML
-    private Text highScoreText;
 
     @FXML
     public void initialize() {
@@ -24,8 +22,8 @@ public class LoseController {
         scoreText.setText("Score: " + result.score);
         timeText.setText("Time: " + result.timeInSeconds + "s");
 
-        int highScore = HighScoreController.getHighScore();
-        highScoreText.setText("Highscore: " + highScore);
+
+        System.out.println("Time received: " + result.timeInSeconds);
     }
 
     @FXML
