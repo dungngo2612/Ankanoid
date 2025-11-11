@@ -6,9 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
-import javafx.util.Duration;
+import javafx.util.Duration; // Import này có vẻ không dùng, có thể xóa
 
-import javax.swing.plaf.basic.BasicButtonUI;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
@@ -21,12 +20,11 @@ public class LevelSelectController implements Initializable {
     @FXML
     Button level3Button;
     @FXML
-    Button level4Button;
-
+    Button level4Button; // Đảm bảo bạn đã khai báo cái này trong FXML
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Set tooltip for each button
+        // Set tooltip for each button
         String level1Info = "Unleash a wave of fiery sword energy that pierces through obstacles. The ball gains explosive power, burning through blocks and enemies alike.\n" +
                 "“The blade’s flame cuts through fate itself.”";
         level1Button.setTooltip(new Tooltip(level1Info));
@@ -47,42 +45,37 @@ public class LevelSelectController implements Initializable {
     @FXML
     private void onLevel1Clicked() {
         System.out.println("Level 1 (Easy) selected");
-        // Lưu lại lựa chọn độ khó
-        Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
-        prefs.put("difficulty", "Easy");
-        prefs.putBoolean("evilMode", false); // Tắt Evil Mode khi chọn Challenge
-
-        startGame();
+        selectLevelAndStartGame("Easy", false);
     }
 
-    // Hàm này sẽ được gọi bởi Level 2 Button
     @FXML
     private void onLevel2Clicked() {
         System.out.println("Level 2 (Medium) selected");
-        Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
-        prefs.put("difficulty", "Medium");
-        prefs.putBoolean("evilMode", false); // Tắt Evil Mode khi chọn Challenge
-
-        startGame();
+        selectLevelAndStartGame("Medium", false);
     }
 
-    // Hàm này sẽ được gọi bởi Level 3 Button
     @FXML
     private void onLevel3Clicked() {
         System.out.println("Level 3 (Hard) selected");
-        Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
-        prefs.put("difficulty", "Hard");
-        prefs.putBoolean("evilMode", false); // Tắt Evil Mode khi chọn Challenge
-
-        startGame();
+        selectLevelAndStartGame("Hard", false);
     }
 
-    // Logic bắt đầu game chung
-    private void startGame() {
+    // PHƯƠNG THỨC MỚI CHO LEVEL 4
+    @FXML
+    private void onLevel4Clicked() {
+        System.out.println("Level 4 (Boss) selected");
+        selectLevelAndStartGame("Boss", false); // "Boss" là một giá trị đặc biệt cho độ khó
+    }
+
+    // Hàm chung để lưu độ khó và bắt đầu game
+    private void selectLevelAndStartGame(String difficulty, boolean evilMode) {
+        Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
+        prefs.put("difficulty", difficulty);
+        prefs.putBoolean("evilMode", evilMode);
+
         SoundManager.getInstance().stopBackgroundMusic();
 
         // Kiểm tra xem nhạc có đang bật trong settings không
-        Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
         boolean musicEnabled = prefs.getBoolean("musicEnabled", true);
         if (musicEnabled) {
             SoundManager.getInstance().playPlayingMusic();
@@ -97,5 +90,4 @@ public class LevelSelectController implements Initializable {
         System.out.println("Returning to main menu...");
         ScreenManager.switchScene("/view/menu.fxml", "Arkanoid Menu");
     }
-
 }

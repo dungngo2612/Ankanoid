@@ -32,4 +32,11 @@ public class Constants {
     public static final long LASER_DURATION_MS = 3000;
     // Thời gian giữa 2 lần bắn
     public static final long LASER_FIRE_RATE_MS = 500;
+
+
+    public static final int BOSS_BRICK_HEALTH = 2; // Máu của gạch bảo vệ (ví dụ: StrongBrick)
+    public static final int BOSS_BRICK_PADDING_X = 50; // Khoảng cách từ biên scene đến gạch bảo vệ
+    public static final int BOSS_BRICK_OFFSET_Y = 150; // Vị trí Y của hàng gạch đầu tiên
+    public static final int BOSS_BRICK_ROWS = 2; // Số hàng gạch bảo vệ
+    public static final int BOSS_BRICK_COLS = 5; // Số cột gạch bảo vệ (đủ để bao quanh boss)
 }

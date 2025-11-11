@@ -31,14 +31,11 @@ public class SettingsController implements Initializable {
     @FXML
     private CheckBox sfxCheckBox;
 
-    @FXML
-    private ComboBox<String> diff;
 
     //Dùng prefs lưu các setting
     Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
     private MediaPlayer player;
 
-    String difficulty = prefs.get("difficulty","Easy");
     boolean musicEnabled = prefs.getBoolean("musicEnabled", true);
     boolean sfxEnabled = prefs.getBoolean("sfxEnabled", true);
 
@@ -63,8 +60,6 @@ public class SettingsController implements Initializable {
 
         mediaView.setMediaPlayer(player);
 
-        diff.getItems().addAll("Easy", "Medium", "Hard");
-        diff.setValue(difficulty);
 
         // Load saved settings (if you implement persistent config later)
         musicCheckBox.setSelected(musicEnabled);
@@ -98,7 +93,6 @@ public class SettingsController implements Initializable {
         System.out.println("Saving settings...");
         prefs.putBoolean("musicEnabled", musicCheckBox.isSelected());
         prefs.putBoolean("sfxEnabled", sfxCheckBox.isSelected());
-        prefs.put("difficulty", diff.getValue());
 
 
         ScreenManager.switchScene("/view/menu.fxml", "Arkanoid Menu");

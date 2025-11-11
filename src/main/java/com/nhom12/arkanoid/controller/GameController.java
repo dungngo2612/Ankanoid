@@ -345,6 +345,13 @@ public class GameController {
             gc.setLineWidth(2);
             gc.strokeLine(0, state.getEvilMap().getDeathLineY(), Constants.SCENE_WIDTH, state.getEvilMap().getDeathLineY());
         } else {
+            Boss boss = state.getBoss();
+            if (boss != null) {
+                // Nếu là màn Boss
+                if (!boss.isDestroyed()) {
+                    boss.draw(gc); // Boss sẽ tự vẽ chính nó và các Minion
+                }
+            }
             list = state.getBricks();
         }
         for (Brick brick : list) {
@@ -402,6 +409,16 @@ public class GameController {
                 if (item_type != null) {
                     gc.drawImage(item_type, item.getX(), item.getY(), item.getWidth(), item.getHeight());
                 }
+            }
+        }
+
+        // --- THÊM LOGIC VẼ BOSS / GẠCH ---
+
+        Boss boss = state.getBoss();
+        if (boss != null) {
+            // Nếu là màn Boss
+            if (!boss.isDestroyed()) {
+                boss.draw(gc); // Boss sẽ tự vẽ chính nó và các Minion
             }
         }
     }

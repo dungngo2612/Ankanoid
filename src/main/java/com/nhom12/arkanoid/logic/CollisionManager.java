@@ -1,10 +1,11 @@
 package com.nhom12.arkanoid.logic;
 
-import com.nhom12.arkanoid.controller.SettingsController;
 import com.nhom12.arkanoid.model.*;
 import com.nhom12.arkanoid.utils.Constants;
 import com.nhom12.arkanoid.utils.SoundManager;
-
+import com.nhom12.arkanoid.model.Enemy;   // THÊM DÒNG NÀY
+import com.nhom12.arkanoid.model.Minion; // THÊM DÒNG NÀY
+import javafx.scene.shape.Rectangle;  // THÊM DÒNG NÀY
 
 public class CollisionManager {
     // Handle bóng va chạm với paddle;
@@ -158,5 +159,74 @@ public class CollisionManager {
             ball.reverseY();
         }
 
+    }
+
+    /**
+     * Phương thức MỚI: Kiểm tra va chạm giữa Minion và Paddle
+     * @param minion
+     * @param paddle
+     * @return true nếu va chạm
+     */
+    public boolean handlePaddleCollision(Minion minion, Paddle paddle) {
+        Rectangle minionBounds = minion.getBounds();
+        Rectangle paddleBounds = new Rectangle(paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight());
+        return minionBounds.intersects(paddleBounds.getBoundsInLocal());
+    }
+
+    /**
+     * Phương thức MỚI: Overload handleEnemyCollision để chấp nhận Enemy (Boss/Minion)
+     * (Code này gần giống hệt handleEnemyCollision của bạn, chỉ khác kiểu tham số)
+     */
+    public boolean handleEnemyCollision(Ball ball, Enemy enemy, boolean moltenBallActive) {
+        if (enemy.isDestroyed()) {
+            return false;
+        }
+
+        double ballX = ball.getX();
+        double ballY = ball.getY();
+        double ballRadius = ball.getRadius();
+
+        double enemyX = enemy.getX();
+        double enemyY = enemy.getY();
+        double enemyWidth = enemy.getWidth();
+        double enemyHeight = enemy.getHeight();
+
+        double closestX;
+        if (ballX < enemyX) closestX = enemyX;
+        else if (ballX > enemyX + enemyWidth) closestX = enemyX + enemyWidth;
+        else closestX = ballX;
+
+        double closestY;
+        if (ballY < enemyY) closestY = enemyY;
+        else if (ballY > enemyY + enemyHeight) closestY = enemyY + enemyHeight;
+        else closestY = ballY;
+
+        double distanceX = ballX - closestX;
+        double distanceY = ballY - closestY;
+        double distance = Math.sqrt((distanceX * distanceX) + (distanceY * distanceY));
+
+        boolean isColliding = distance < ballRadius;
+        if (isColliding) {
+            // SoundManager.getInstance().playEffect("hit_brick"); // Có thể thay bằng âm thanh khác cho boss
+
+            if (!moltenBallActive) { // Bóng nảy lại
+                double overlapLeft = (ballX + ballRadius) - enemyX;
+                double overlapRight = (enemyX + enemyWidth) - (ballX - ballRadius);
+                double overlapTop = (ballY + ballRadius) - enemyY;
+                double overlapBottom = (enemyY + enemyHeight) - (ballY - ballRadius);
+
+                double minOverlapX = Math.min(overlapLeft, overlapRight);
+                double minOverlapY = Math.min(overlapTop, overlapBottom);
+
+                if (minOverlapX < minOverlapY) {
+                    ball.reverseX();
+                } else {
+                    ball.reverseY();
+                }
+            }
+            // Nếu là moltenBallActive, nó vẫn trả về true (va chạm) nhưng bóng không nảy
+            return true;
+        }
+        return false;
     }
 }

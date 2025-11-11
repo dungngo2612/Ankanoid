@@ -56,7 +56,7 @@
             </ImageView>
       </graphic></Button>
 
-    <Button fx:id="level4Button" alignment="CENTER" contentDisplay="TOP" layoutX="501.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="126.0" prefWidth="96.0" styleClass="map-level-button" text="Level 4">
+    <Button fx:id="level4Button" alignment="CENTER" contentDisplay="TOP" layoutX="501.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="126.0" prefWidth="96.0" styleClass="map-level-button" text="Level 4" onAction="#onLevel4Clicked">
         <font>
             <Font name="Elephant Italic" size="20.0" />
         </font>

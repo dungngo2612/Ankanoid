@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.text.Font?>
-<?import javafx.geometry.Insets?>
-<?import javafx.geometry.Pos?>
 
-<?import java.net.URL?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<StackPane fx:id="settings" xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.nhom12.arkanoid.controller.SettingsController"
-           alignment="CENTER">
+<StackPane fx:id="settings" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="com.nhom12.arkanoid.controller.SettingsController">
 
     <stylesheets>
-        <URL value="@menu.css"/>
+        <URL value="@menu.css" />
     </stylesheets>
 
     <!-- Background video -->
-    <MediaView fx:id="mediaView" preserveRatio="true"/>
+    <MediaView fx:id="mediaView" preserveRatio="true" />
 
     <!-- Overlay UI -->
     <VBox alignment="CENTER" spacing="20">
@@ -29,27 +25,20 @@
         <Label text="SETTINGS" textFill="gold">
             <style>-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);</style>
             <font>
-                <Font name="Serif" size="48"/>
+                <Font name="Serif" size="48" />
             </font>
         </Label>
 
         <!-- Buttons -->
         <VBox alignment="CENTER" spacing="15">
             <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
+                <Insets bottom="20" left="20" right="20" top="20" />
             </padding>
-            <ComboBox fx:id="diff" promptText="Difficulty" prefWidth="200"/>
-            <CheckBox fx:id="musicCheckBox"
-                      text="Enable Music"
-                      textFill="gold"
-                      style="-fx-font-size: 20px; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);" />
+            <CheckBox fx:id="musicCheckBox" style="-fx-font-size: 20px; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);" text="Enable Music" textFill="gold" />
 
-            <CheckBox fx:id="sfxCheckBox"
-                      text="Enable Sound Effects"
-                      textFill="gold"
-                      style="-fx-font-size: 20px; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);"/>
+            <CheckBox fx:id="sfxCheckBox" style="-fx-font-size: 20px; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);" text="Enable Sound Effects" textFill="gold" />
 
-            <Button text="Back" onAction="#onBackClicked" styleClass="button"/>
+            <Button onAction="#onBackClicked" styleClass="button" text="Back" />
 
         </VBox>
     </VBox>

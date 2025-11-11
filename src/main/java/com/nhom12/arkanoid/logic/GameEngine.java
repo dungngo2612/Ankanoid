@@ -9,8 +9,9 @@ import com.nhom12.arkanoid.model.ExplosiveBrick;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import com.nhom12.arkanoid.model.Boss; // THÊM DÒNG NÀY
+import com.nhom12.arkanoid.model.Minion;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,6 +24,9 @@ public class GameEngine {
     private Pane gameRoot;
 
     private final List<Items> items = new ArrayList<>();
+
+    private Boss boss; // THÊM THUỘC TÍNH NÀY
+    private List<Minion> minions; // THÊM THUỘC TÍNH NÀY
 
     private static final int MAX_ITEMS = 100; // tối đa 2 vật phẩm trong 1 màn
     private int itemsSpawned = 0; // đếm số vật phẩm đã sinh ra
@@ -46,51 +50,37 @@ public class GameEngine {
         return collisionManager;
     }
 
-    // Update logic game mỗi frame
+
     public void update() {
 
         if (gameState.isGameOver() || gameState.isGameWon()) {
             return;
         }
 
-        //Cập nhật vật phẩm
+        // Cập nhật vật phẩm
         updateItems();
 
-        //Cập nhật laser
+        // Cập nhật laser + timer powerups
         updateLasers();
-        // Thêm logic kiểm tra thời gian molten ball
-        if (gameState.isMoltenBallActive()) {
-            long currentTime = System.currentTimeMillis();
-            if (currentTime > gameState.getMoltenBallEndTime()) {
-                gameState.setMoltenBallActive(false);
-                gameState.setMoltenBallEndTime(0);
-            }
-        }
-
-        if (gameState.isPaddleHasLaser()) {
-            long currentTime = System.currentTimeMillis();
-            if (currentTime > gameState.getLaserEndTime()) {
-                // Hết thời gian, tắt laze
-                gameState.setPaddleHasLaser(false);
-                gameState.setLaserEndTime(0);
-                gameState.setNextLaserFireTime(0);
-            }
-            // Nếu còn buff, kiểm tra xem đã đến lúc tự động bắn chưa
-            else if (currentTime >= gameState.getNextLaserFireTime()) {
-                // Đã đến lúc, tạo 2 viên đạn
-                Paddle p = gameState.getPaddle();
-                gameState.getBullets().add(new LaserBullet(p.getX() + 10, p.getY()));
-                gameState.getBullets().add(new LaserBullet(p.getX() + p.getWidth() - 10, p.getY()));
-
-                // Đặt lại thời gian cho lần bắn tiếp theo
-                gameState.setNextLaserFireTime(currentTime + Constants.LASER_FIRE_RATE_MS);
-            }
-        }
+        updatePowerUpTimers();
 
         if (gameState.isEvilMode()) {
             gameState.getEvilMap().update();
             if (gameState.getEvilMap().isGameOver()) {
                 gameState.setGameOver(true);
+            }
+        }
+
+        // --- Cập nhật logic Boss (nếu có) ---
+        Boss boss = gameState.getBoss();
+        if (boss != null) { // Chỉ update nếu boss tồn tại (Level 4)
+            boss.update(); // Cập nhật AI, di chuyển, spawn Minion
+            if (boss.isDestroyed() && gameState.getMinions().isEmpty()) {
+                // Nếu Boss bị diệt VÀ không còn Minion -> THẮNG (chỉ cho phép 1 lần)
+                if (gameState.isAllowWinCheck()) {
+                    gameState.setAllowWinCheck(false);
+                    gameState.setGameWon(true);
+                }
             }
         }
 
@@ -104,7 +94,7 @@ public class GameEngine {
             return;
         }
 
-
+        // Duy nhất 1 vòng lặp qua tất cả các bóng
         Iterator<Ball> ballIterator = gameState.getBalls().iterator();
         while (ballIterator.hasNext()) {
             Ball ball = ballIterator.next();
@@ -122,14 +112,114 @@ public class GameEngine {
                 continue; // Chuyển sang bóng tiếp theo
             }
 
-            // Lặp qua tất cả gạch cho mỗi quả bóng
-            for (Brick brick : gameState.getBricks()) {
-                // nếu ăn item  molten thì kiểm tra va chạm với brick
-                if (gameState.isMoltenBallActive()) {
-                    // nếu là loại normal, Strong, hay explosive thì bóng sẽ đi qua và brick đó bị vỡ
-                    if (brick.isDestructible() && !brick.isDestroyed()) {
-                        boolean collided = collisionManager.handleBrickCollision(ball, brick, gameState.isMoltenBallActive()); // ✅ kiểm tra va chạm
-                        if (collided) {
+            // --- Xử lý va chạm khi có Boss (màn boss có gạch bảo vệ) ---
+            if (boss != null && !boss.isDestroyed()) {
+
+                // Va chạm với Boss (nếu đã được giải phóng / boss có thể di chuyển)
+                if (collisionManager.handleEnemyCollision(ball, boss, gameState.isMoltenBallActive())) {
+                    boss.takeDamage(1);
+                    // TODO: play boss_hit sound
+                }
+
+                // Va chạm với Minions
+                Iterator<Minion> minionCollisionIterator = gameState.getMinions().iterator();
+                while (minionCollisionIterator.hasNext()) {
+                    Minion minion = minionCollisionIterator.next();
+                    if (collisionManager.handleEnemyCollision(ball, minion, gameState.isMoltenBallActive())) {
+                        minion.takeDamage(1);
+                        if (minion.isDestroyed()) {
+                            minionCollisionIterator.remove();
+                            gameState.incrementScore(10);
+                            // TODO: play minion_destroyed sound/effect
+                        }
+                    }
+                }
+
+                // Xử lý va chạm với gạch bảo vệ boss
+                Iterator<Brick> brickProtectionIterator = gameState.getBricks().iterator();
+                while (brickProtectionIterator.hasNext()) {
+                    Brick brick = brickProtectionIterator.next();
+                    if (brick.isDestroyed()) continue;
+
+                    boolean collided;
+                    if (gameState.isMoltenBallActive()) {
+                        collided = collisionManager.handleBrickCollision(ball, brick, true);
+                    } else {
+                        collided = collisionManager.handleBrickCollision(ball, brick, false);
+                    }
+
+                    if (collided) {
+                        brick.hit(1.0);
+                        if (brick.isDestroyed()) {
+                            gameState.incrementScore(10);
+                            spawnItemIfPossible(brick);
+                            if (brick instanceof ExplosiveBrick) handleExplosiveBrick((ExplosiveBrick) brick);
+
+                            String imageKey = "normal_brick";
+                            if (brick instanceof StrongBrick) imageKey = "strong_brick3";
+                            else if (brick instanceof UnbreakableBrick) imageKey = "impassable";
+                            else if (brick instanceof ExplosiveBrick) imageKey = "explosive_brick";
+
+                            Image brickImage = ImageManager.getInstance().showImage(imageKey);
+                            ParticleManager.spawnBrickFragments(
+                                    brick.getX() + brick.getWidth() / 2,
+                                    brick.getY() + brick.getHeight() / 2,
+                                    brickImage,
+                                    gameRoot
+                            );
+
+                            brickProtectionIterator.remove();
+                            gameState.decreaseRemainingBossProtectionBricks();
+                        }
+                        // nếu không phải molten ball thì bóng chỉ đâm 1 viên gạch mỗi frame
+                        if (!gameState.isMoltenBallActive()) break;
+                    }
+                } // hết gạch bảo vệ
+
+                // Nếu tất cả gạch bảo vệ bị phá -> cho boss hoạt động
+                if (gameState.getRemainingBossProtectionBricks() == 0 && !boss.canMove()) {
+                    boss.setCanMove(true);
+                    System.out.println("All protection bricks destroyed! Boss is now active!");
+                    // TODO: hiệu ứng/âm thanh
+                }
+
+            } else {
+                // --- Trường hợp bình thường: bóng va chạm với các gạch mức thường ---
+                for (Brick brick : gameState.getBricks()) {
+                    if (brick.isDestroyed()) continue;
+
+                    // Nếu molten thì gạch destructible sẽ mất máu và cho phép xuyên qua
+                    if (gameState.isMoltenBallActive()) {
+                        if (brick.isDestructible()) {
+                            if (collisionManager.handleBrickCollision(ball, brick, true)) {
+                                brick.hit(1.0);
+                                if (brick.isDestroyed()) {
+                                    gameState.incrementScore(10);
+                                    spawnItemIfPossible(brick);
+                                    if (brick instanceof ExplosiveBrick) {
+                                        handleExplosiveBrick((ExplosiveBrick) brick);
+                                    }
+
+                                    String imageKey = "normal_brick";
+                                    if (brick instanceof StrongBrick) imageKey = "strong_brick3";
+                                    else if (brick instanceof ExplosiveBrick) imageKey = "explosive_brick";
+
+                                    Image brickImage = ImageManager.getInstance().showImage(imageKey);
+                                    ParticleManager.spawnBrickFragments(
+                                            brick.getX() + brick.getWidth() / 2,
+                                            brick.getY() + brick.getHeight() / 2,
+                                            brickImage,
+                                            gameRoot
+                                    );
+                                    gameState.checkWinCondition();
+                                }
+                            }
+                        } else if (brick instanceof UnbreakableBrick) {
+                            collisionManager.handleBrickCollision(ball, brick, false); // nảy như bình thường
+                        }
+                    } else {
+                        // normal ball
+                        if (collisionManager.handleBrickCollision(ball, brick, false)) {
                             brick.hit(1.0);
                             if (brick.isDestroyed()) {
                                 gameState.incrementScore(10);
@@ -140,6 +230,7 @@ public class GameEngine {
 
                                 String imageKey = "normal_brick";
                                 if (brick instanceof StrongBrick) imageKey = "strong_brick3";
+                                else if (brick instanceof UnbreakableBrick) imageKey = "impassable";
                                 else if (brick instanceof ExplosiveBrick) imageKey = "explosive_brick";
 
                                 Image brickImage = ImageManager.getInstance().showImage(imageKey);
@@ -149,44 +240,14 @@ public class GameEngine {
                                         brickImage,
                                         gameRoot
                                 );
-                                gameState.checkWinCondition();
                             }
+                            gameState.checkWinCondition();
+                            break; // bóng chỉ va chạm 1 viên gạch khi không phải molten
                         }
-                    } else if (brick instanceof UnbreakableBrick) { // nếu là unbreakable thì bóng sẽ bị nảy như bình thường
-                        collisionManager.handleBrickCollision(ball, brick, false);
                     }
-                    gameState.checkWinCondition();
-                } else {
-                    if (collisionManager.handleBrickCollision(ball, brick,false)) { // Kiểm tra va chạm cho bóng hiện tại
-                        brick.hit(1.0);
-                        if (brick.isDestroyed()) {
-                            gameState.incrementScore(10);
-                            spawnItemIfPossible(brick);
-                            // Chỉ xử lý nổ sau khi gạch đã bị phá hủy
-                            if (brick instanceof ExplosiveBrick) {
-                                handleExplosiveBrick((ExplosiveBrick) brick);
-                            }
-
-                            // lấy màu của mảnh vỡ theo màu chủ đạo của từng loại brick
-                            String imageKey = "normal_brick";
-                            if (brick instanceof StrongBrick) imageKey = "strong_brick3";
-                            else if (brick instanceof UnbreakableBrick) imageKey = "impassable";
-                            else if (brick instanceof ExplosiveBrick) imageKey = "explosive_brick";
-
-                            Image brickImage = ImageManager.getInstance().showImage(imageKey);
-
-                            ParticleManager.spawnBrickFragments(
-                                    brick.getX() + brick.getWidth() / 2,
-                                    brick.getY() + brick.getHeight() / 2,
-                                    brickImage,
-                                    gameRoot
-                            );
-                        }
-                        gameState.checkWinCondition();// check win
-                    }
-                }
+                } // for bricks
             }
-        }
+        } // while balls
 
         // Kiểm tra mất mạng (chỉ khi không còn bóng nào)
         if (gameState.getBalls().isEmpty()) {
@@ -194,6 +255,30 @@ public class GameEngine {
         }
     }
 
+    // Hàm trợ giúp mới để quản lý thời gian power-up
+    private void updatePowerUpTimers() {
+        long currentTime = System.currentTimeMillis();
+
+        // Kiểm tra Molten Ball
+        if (gameState.isMoltenBallActive() && currentTime > gameState.getMoltenBallEndTime()) {
+            gameState.setMoltenBallActive(false);
+            gameState.setMoltenBallEndTime(0);
+        }
+
+        // Kiểm tra Laser
+        if (gameState.isPaddleHasLaser()) {
+            if (currentTime > gameState.getLaserEndTime()) {
+                gameState.setPaddleHasLaser(false);
+                gameState.setLaserEndTime(0);
+                gameState.setNextLaserFireTime(0);
+            } else if (currentTime >= gameState.getNextLaserFireTime()) {
+                Paddle p = gameState.getPaddle();
+                gameState.getBullets().add(new LaserBullet(p.getX() + 10, p.getY()));
+                gameState.getBullets().add(new LaserBullet(p.getX() + p.getWidth() - 10, p.getY()));
+                gameState.setNextLaserFireTime(currentTime + Constants.LASER_FIRE_RATE_MS);
+            }
+        }
+    }
 
     private void spawnItemIfPossible(Brick brick) {
         // Nếu hiện có ít hơn 2 vật phẩm thì mới cho spawn thêm
