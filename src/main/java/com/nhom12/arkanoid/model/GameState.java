@@ -16,6 +16,11 @@ import javafx.scene.text.Text;
 
 
 public class GameState {
+    public enum BossState {
+        ENTERING,      // Boss đang đi vào// Boss đã vào, gạch đã tạo, đang đếm ngược
+        ACTIVE         // Game đang chạy
+    }
+
     private List<Ball> ball;
     private Paddle paddle;
     private List<Brick> bricks;
@@ -49,6 +54,10 @@ public class GameState {
     private int totalBossProtectionBricks;
     private int remainingBossProtectionBricks;
 
+    private BossState bossState;
+
+    public BossState getBossState() { return bossState; }
+    public void setBossState(BossState state) { this.bossState = state; }
 
     public boolean isAllowWinCheck() {
         return allowWinCheck;
@@ -104,10 +113,10 @@ public class GameState {
         else if (difficulty.equals("Boss")) {
             System.out.println("Boss Level selected!");
             this.bricks = new ArrayList<>(); // Không có gạch
-            this.boss = new Boss(Constants.SCENE_WIDTH / 2 - 150 / 2, 50, 100); // Tạo Boss (giả sử rộng 150, HP 100)
-            this.minions = this.boss.getMinions(); // Lấy reference đến danh sách minions của boss
 
-            createBossProtectionBricks();
+            this.boss = new Boss((Constants.SCENE_WIDTH - 224) / 2, -240, 100); // Tạo Boss (giả sử rộng 150, HP 100)
+            this.minions = this.boss.getMinions(); // Lấy reference đến danh sách minions của boss
+            this.bossState = BossState.ENTERING;
         } else {
             LevelManager.LevelDifficulty diffEnum;
             switch(difficulty) {
@@ -294,7 +303,7 @@ public class GameState {
         return minions;
     }
 
-    private void createBossProtectionBricks() {
+    public void createBossProtectionBricks() {
         // Lấy vị trí và kích thước của boss
         double bossX = boss.getX();
         double bossY = boss.getY();

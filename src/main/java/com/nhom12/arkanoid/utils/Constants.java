@@ -39,4 +39,8 @@ public class Constants {
     public static final int BOSS_BRICK_OFFSET_Y = 150; // Vị trí Y của hàng gạch đầu tiên
     public static final int BOSS_BRICK_ROWS = 2; // Số hàng gạch bảo vệ
     public static final int BOSS_BRICK_COLS = 5; // Số cột gạch bảo vệ (đủ để bao quanh boss)
+
+    public static final double ITEM_WIDTH = 50;
+    public static final double ITEM_HEIGHT = 50;
+    public static final double ITEM_SPEED = 3;
 }

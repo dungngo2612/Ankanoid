@@ -42,23 +42,23 @@ public class SettingsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        URL mediaUrl = getClass().getResource("/test1.mp4");
-        Objects.requireNonNull(mediaUrl, "Video file not found!");
-
-        Media media = new Media(mediaUrl.toExternalForm());
-        this.player = new MediaPlayer(media);
-        player.setCycleCount(MediaPlayer.INDEFINITE);
-        player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
-        player.setAutoPlay(true);
-
-        mediaView.sceneProperty().addListener((obs, oldScene, newScene) -> {
-            if (newScene != null) {
-                mediaView.fitWidthProperty().bind(newScene.widthProperty());
-                mediaView.fitHeightProperty().bind(newScene.heightProperty());
-            }
-        });
-
-        mediaView.setMediaPlayer(player);
+//        URL mediaUrl = getClass().getResource("/test1.mp4");
+//        Objects.requireNonNull(mediaUrl, "Video file not found!");
+//
+//        Media media = new Media(mediaUrl.toExternalForm());
+//        this.player = new MediaPlayer(media);
+//        player.setCycleCount(MediaPlayer.INDEFINITE);
+//        player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
+//        player.setAutoPlay(true);
+//
+//        mediaView.sceneProperty().addListener((obs, oldScene, newScene) -> {
+//            if (newScene != null) {
+//                mediaView.fitWidthProperty().bind(newScene.widthProperty());
+//                mediaView.fitHeightProperty().bind(newScene.heightProperty());
+//            }
+//        });
+//
+//        mediaView.setMediaPlayer(player);
 
 
         // Load saved settings (if you implement persistent config later)
@@ -77,13 +77,13 @@ public class SettingsController implements Initializable {
     }
 
     private void stopVideo() {
-        if (player != null) {
-            player.stop();  // Dừng video
-            player.dispose(); // Hủy tài nguyên
-        }
-        if (mediaView != null) {
-            mediaView.setMediaPlayer(null); // Gỡ player khỏi view
-        }
+//        if (player != null) {
+//            player.stop();  // Dừng video
+//            player.dispose(); // Hủy tài nguyên
+//        }
+//        if (mediaView != null) {
+//            mediaView.setMediaPlayer(null); // Gỡ player khỏi view
+//        }
     }
 
     // 🎮 Button actions

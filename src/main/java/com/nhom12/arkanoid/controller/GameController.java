@@ -55,6 +55,8 @@ public class GameController {
     private Parent pauseMenuNode;
     private PauseMenuController pauseMenuController;
 
+    private long countdownStartTime = 0;
+
     @FXML
     private Text timerText;
     private long startTime = 0;
@@ -73,12 +75,17 @@ public class GameController {
         loadPauseMenu();
         Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
 
+        if (gameState.getBoss() != null) {
+            messageText.setVisible(false);
+        }
+
         // Tạo vòng lặp game
         gameLoop = new AnimationTimer() {
 
 
             @Override
             public void handle(long now) {
+
                 if (isTimerStarted) {
                     long currentTime = System.currentTimeMillis();
                     long elapsedMillis = currentTime - startTime;
@@ -90,8 +97,10 @@ public class GameController {
 
                 //Cập nhật vị trí paddle
                 updatePaddlePosition();
-                //Cập nhật logic game
-                gameEngine.update();
+                // Chỉ update game logic NẾU KHÔNG PAUSE VÀ KHÔNG ĐANG ĐẾM NGƯỢC
+                if (!isPaused) {
+                    gameEngine.update();
+                }
                 render();
                 if (gameState.isGameOver()) {
                     long elapsedMillis = System.currentTimeMillis() - startTime;
@@ -232,8 +241,15 @@ public class GameController {
         } else if (event.getCode() == KeyCode.RIGHT) {
             isRightKeyPressed = true;
         } else if (event.getCode() == KeyCode.SPACE) {
-            gameState.launchBall();
-            messageText.setText("");
+            // KIỂM TRA TRẠNG THÁI MỚI
+            if (gameState.getBoss() != null && gameState.getBossState() != GameState.BossState.ACTIVE) {
+                // Nếu là màn boss và chưa ACTIVE (đang đi vào hoặc đếm ngược),
+                // thì KHÔNG làm gì cả.
+            } else {
+                // Logic cũ: Phóng bóng nếu chưa phóng
+                gameState.launchBall();
+                messageText.setText("");
+            }
 
         }
 //        else if (event.getCode() == KeyCode.SHIFT) {
