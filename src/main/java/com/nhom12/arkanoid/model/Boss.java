@@ -20,6 +20,9 @@ public class Boss extends Enemy {
     private double minionSpawnTimer = 0;
     private final double SPAWN_INTERVAL = 300;
     private Random random;
+    private boolean isEntering = true; // Trạng thái "đang đi vào"
+    private double targetY = 50.0;     // Vị trí Y cuối cùng mong muốn (vị trí cũ)
+    private double entrySpeed = 0.5;   // Tốc độ đi xuống
 
     private boolean canMove;
     // Các thông số của sprite sheet cho Boss (Bạn cần thay đổi dựa trên sprite sheet của bạn!)
@@ -73,6 +76,17 @@ public class Boss extends Enemy {
 
     @Override
     public void update() {
+        if (isEntering) {
+            y += entrySpeed; // Di chuyển boss xuống
+            if (y >= targetY) {
+                y = targetY; // Khớp vào vị trí cuối cùng
+                isEntering = false; // Kết thúc trạng thái đi vào
+            }
+            // Không chạy logic update animation hoặc di chuyển ngang
+            // Bạn có thể cho nó chạy updateAnimation() nếu muốn boss vẫy cánh khi đi vào
+            // updateAnimation();
+            return; // Dừng update tại đây cho đến khi vào vị trí
+        }
         // Cập nhật hoạt ảnh của Boss
         updateAnimation(); // Kế thừa từ Enemy
 
@@ -125,19 +139,18 @@ public class Boss extends Enemy {
      * Vẽ thanh HP phía trên Boss
      */
     private void drawHealthBar(GraphicsContext gc) {
-        double barWidth = width;
+        double barWidth = Constants.SCENE_WIDTH;
         double barHeight = 10;
-        double barY = y - barHeight - 5; // 5 pixels phía trên boss
 
         // Vẽ nền thanh HP (màu xám)
         gc.setFill(Color.GRAY);
-        gc.fillRect(x, barY, barWidth, barHeight);
+        gc.fillRect(0, 0, barWidth, barHeight);
 
         // Giả sử HP tối đa của boss là 100 để hiển thị thanh HP.
         // Bạn có thể thay đổi giá trị này hoặc truyền HP tối đa vào constructor.
         double currentHpWidth = (double)hp / 100 * barWidth;
-        gc.setFill(Color.GREEN);
-        gc.fillRect(x, barY, currentHpWidth, barHeight);
+        gc.setFill(Color.RED);
+        gc.fillRect(0, 0, currentHpWidth, barHeight);
     }
 
     /**
@@ -145,11 +158,24 @@ public class Boss extends Enemy {
      * Tương lai có thể thêm các loại Minion khác nhau.
      */
     private void spawnMinion() {
-        // Tạo Minion ở vị trí ngẫu nhiên gần Boss
-        double spawnX = x + random.nextDouble() * (width - 30); // Giả sử minion rộng 30
-        double spawnY = y + height + 10; // Phía dưới boss một chút
-        minions.add(new Minion(spawnX, spawnY, 30, 30, 10)); // Sửa lại constructor Minion
-        System.out.println("Boss đã tạo ra một Minion!");
+        // Lấy kích thước thật của Minion từ file Minion.java
+        // (Trong file Minion.java, MINION_FRAME_WIDTH là 64, MINION_FRAME_HEIGHT là 64)
+        double minionWidth = 64;
+        double minionHeight = 64;
+
+        // Tạo Minion ở vị trí ngẫu nhiên trên màn hình
+        // Ngẫu nhiên X, đảm bảo không bị kẹt ở mép
+        double spawnX = random.nextDouble() * (Constants.SCENE_WIDTH - minionWidth);
+
+        // Ngẫu nhiên Y, ví dụ: ở nửa trên màn hình (từ 0 đến 300)
+        // (Bạn có thể dùng Constants.SCENE_HEIGHT nếu muốn nó xuất hiện bất cứ đâu)
+        double spawnY = random.nextDouble() * (Constants.SCENE_HEIGHT / 2);
+
+        // Gọi constructor của Minion.
+        // Các tham số 30, 30 này dường như bị ghi đè bởi constructor của Minion,
+        // nhưng chúng ta cứ truyền vào cho đúng chữ ký
+        minions.add(new Minion(spawnX, spawnY, 30, 30, 10));
+        System.out.println("Boss đã tạo ra một Minion tại vị trí ngẫu nhiên!");
     }
 
     public List<Minion> getMinions() {
@@ -162,5 +188,9 @@ public class Boss extends Enemy {
 
     public void setCanMove(boolean canMove) {
         this.canMove = canMove;
+    }
+
+    public boolean isEntering() {
+        return isEntering;
     }
 }

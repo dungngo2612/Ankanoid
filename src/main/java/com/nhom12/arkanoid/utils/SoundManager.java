@@ -15,6 +15,8 @@ public class SoundManager {
 
     private MediaPlayer backgroundMusic;
     private MediaPlayer playingMusic;
+    private MediaPlayer bossLevel;
+    private MediaPlayer bossIntro;
     private HashMap<String, AudioClip> effects;
 
     Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
@@ -22,19 +24,29 @@ public class SoundManager {
     private SoundManager() {
         effects = new HashMap<>();
         effects.put("hit_brick", new AudioClip(getClass().getResource("/Sound/hitbrick.mp3").toExternalForm()));
-        effects.put("button_click", new AudioClip(getClass().getResource("/Sound/buttonclick.mp3").toExternalForm()));
+        effects.put("button_clicked", new AudioClip(getClass().getResource("/Sound/buttonclick.mp3").toExternalForm()));
         effects.put("hit_paddle", new AudioClip(getClass().getResource("/Sound/hitpaddle.mp3").toExternalForm()));
         effects.put("ball_bounce", new AudioClip(getClass().getResource("/Sound/ballbounce.mp3").toExternalForm()));
+        effects.put("boss_hit", new AudioClip(getClass().getResource("/Sound/boss_hit.mp3").toExternalForm()));
+        effects.put("boss_spawn", new AudioClip(getClass().getResource("/Sound/boss_spawn.mp3").toExternalForm()));
+        effects.put("boss_intro", new AudioClip(getClass().getResource("/Sound/boss_intro.mp3").toExternalForm()));
+
+
 
         // Tải nhạc nền
         try {
             URL url = getClass().getResource("/Sound/background1.mp3");
             URL url1 = getClass().getResource("/Sound/level1.mp3");
+            URL url2 = getClass().getResource("/Sound/boss_level.mp3");
+            URL url3 = getClass().getResource("/Sound/boss_intro.mp3");
 
             backgroundMusic = new MediaPlayer(new Media(url.toExternalForm()));
             playingMusic = new MediaPlayer(new Media(url1.toExternalForm()));
+            bossLevel = new MediaPlayer(new Media(url2.toExternalForm()));
+            bossIntro = new MediaPlayer(new Media((url3.toExternalForm())));
             backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);
             playingMusic.setCycleCount(MediaPlayer.INDEFINITE);
+            bossLevel.setCycleCount(MediaPlayer.INDEFINITE);
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Lỗi tải nhạc nền: " + e.getMessage());
@@ -76,6 +88,30 @@ public class SoundManager {
     public void stopPlayingMusic() {
         if (playingMusic != null) {
             playingMusic.stop();
+        }
+    }
+
+    public void playBossLevelMusic() {
+        if (bossLevel != null) {
+            bossLevel.play();
+        }
+    }
+
+    public void stopBossLevelMusic() {
+        if (bossLevel != null) {
+            bossLevel.stop();
+        }
+    }
+
+    public void playBossIntroMusic() {
+        if (bossIntro != null) {
+            bossIntro.play();
+        }
+    }
+
+    public void stopBossIntroMusic() {
+        if (bossIntro != null) {
+            bossIntro.stop();
         }
     }
 

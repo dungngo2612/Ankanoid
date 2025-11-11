@@ -87,6 +87,7 @@ public class MenuController implements Initializable {
     @FXML
     private void onStartClicked() {
         // Ẩn VBox nút chính và hiện VBox chọn chế độ
+        SoundManager.getInstance().playEffect("button_clicked");
         mainButtonsVBox.setVisible(false);
         mainButtonsVBox.setManaged(false);
         modeSelectionVBox.setVisible(true);
@@ -95,7 +96,7 @@ public class MenuController implements Initializable {
 
     @FXML
     private void onChallengeModeClicked() {
-        stopVideo();
+        SoundManager.getInstance().playEffect("button_clicked");
         System.out.println("Challenge Mode selected! Opening level map...");
         // BÂY GIỜ CHUYỂN TỚI MÀN HÌNH CHỌN LEVEL
         showModeSelectionOnReturn = true;
@@ -105,6 +106,7 @@ public class MenuController implements Initializable {
     @FXML
     private void onEvilModeClicked() {
         System.out.println("Evil Mode selected!");
+        SoundManager.getInstance().playEffect("button_clicked");
 
         Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
         prefs.putBoolean("evilMode", true); // bật chế độ Evil
@@ -117,6 +119,8 @@ public class MenuController implements Initializable {
 
     @FXML
     private void onBackToMainClicked() {
+        SoundManager.getInstance().playEffect("button_clicked");
+
         // Ẩn VBox chọn chế độ và hiện lại VBox nút chính
         modeSelectionVBox.setVisible(false);
         modeSelectionVBox.setManaged(false);
@@ -126,6 +130,8 @@ public class MenuController implements Initializable {
 
     @FXML
     private void onSettingsClicked() {  //Vào settings
+        SoundManager.getInstance().playEffect("button_clicked");
+
         stopVideo();
         System.out.println("Settings clicked!");
         ScreenManager.switchScene("/view/settings.fxml","Arkanoid");
@@ -133,13 +139,15 @@ public class MenuController implements Initializable {
 
     @FXML
     private void onExitClicked() {  //Thoát game
+        SoundManager.getInstance().playEffect("button_clicked");
+
         System.out.println("Exit clicked!");
         System.exit(0);
     }
 
     @FXML
     private void onHighscoreClicked() { //Bảng điểm
-        stopVideo();
+        SoundManager.getInstance().playEffect("button_clicked");
         System.out.println("Highscore clicked!");
         ScreenManager.switchScene("/view/highscore.fxml","Arkanoid");
     }

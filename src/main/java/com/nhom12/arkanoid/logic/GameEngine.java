@@ -6,12 +6,14 @@ import com.nhom12.arkanoid.utils.ImageManager;
 import com.nhom12.arkanoid.utils.ParticleManager;
 import com.nhom12.arkanoid.model.Brick;
 import com.nhom12.arkanoid.model.ExplosiveBrick;
+import com.nhom12.arkanoid.utils.SoundManager;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import com.nhom12.arkanoid.model.Boss; // THÊM DÒNG NÀY
 import com.nhom12.arkanoid.model.Minion;
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -75,23 +77,32 @@ public class GameEngine {
         Boss boss = gameState.getBoss();
         if (boss != null) { // Chỉ update nếu boss tồn tại (Level 4)
             boss.update(); // Cập nhật AI, di chuyển, spawn Minion
-            if (boss.isDestroyed() && gameState.getMinions().isEmpty()) {
-                // Nếu Boss bị diệt VÀ không còn Minion -> THẮNG (chỉ cho phép 1 lần)
-                if (gameState.isAllowWinCheck()) {
-                    gameState.setAllowWinCheck(false);
-                    gameState.setGameWon(true);
+            if (!boss.isEntering() && gameState.getBossState() != GameState.BossState.ACTIVE) {
+                gameState.createBossProtectionBricks();
+                gameState.setBossState(GameState.BossState.ACTIVE);
+                SoundManager.getInstance().stopBossIntroMusic();
+                SoundManager.getInstance().playBossLevelMusic();
+            } else if (gameState.getBossState() == GameState.BossState.ACTIVE) {
+                boss.update();
+                if (boss.isDestroyed() && gameState.getMinions().isEmpty()) {
+                    // Nếu Boss bị diệt VÀ không còn Minion -> THẮNG (chỉ cho phép 1 lần)
+                    if (gameState.isAllowWinCheck()) {
+                        gameState.setAllowWinCheck(false);
+                        gameState.setGameWon(true);
+                    }
                 }
             }
         }
-
-        if (!gameState.isBallLaunched()) {
-            gameState.getMainBall().setX(
-                    gameState.getPaddle().getX() + gameState.getPaddle().getWidth() / 2
-            );
-            gameState.getMainBall().setY(
-                    gameState.getPaddle().getY() - gameState.getMainBall().getRadius() - 2
-            );
-            return;
+        if (gameState.getBoss() != null && gameState.getBossState() != GameState.BossState.ACTIVE) {
+            if (!gameState.isBallLaunched()) {
+                gameState.getMainBall().setX(
+                        gameState.getPaddle().getX() + gameState.getPaddle().getWidth() / 2
+                );
+                gameState.getMainBall().setY(
+                        gameState.getPaddle().getY() - gameState.getMainBall().getRadius() - 2
+                );
+                return;
+            }
         }
 
         // Duy nhất 1 vòng lặp qua tất cả các bóng
