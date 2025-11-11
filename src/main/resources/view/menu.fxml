@@ -10,13 +10,17 @@
 <?import javafx.scene.media.MediaView?>
 
 <StackPane fx:id="menu" alignment="CENTER" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nhom12.arkanoid.controller.MenuController">
-
+    <ImageView fitHeight="600.0" fitWidth="800.0" preserveRatio="false">
+        <image>
+            <Image url="@../Image/back_ground_menu.png" />
+        </image>
+    </ImageView>
     <stylesheets>
         <URL value="@menu.css" />
     </stylesheets>
 
-    <!-- Background video -->
-    <MediaView fx:id="mediaView" preserveRatio="true" />
+<!--    &lt;!&ndash; Background video &ndash;&gt;-->
+<!--    <MediaView fx:id="mediaView" preserveRatio="true" />-->
 
     <!-- Giao diện -->
     <VBox alignment="CENTER" spacing="20">
