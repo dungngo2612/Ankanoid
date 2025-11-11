@@ -36,28 +36,28 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        URL mediaUrl = getClass().getResource("/test1.mp4");
-        Objects.requireNonNull(mediaUrl, "Video file not found!");
-
-        Media media = new Media(mediaUrl.toExternalForm());
-        this.player = new MediaPlayer(media);
-        player.setCycleCount(MediaPlayer.INDEFINITE);
-        player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
-        player.setAutoPlay(true);
+//        URL mediaUrl = getClass().getResource("/test1.mp4");
+//        Objects.requireNonNull(mediaUrl, "Video file not found!");
+//
+//        Media media = new Media(mediaUrl.toExternalForm());
+//        this.player = new MediaPlayer(media);
+//        player.setCycleCount(MediaPlayer.INDEFINITE);
+//        player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
+//        player.setAutoPlay(true);
 
         settingsController = new SettingsController();
         if (settingsController.musicEnabled) {
             SoundManager.getInstance().playBackgroundMusic();
         }
 
-        mediaView.sceneProperty().addListener((obs, oldScene, newScene) -> {
-            if (newScene != null) {
-                mediaView.fitWidthProperty().bind(newScene.widthProperty());
-                mediaView.fitHeightProperty().bind(newScene.heightProperty());
-            }
-        });
-
-        mediaView.setMediaPlayer(player);
+//        mediaView.sceneProperty().addListener((obs, oldScene, newScene) -> {
+//            if (newScene != null) {
+//                mediaView.fitWidthProperty().bind(newScene.widthProperty());
+//                mediaView.fitHeightProperty().bind(newScene.heightProperty());
+//            }
+//        });
+//
+//        mediaView.setMediaPlayer(player);
 
         if (showModeSelectionOnReturn) {
             mainButtonsVBox.setVisible(false);
@@ -74,13 +74,13 @@ public class MenuController implements Initializable {
     }
 
     private void stopVideo() {
-        if (player != null) {
-            player.stop();  // Dừng video
-            player.dispose(); // Hủy tài nguyên
-        }
-        if (mediaView != null) {
-            mediaView.setMediaPlayer(null); // Gỡ player khỏi view
-        }
+//        if (player != null) {
+//            player.stop();  // Dừng video
+//            player.dispose(); // Hủy tài nguyên
+//        }
+//        if (mediaView != null) {
+//            mediaView.setMediaPlayer(null); // Gỡ player khỏi view
+//        }
     }
 
     //Các nút bấm

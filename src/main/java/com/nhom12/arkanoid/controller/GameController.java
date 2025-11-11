@@ -64,6 +64,8 @@ public class GameController {
     @FXML
     public void initialize() {
         startTime = System.currentTimeMillis();
+        isTimerStarted = true;
+
         gc = gameCanvas.getGraphicsContext2D();
         gameEngine = new GameEngine(gameRoot);
         gameState = gameEngine.getGameState();
@@ -224,11 +226,6 @@ public class GameController {
             gameState.launchBall();
             messageText.setText("");
 
-            // ⏱ Bắt đầu đếm thời gian nếu chưa bắt đầu
-            if (!isTimerStarted) {
-                startTime = System.currentTimeMillis();
-                isTimerStarted = true;
-            }
         }
 //        else if (event.getCode() == KeyCode.SHIFT) {
 //            // Chỉ bắn khi đang có item laze
@@ -316,7 +313,7 @@ public class GameController {
                 if (state.isMoltenBallActive()) {
                     gc.setFill(Color.rgb(255, 100, 0, opacity)); // Màu cam cho molten ball
                 } else {
-                    gc.setFill(Color.rgb(173, 216, 230, opacity)); // Màu xanh nhạt cho bóng thường
+                    gc.setFill(Color.rgb(105, 105, 105, opacity)); // Màu xanh nhạt cho bóng thường
                 }
 
                 // Vẽ "hạt" của vệt sáng
@@ -345,6 +342,13 @@ public class GameController {
             gc.setLineWidth(2);
             gc.strokeLine(0, state.getEvilMap().getDeathLineY(), Constants.SCENE_WIDTH, state.getEvilMap().getDeathLineY());
         } else {
+            Boss boss = state.getBoss();
+            if (boss != null) {
+                // Nếu là màn Boss
+                if (!boss.isDestroyed()) {
+                    boss.draw(gc); // Boss sẽ tự vẽ chính nó và các Minion
+                }
+            }
             list = state.getBricks();
         }
         for (Brick brick : list) {
@@ -355,11 +359,17 @@ public class GameController {
             double x = brick.getX();
             double y = brick.getY();
             if (brick instanceof NormalBrick) {
-                brickImg = ImageManager.getInstance().showImage("brick1");
+                brickImg = ImageManager.getInstance().showImage("normal_brick");
             } else if (brick instanceof UnbreakableBrick) {
                 brickImg = ImageManager.getInstance().showImage("impassable");
             } else if (brick instanceof StrongBrick) {
-                brickImg = ImageManager.getInstance().showImage("brick2");
+                if (brick.getHealth() == 3) {
+                    brickImg = ImageManager.getInstance().showImage("strong_brick1");
+                } else if (brick.getHealth() == 2) {
+                    brickImg = ImageManager.getInstance().showImage("strong_brick2");
+                } else if (brick.getHealth() == 1) {
+                    brickImg = ImageManager.getInstance().showImage("strong_brick3");
+                }
             } else if (brick instanceof ExplosiveBrick) {
                 // Tạm thời dùng "brick1"
                 brickImg = ImageManager.getInstance().showImage("explosive_brick");
@@ -396,6 +406,16 @@ public class GameController {
                 if (item_type != null) {
                     gc.drawImage(item_type, item.getX(), item.getY(), item.getWidth(), item.getHeight());
                 }
+            }
+        }
+
+        // --- THÊM LOGIC VẼ BOSS / GẠCH ---
+
+        Boss boss = state.getBoss();
+        if (boss != null) {
+            // Nếu là màn Boss
+            if (!boss.isDestroyed()) {
+                boss.draw(gc); // Boss sẽ tự vẽ chính nó và các Minion
             }
         }
     }
