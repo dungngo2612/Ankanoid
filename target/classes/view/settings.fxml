@@ -10,14 +10,21 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <StackPane fx:id="settings" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="com.nhom12.arkanoid.controller.SettingsController">
 
     <stylesheets>
         <URL value="@menu.css" />
     </stylesheets>
 
-    <!-- Background video -->
-    <MediaView fx:id="mediaView" preserveRatio="true" />
+    <ImageView fitWidth="800" fitHeight="600" preserveRatio="false">
+        <image>
+            <Image url="@../Image/background_menu_setting.png" />
+        </image>
+    </ImageView>
+<!--    &lt;!&ndash; Background video &ndash;&gt;-->
+<!--    <MediaView fx:id="mediaView" preserveRatio="true" />-->
 
     <!-- Overlay UI -->
     <VBox alignment="CENTER" spacing="20">

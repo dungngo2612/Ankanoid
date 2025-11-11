@@ -44,18 +44,24 @@ public class LevelSelectController implements Initializable {
 
     @FXML
     private void onLevel1Clicked() {
+        SoundManager.getInstance().playEffect("button_clicked");
+
         System.out.println("Level 1 (Easy) selected");
         selectLevelAndStartGame("Easy", false);
     }
 
     @FXML
     private void onLevel2Clicked() {
+        SoundManager.getInstance().playEffect("button_clicked");
+
         System.out.println("Level 2 (Medium) selected");
         selectLevelAndStartGame("Medium", false);
     }
 
     @FXML
     private void onLevel3Clicked() {
+        SoundManager.getInstance().playEffect("button_clicked");
+
         System.out.println("Level 3 (Hard) selected");
         selectLevelAndStartGame("Hard", false);
     }
@@ -63,6 +69,8 @@ public class LevelSelectController implements Initializable {
     // PHƯƠNG THỨC MỚI CHO LEVEL 4
     @FXML
     private void onLevel4Clicked() {
+        SoundManager.getInstance().playEffect("button_clicked");
+
         System.out.println("Level 4 (Boss) selected");
         selectLevelAndStartGame("Boss", false); // "Boss" là một giá trị đặc biệt cho độ khó
     }
@@ -78,7 +86,11 @@ public class LevelSelectController implements Initializable {
         // Kiểm tra xem nhạc có đang bật trong settings không
         boolean musicEnabled = prefs.getBoolean("musicEnabled", true);
         if (musicEnabled) {
-            SoundManager.getInstance().playPlayingMusic();
+            if (difficulty.equals("Boss")) {
+                SoundManager.getInstance().playBossIntroMusic();
+            } else {
+                SoundManager.getInstance().playPlayingMusic();
+            }
         }
 
         ScreenManager.switchScene("/view/game.fxml", "Arkanoid");
@@ -87,6 +99,8 @@ public class LevelSelectController implements Initializable {
     // Quay lại Menu chính
     @FXML
     private void onBackClicked() {
+        SoundManager.getInstance().playEffect("button_clicked");
+
         System.out.println("Returning to main menu...");
         ScreenManager.switchScene("/view/menu.fxml", "Arkanoid Menu");
     }
