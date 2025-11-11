@@ -98,7 +98,7 @@ public class GameController {
                     ScreenManager.setData(result);
 
                     HighScoreController highScoreController = new HighScoreController();
-                    highScoreController.saveScore(gameState.getScore());
+                    highScoreController.saveScore(gameState.getScore(),seconds);
 
                     gameLoop.stop();
                     ScreenManager.switchScene("/view/lose.fxml", "Arkanoid");

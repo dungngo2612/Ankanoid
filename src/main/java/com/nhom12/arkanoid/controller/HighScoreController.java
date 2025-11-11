@@ -2,6 +2,7 @@ package com.nhom12.arkanoid.controller;
 
 import com.nhom12.arkanoid.utils.ScreenManager;
 import javafx.fxml.FXML;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -15,7 +16,12 @@ public class HighScoreController {
 
     @FXML
     private VBox scoreListVBox;
-
+/**
+    @FXML
+    private void onClearClicked() {
+        clearHighScores();
+    }
+**/
     // Preferences key for storing scores
     private static final String PREFS_KEY_HIGH_SCORES = "highScores";
 
@@ -40,7 +46,8 @@ public class HighScoreController {
                 long time = Long.parseLong(parts[1]);
 
                 Text scoreText = new Text(rank + ". " + score + " points - " + time + "s");
-                scoreText.setStyle("-fx-font-size: 18px; -fx-fill: white;");
+                scoreText.setStyle("-fx-font-size: 24px; -fx-fill: gold;" +
+                        "-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);");
                 scoreListVBox.getChildren().add(scoreText);
                 rank++;
             } else {
@@ -50,22 +57,28 @@ public class HighScoreController {
     }
 
     // Load scores from preferences
-    private List<Integer> loadHighScores() {
+    private List<String> loadHighScores() {
         String highScoresString = prefs.get(PREFS_KEY_HIGH_SCORES, "");
-        List<Integer> highScores = new ArrayList<>();
+        List<String> highScores = new ArrayList<>();
 
         if (!highScoresString.isEmpty()) {
             String[] scoresArray = highScoresString.split(",");
-            for (String score : scoresArray) {
-                try {
-                    highScores.add(Integer.parseInt(score.trim()));
-                } catch (NumberFormatException e) {
-                    System.err.println("Invalid score: " + score);
+            for (String entry : scoresArray) {
+                if (entry.contains("|")) {
+                    highScores.add(entry);
+                } else {
+                    System.err.println("Invalid score entry: " + entry);
                 }
             }
         }
 
-        Collections.sort(highScores, Collections.reverseOrder());
+        // Sort descending by score
+        highScores.sort((a, b) -> {
+            int scoreA = Integer.parseInt(a.split("\\|")[0]);
+            int scoreB = Integer.parseInt(b.split("\\|")[0]);
+            return Integer.compare(scoreB, scoreA);
+        });
+
         return highScores;
     }
 
@@ -109,10 +122,10 @@ public class HighScoreController {
         prefs.putInt("highscore", Integer.parseInt(highScores.get(0).split("\\|")[0]));
     }
 
-    // Save a numeric score
+    /** Save a numeric score
     public void saveScore(int score) {
-        List<Integer> highScores = loadHighScores();
-        highScores.add(score);
+        List<String> highScores = loadHighScores();
+        highScores.add(String.valueOf(score));
 
         // Sort and limit to top 10
         Collections.sort(highScores, Collections.reverseOrder());
@@ -122,7 +135,7 @@ public class HighScoreController {
 
         // Convert to comma-separated string
         StringBuilder scoresStringBuilder = new StringBuilder();
-        for (int s : highScores) {
+        for (String s : highScores) {
             scoresStringBuilder.append(s).append(",");
         }
         if (scoresStringBuilder.length() > 0) {
@@ -130,7 +143,17 @@ public class HighScoreController {
         }
 
         prefs.put(PREFS_KEY_HIGH_SCORES, scoresStringBuilder.toString());
+    }**/
+
+/**    @FXML
+    public void clearHighScores() {
+        // Remove saved preferences
+        prefs.remove(PREFS_KEY_HIGH_SCORES);
+        prefs.remove("highscore");
+
+        System.out.println("High scores cleared.");
     }
+**/
 
     @FXML
     private void onBackClicked() {
