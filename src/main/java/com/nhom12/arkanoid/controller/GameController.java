@@ -316,7 +316,7 @@ public class GameController {
                 if (state.isMoltenBallActive()) {
                     gc.setFill(Color.rgb(255, 100, 0, opacity)); // Màu cam cho molten ball
                 } else {
-                    gc.setFill(Color.rgb(173, 216, 230, opacity)); // Màu xanh nhạt cho bóng thường
+                    gc.setFill(Color.rgb(105, 105, 105, opacity)); // Màu xanh nhạt cho bóng thường
                 }
 
                 // Vẽ "hạt" của vệt sáng
