@@ -26,12 +26,12 @@
     <top>
         <StackPane>
             <VBox fx:id="scoreListVBox" alignment="CENTER" spacing="10">
-                <Label text="RANKING" textFill="gold">
+                <Label text="RANKING" textFill="black">
                     <style>
-                        -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);
+                        -fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);
                     </style>
                     <font>
-                        <Font name="System" size="48"/>
+                        <Font name="Comic Sans MS" size="48"/>
                     </font>
                 </Label>
             </VBox>
@@ -41,12 +41,12 @@
     <center>
         <StackPane>
             <VBox fx:id="evilListVBox" alignment="CENTER" spacing="10">
-                <Label text="EVIL MODE" textFill="gold">
+                <Label text="EVIL MODE" textFill="black">
                     <style>
-                        -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);
+                        -fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);
                     </style>
                     <font>
-                        <Font name="System" size="48"/>
+                        <Font name="Comic Sans MS" size="48"/>
                     </font>
                 </Label>
             </VBox>
