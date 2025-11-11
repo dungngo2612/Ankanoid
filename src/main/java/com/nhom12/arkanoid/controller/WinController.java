@@ -1,7 +1,6 @@
 package com.nhom12.arkanoid.controller;
 
 import com.nhom12.arkanoid.model.GameResult;
-import com.nhom12.arkanoid.controller.HighScoreController;
 import com.nhom12.arkanoid.utils.ScreenManager;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;

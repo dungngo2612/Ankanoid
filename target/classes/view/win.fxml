@@ -7,13 +7,25 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Text?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <StackPane fx:id="win"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.nhom12.arkanoid.controller.WinController"
            alignment="CENTER">
+
+    <!--Style-->
     <stylesheets>
         <URL value="@menu.css"/>
     </stylesheets>
+
+    <ImageView fitWidth="800" fitHeight="600" preserveRatio="false">
+        <image>
+            <Image url="@../Image/background_menu.png" />
+        </image>
+    </ImageView>
+
     <VBox alignment="CENTER" spacing="15">
         <Label text="YOU WIN" textFill="gold">
             <style>-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);</style>
@@ -22,14 +34,44 @@
             </font>
         </Label>
 
-        <Text fx:id="scoreText" style="-fx-font-size: 18px; -fx-fill: white;" />
-        <Text fx:id="timeText" style="-fx-font-size: 18px; -fx-fill: white;" />
-<!--        <Text fx:id="highScoreText" style="-fx-font-size: 18px; -fx-fill: white;"/>-->
+        <!--Text-->
+        <Text fx:id="scoreText" style="-fx-font-size: 30px; -fx-fill: gold; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);" />
+        <Text fx:id="timeText" style="-fx-font-size: 30px; -fx-fill: gold; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);" />
+
         <padding>
             <Insets top="20" right="20" bottom="20" left="20"/>
         </padding>
-        <Button text="HIGHSCORE" onAction="#onHighscoreClicked" styleClass="button"/>
-        <Button text="MENU" onAction="#onMenuClicked" styleClass="button"/>
-        <Button text="AGAIN" onAction="#onAgainClicked" styleClass="button"/>
+
+        <!--Các nút bấm-->
+        <Button onAction="#onHighscoreClicked" styleClass="image-button">
+            <graphic>
+                <ImageView fitWidth="170.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../Image/highscore.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+
+        <Button onAction="#onAgainClicked" styleClass="image-button">
+            <graphic>
+                <ImageView fitWidth="170.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../Image/again.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+
+        <Button onAction="#onMenuClicked" styleClass="image-button">
+            <graphic>
+                <ImageView fitWidth="170.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../Image/Back1-removebg-preview.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+
     </VBox>
 </StackPane>

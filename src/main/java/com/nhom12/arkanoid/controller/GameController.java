@@ -99,8 +99,9 @@ public class GameController {
 
                     HighScoreController highScoreController = new HighScoreController();
                     highScoreController.saveScore(gameState.getScore());
+
                     gameLoop.stop();
-                    ScreenManager.switchScene("/view/win.fxml", "Arkanoid");
+                    ScreenManager.switchScene("/view/lose.fxml", "Arkanoid");
                     SoundManager.getInstance().stopPlayingMusic();
                 } else if (gameState.isGameWon()) {
                     long elapsedMillis = System.currentTimeMillis() - startTime;
@@ -111,6 +112,7 @@ public class GameController {
 
                     HighScoreController highScoreController = new HighScoreController();
                     highScoreController.saveScore(gameState.getScore(),seconds);
+
                     gameLoop.stop();
                     ScreenManager.switchScene("/view/win.fxml", "Arkanoid");
                     SoundManager.getInstance().stopPlayingMusic();
