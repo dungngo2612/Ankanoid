@@ -27,7 +27,7 @@ public class ImageManager {
         images.put("speed_up", new Image("Image/SpeedUp.png"));
         images.put("speed_down", new Image("Image/SpeedDown.png"));
         images.put("impassable", new Image("Image/Impassable_brick.png"));
-        images.put("strong_brick", new Image("Image/Brick2_normal.png"));
+        images.put("strong_brick", new Image("Image/strong_brick.png"));
         images.put("explosive_brick", new Image("Image/explosive.png"));
 
     }

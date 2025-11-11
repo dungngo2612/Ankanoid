@@ -139,7 +139,7 @@ public class GameEngine {
                                 }
 
                                 String imageKey = "normal_brick";
-                                if (brick instanceof StrongBrick) imageKey = "brick2";
+                                if (brick instanceof StrongBrick) imageKey = "strong_brick";
                                 else if (brick instanceof ExplosiveBrick) imageKey = "explosive_brick";
 
                                 Image brickImage = ImageManager.getInstance().showImage(imageKey);
@@ -169,7 +169,7 @@ public class GameEngine {
 
                             // lấy màu của mảnh vỡ theo màu chủ đạo của từng loại brick
                             String imageKey = "normal_brick";
-                            if (brick instanceof StrongBrick) imageKey = "brick2";
+                            if (brick instanceof StrongBrick) imageKey = "strong_brick";
                             else if (brick instanceof UnbreakableBrick) imageKey = "impassable";
                             else if (brick instanceof ExplosiveBrick) imageKey = "explosive_brick";
 
