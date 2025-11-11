@@ -31,7 +31,7 @@
             </padding>
             <Button onAction="#onStartClicked" styleClass="image-button">
                 <graphic>
-                    <ImageView fitWidth="170.0" preserveRatio="true">
+                    <ImageView fitWidth="500.0" preserveRatio="true">
                         <image>
                             <Image url="@../Image/start.png" />
                         </image>
@@ -41,7 +41,7 @@
 
             <Button onAction="#onHighscoreClicked" styleClass="image-button">
                 <graphic>
-                    <ImageView fitWidth="170.0" preserveRatio="true">
+                    <ImageView fitWidth="500.0" preserveRatio="true">
                         <image>
                             <Image url="@../Image/highscore.png" />
                         </image>
@@ -51,7 +51,7 @@
 
             <Button onAction="#onSettingsClicked" styleClass="image-button">
                 <graphic>
-                    <ImageView fitWidth="170.0" preserveRatio="true">
+                    <ImageView fitWidth="500.0" preserveRatio="true">
                         <image>
                             <Image url="@../Image/setting.png" />
                         </image>
@@ -61,7 +61,7 @@
 
             <Button onAction="#onExitClicked" styleClass="image-button">
                 <graphic>
-                    <ImageView fitWidth="170.0" preserveRatio="true">
+                    <ImageView fitWidth="500.0" preserveRatio="true">
                         <image>
                             <Image url="@../Image/exit.png" />
                         </image>
@@ -77,9 +77,9 @@
 
             <Button onAction="#onChallengeModeClicked" styleClass="image-button">
             <graphic>
-                <ImageView fitWidth="170.0" preserveRatio="true">
+                <ImageView fitWidth="500.0" preserveRatio="true">
                     <image>
-                        <Image url="@../Image/challenge_mode-removebg-preview.png" />
+                        <Image url="@../Image/challenge.png" />
                     </image>
                 </ImageView>
             </graphic>
@@ -87,9 +87,9 @@
 
             <Button onAction="#onEvilModeClicked" styleClass="image-button">
                 <graphic>
-                    <ImageView fitWidth="170.0" preserveRatio="true">
+                    <ImageView fitHeight="109.0" fitWidth="500.0" preserveRatio="false">
                         <image>
-                            <Image url="@../Image/evil_mode-removebg-preview.png" />
+                            <Image url="@../Image/evil.png" />
                         </image>
                     </ImageView>
                 </graphic>
@@ -97,9 +97,9 @@
 
             <Button onAction="#onBackToMainClicked" styleClass="image-button" >
                 <graphic>
-                    <ImageView fitWidth="170.0" preserveRatio="true">
+                    <ImageView fitHeight="109.0" fitWidth="500.0" preserveRatio="false">
                         <image>
-                            <Image url="@../Image/Back1-removebg-preview.png" />
+                            <Image url="@../Image/back.png" />
                         </image>
                     </ImageView>
                 </graphic>

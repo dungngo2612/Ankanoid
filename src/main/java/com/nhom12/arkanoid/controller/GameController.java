@@ -71,6 +71,7 @@ public class GameController {
         gameState = gameEngine.getGameState();
 
         loadPauseMenu();
+        Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
 
         // Tạo vòng lặp game
         gameLoop = new AnimationTimer() {
@@ -100,7 +101,11 @@ public class GameController {
                     ScreenManager.setData(result);
 
                     HighScoreController highScoreController = new HighScoreController();
-                    highScoreController.saveScore(gameState.getScore(),seconds);
+                    if(!prefs.getBoolean("evilMode", true)) {
+                        highScoreController.saveScore(gameState.getScore(),seconds);
+                    } else {
+                        highScoreController.saveEvilScore(gameState.getScore(),seconds);
+                    }
 
                     gameLoop.stop();
                     ScreenManager.switchScene("/view/lose.fxml", "Arkanoid");
@@ -113,7 +118,11 @@ public class GameController {
                     ScreenManager.setData(result);
 
                     HighScoreController highScoreController = new HighScoreController();
-                    highScoreController.saveScore(gameState.getScore(),seconds);
+                    if(!prefs.getBoolean("evilMode", true)) {
+                        highScoreController.saveScore(gameState.getScore(),seconds);
+                    } else {
+                        highScoreController.saveEvilScore(gameState.getScore(),seconds);
+                    }
 
                     gameLoop.stop();
                     ScreenManager.switchScene("/view/win.fxml", "Arkanoid");

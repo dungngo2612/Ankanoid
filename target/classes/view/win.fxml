@@ -22,7 +22,7 @@
 
     <ImageView fitWidth="800" fitHeight="600" preserveRatio="false">
         <image>
-            <Image url="@../Image/background_menu.png" />
+            <Image url="@../Image/highscr.jpg" />
         </image>
     </ImageView>
 
@@ -45,7 +45,7 @@
         <!--Các nút bấm-->
         <Button onAction="#onHighscoreClicked" styleClass="image-button">
             <graphic>
-                <ImageView fitWidth="170.0" preserveRatio="true">
+                <ImageView fitWidth="500.0" preserveRatio="true">
                     <image>
                         <Image url="@../Image/highscore.png" />
                     </image>
@@ -55,7 +55,7 @@
 
         <Button onAction="#onAgainClicked" styleClass="image-button">
             <graphic>
-                <ImageView fitWidth="170.0" preserveRatio="true">
+                <ImageView fitWidth="500.0" preserveRatio="true">
                     <image>
                         <Image url="@../Image/again.png" />
                     </image>
@@ -65,9 +65,9 @@
 
         <Button onAction="#onMenuClicked" styleClass="image-button">
             <graphic>
-                <ImageView fitWidth="170.0" preserveRatio="true">
+                <ImageView fitWidth="500.0" preserveRatio="true">
                     <image>
-                        <Image url="@../Image/Back1-removebg-preview.png" />
+                        <Image url="@../Image/back.png" />
                     </image>
                 </ImageView>
             </graphic>
