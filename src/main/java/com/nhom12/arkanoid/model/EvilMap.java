@@ -38,7 +38,7 @@ public class EvilMap {
     // ktra xem có cần đùn gạch không
     public void update() {
         long now = System.currentTimeMillis();
-        if(now - lastPushTime >= 30000 && pushCount < MAX_PUSHES) {
+        if(now - lastPushTime >= 12000 && pushCount < MAX_PUSHES) {
             pushBrickDown();
             lastPushTime = now;
         }
@@ -80,32 +80,34 @@ public class EvilMap {
         Brick[] row = new Brick[Constants.BRICK_COLS];
         int center = Constants.BRICK_COLS/2;
 
-        int maxDistance = 0;
-        if(isInverted) {
-            maxDistance = rowIndex; // tam giác ngược , càng xuống càng rộng
-        } else {
-            maxDistance = Math.max(0, Constants.BRICK_ROWS - 1 - rowIndex);
-            // tam giác xuôi càng xuống càng hẹp
-        }
-        for(int col = 0; col < Constants.BRICK_COLS; col++) {
-            double x = col*(Constants.BRICK_WIDTH + Constants.BRICK_GAP) + Constants.BRICK_GAP;
-            int distance = Math.abs(col - center);
+        int maxDistance = rowIndex;
 
-            boolean shouldPlace;
+        if(!isInverted) {
 
-            if(isInverted) {
-                shouldPlace = distance <= maxDistance;
-                // nếu là tam giác ngược sẽ dặt gạch nế  cột gần trung tâm
-            } else {
-                shouldPlace = distance >= maxDistance;
-                // nếu là tam giác xuôi sẽ dặt gạch nế  cột cách xa trung tâm
+            for(int col = 0; col < Constants.BRICK_COLS; col++) {
+                double x = col*(Constants.BRICK_WIDTH + Constants.BRICK_GAP) + Constants.BRICK_GAP;
+                int distance = Math.abs(col - center);
+
+                boolean shouldPlace = distance <= maxDistance;
+                if(shouldPlace) {
+                    if(distance == maxDistance) {
+                        row[col] = new StrongBrick(x,0); // gạch rìa
+                    } else {
+                        row[col] = new NormalBrick(x,0); // gạch ở bên trong
+                    }
+                }
             }
-
-            if(shouldPlace) {
-                if(distance == maxDistance) {
-                    row[col] = new StrongBrick(x,0); // gạch rìa
-                } else {
-                    row[col] = new NormalBrick(x,0); // gạch ở bên trong
+        } else {
+            for(int col = Constants.BRICK_COLS-1; col >=0; col--) {
+                double x = col*(Constants.BRICK_WIDTH + Constants.BRICK_GAP) + Constants.BRICK_GAP;
+                int distance = Math.abs(col - center);
+                boolean shouldPlace = distance <= maxDistance;
+                if(shouldPlace) {
+                    if(distance == maxDistance) {
+                        row[col] = new StrongBrick(x,0); // gạch rìa
+                    } else {
+                        row[col] = new NormalBrick(x,0); // gạch ở bên trong
+                    }
                 }
             }
         }

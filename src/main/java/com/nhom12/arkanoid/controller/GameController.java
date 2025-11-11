@@ -64,6 +64,8 @@ public class GameController {
     @FXML
     public void initialize() {
         startTime = System.currentTimeMillis();
+        isTimerStarted = true;
+
         gc = gameCanvas.getGraphicsContext2D();
         gameEngine = new GameEngine(gameRoot);
         gameState = gameEngine.getGameState();
@@ -224,11 +226,6 @@ public class GameController {
             gameState.launchBall();
             messageText.setText("");
 
-            // ⏱ Bắt đầu đếm thời gian nếu chưa bắt đầu
-            if (!isTimerStarted) {
-                startTime = System.currentTimeMillis();
-                isTimerStarted = true;
-            }
         }
 //        else if (event.getCode() == KeyCode.SHIFT) {
 //            // Chỉ bắn khi đang có item laze
