@@ -18,16 +18,13 @@ import java.util.prefs.Preferences;
 
 public class MenuController implements Initializable {
 
-    // 🧱 This connects to fx:id="root" in FXML
+    //
     @FXML
     private StackPane menu;
-
     @FXML
     private MediaView mediaView;
-
     @FXML
     private VBox mainButtonsVBox; // VBox cho các nút chính
-
     @FXML
     private VBox modeSelectionVBox; // VBox cho chọn chế độ
 
@@ -86,7 +83,7 @@ public class MenuController implements Initializable {
         }
     }
 
-    // 🎮 Button actions
+    //Các nút bấm
     @FXML
     private void onStartClicked() {
         // Ẩn VBox nút chính và hiện VBox chọn chế độ
@@ -128,20 +125,20 @@ public class MenuController implements Initializable {
     }
 
     @FXML
-    private void onSettingsClicked() {
+    private void onSettingsClicked() {  //Vào settings
         stopVideo();
         System.out.println("Settings clicked!");
         ScreenManager.switchScene("/view/settings.fxml","Arkanoid");
     }
 
     @FXML
-    private void onExitClicked() {
+    private void onExitClicked() {  //Thoát game
         System.out.println("Exit clicked!");
         System.exit(0);
     }
 
     @FXML
-    private void onHighscoreClicked() {
+    private void onHighscoreClicked() { //Bảng điểm
         stopVideo();
         System.out.println("Highscore clicked!");
         ScreenManager.switchScene("/view/highscore.fxml","Arkanoid");
