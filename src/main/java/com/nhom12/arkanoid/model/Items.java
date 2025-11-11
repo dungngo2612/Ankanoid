@@ -27,9 +27,9 @@ public class Items {
     public Items(double x, double y) {
         this.x = x;
         this.y = y;
-        this.width = 50;
-        this.height = 70;
-        this.speedY =  3;
+        this.width = Constants.ITEM_WIDTH;
+        this.height = Constants.ITEM_HEIGHT;
+        this.speedY =  Constants.ITEM_SPEED;
         this.active = true;
 
         // sẽ sử dụng hàm random để lựa chọn vật phẩm
