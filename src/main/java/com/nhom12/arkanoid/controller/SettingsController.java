@@ -19,7 +19,6 @@ import java.util.prefs.Preferences;
 
 public class SettingsController implements Initializable {
 
-    // 🧱 This connects to fx:id="root" in FXML
     @FXML
     private StackPane settings;
 
@@ -35,6 +34,7 @@ public class SettingsController implements Initializable {
     @FXML
     private ComboBox<String> diff;
 
+    //Dùng prefs lưu các setting
     Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
     private MediaPlayer player;
 

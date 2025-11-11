@@ -20,10 +20,10 @@
         <URL value="@menu.css"/>
     </stylesheets>
 
-    <!-- 🎥 Background video -->
+    <!-- Background video -->
     <MediaView fx:id="mediaView" preserveRatio="true"/>
 
-    <!-- 🕹️ Overlay UI -->
+    <!-- Overlay UI -->
     <VBox alignment="CENTER" spacing="20">
         <!-- Settings title -->
         <Label text="SETTINGS" textFill="gold">
@@ -39,8 +39,15 @@
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
             <ComboBox fx:id="diff" promptText="Difficulty" prefWidth="200"/>
-            <CheckBox fx:id="musicCheckBox" text="Enable Music" textFill="white"/>
-            <CheckBox fx:id="sfxCheckBox" text="Enable Sound Effects" textFill="white"/>
+            <CheckBox fx:id="musicCheckBox"
+                      text="Enable Music"
+                      textFill="gold"
+                      style="-fx-font-size: 24px; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);" />
+
+            <CheckBox fx:id="sfxCheckBox"
+                      text="Enable Sound Effects"
+                      textFill="gold"
+                      style="-fx-font-size: 24px; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);"/>
 
             <Button text="Back" onAction="#onBackClicked" styleClass="button"/>
 
