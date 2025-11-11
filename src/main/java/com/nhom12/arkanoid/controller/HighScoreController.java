@@ -50,8 +50,8 @@ public class HighScoreController {
                 long time = Long.parseLong(parts[1]);
 
                 Text scoreText = new Text(rank + ". " + score + " points - " + time + "s");
-                scoreText.setStyle("-fx-font-size: 24px; -fx-fill: gold;" +
-                        "-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);");
+                scoreText.setStyle("-fx-font-size: 24px; -fx-fill: black;" + "-fx-font-family: 'Comic Sans MS';" +
+                        "-fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);");
                 scoreListVBox.getChildren().add(scoreText);
                 rank++;
             } else {
@@ -69,8 +69,8 @@ public class HighScoreController {
                 long time = Long.parseLong(parts[1]);
 
                 Text scoreText = new Text(score + " points - " + time + "s");
-                scoreText.setStyle("-fx-font-size: 24px; -fx-fill: gold;" +
-                        "-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);");
+                scoreText.setStyle("-fx-font-size: 24px; -fx-fill: black;" +  "-fx-font-family: 'Comic Sans MS';" +
+                        "-fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);");
                 evilListVBox.getChildren().add(scoreText);
             } else {
                 System.err.println("Invalid highscore entry: " + entry);
