@@ -93,7 +93,6 @@ public class GameEngine {
                 }
             }
         }
-        if (gameState.getBoss() != null) {
             if (!gameState.isBallLaunched()) {
                 gameState.getMainBall().setX(
                         gameState.getPaddle().getX() + gameState.getPaddle().getWidth() / 2
@@ -103,7 +102,7 @@ public class GameEngine {
                 );
                 return;
             }
-        }
+
 
         // Duy nhất 1 vòng lặp qua tất cả các bóng
         Iterator<Ball> ballIterator = gameState.getBalls().iterator();
