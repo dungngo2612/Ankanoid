@@ -235,7 +235,9 @@ public class GameState {
     public void checkWinCondition() {
         List<Brick> currentBricks = isEvilMode ? map.getBricks() : bricks;
         if (currentBricks.stream().filter(Brick::isDestructible).allMatch(Brick::isDestroyed)) {
-            isGameWon = true;
+            if (!isEvilMode) {
+                isGameWon = true;
+            }
         }
     }
     public void setGameOver(boolean value) {
