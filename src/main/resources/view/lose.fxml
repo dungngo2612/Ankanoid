@@ -45,7 +45,7 @@
         <!--Các nút bấm-->
         <Button onAction="#onHighscoreClicked" styleClass="image-button">
             <graphic>
-                <ImageView fitWidth="500.0" preserveRatio="true">
+                <ImageView fitWidth="400.0" preserveRatio="true">
                     <image>
                         <Image url="@../Image/highscore.png" />
                     </image>
@@ -55,7 +55,7 @@
 
         <Button onAction="#onAgainClicked" styleClass="image-button">
             <graphic>
-                <ImageView fitWidth="500.0" preserveRatio="true">
+                <ImageView fitWidth="400.0" preserveRatio="true">
                     <image>
                         <Image url="@../Image/again.png" />
                     </image>
@@ -65,7 +65,7 @@
 
         <Button onAction="#onMenuClicked" styleClass="image-button">
             <graphic>
-                <ImageView fitWidth="500.0" preserveRatio="true">
+                <ImageView fitWidth="400.0" preserveRatio="true">
                     <image>
                         <Image url="@../Image/back.png" />
                     </image>

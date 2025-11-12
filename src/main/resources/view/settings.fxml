@@ -46,7 +46,7 @@
 
             <Button onAction="#onBackClicked" styleClass="image-button">
                 <graphic>
-                    <ImageView fitWidth="500.0" preserveRatio="true">
+                    <ImageView fitWidth="400.0" preserveRatio="true">
                         <image>
                             <Image url="@../Image/back.png" />
                         </image>

@@ -5,38 +5,28 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane fx:id="gameRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-            prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/25"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nhom12.arkanoid.controller.GameController">
+<AnchorPane fx:id="gameRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nhom12.arkanoid.controller.GameController">
 
     <children>
-        <Canvas fx:id="gameCanvas" height="600.0" width="800.0"/>
-        <Text fx:id="timerText"
-              layoutX="350.0" layoutY="25.0"
-              text="Time: 00:00s"
-              style="-fx-font-size: 24px; -fx-fill: white;"
-              strokeType="OUTSIDE" strokeWidth="0.0" fill="WHITE">
+        <Canvas fx:id="gameCanvas" height="600.0" width="800.0" />
+        <Text fx:id="timerText" layoutX="350.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 24px; -fx-fill: black;" text="Time: 00:00s">
             <font>
-                <Font size="18.0"/>
+                <Font name="Elephant" size="25.0" />
             </font>
         </Text>
-        <Text fx:id="scoreText" fill="WHITE" layoutX="10.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0"
-              text="Score: 0">
+        <Text fx:id="scoreText" layoutX="10.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score: 0">
             <font>
-                <Font size="18.0"/>
+                <Font name="Elephant" size="25.0" />
             </font>
         </Text>
-        <Text fx:id="livesText" fill="WHITE" layoutX="730.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0"
-              text="Lives: 3">
+        <Text fx:id="livesText" layoutX="687.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives: 3">
             <font>
-                <Font size="18.0"/>
+                <Font name="Elephant" size="25.0" />
             </font>
         </Text>
-        <Text fx:id="messageText" fill="WHITE" layoutX="70" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0"
-              text="Press SPACE to unbox SECRET">
+        <Text fx:id="messageText" fill="WHITE" layoutX="70" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press SPACE to unbox SECRET">
             <font>
-                <Font name="Verdana Bold" size="40.0"/>
+                <Font name="Verdana Bold" size="40.0" />
             </font>
         </Text>
     </children>

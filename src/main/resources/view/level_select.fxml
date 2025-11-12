@@ -74,7 +74,7 @@
     <Button layoutX="151.0" layoutY="500.0" mnemonicParsing="false" onAction="#onBackClicked" styleClass="map-level-button"
             alignment="CENTER">
         <graphic>
-            <ImageView fitWidth="500.0" preserveRatio="true">
+            <ImageView fitWidth="400.0" preserveRatio="true">
                 <image>
                     <Image url="@../Image/back.png" /> </image>
             </ImageView>
