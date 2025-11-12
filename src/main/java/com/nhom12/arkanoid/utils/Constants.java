@@ -43,4 +43,6 @@ public class Constants {
     public static final double ITEM_WIDTH = 50;
     public static final double ITEM_HEIGHT = 50;
     public static final double ITEM_SPEED = 3;
+
+    public static final double RATE_ITEM = 1;
 }

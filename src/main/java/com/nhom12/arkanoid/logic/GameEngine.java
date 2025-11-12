@@ -292,7 +292,7 @@ public class GameEngine {
         if (items.size() < MAX_ITEMS) {
             Random rand = new Random();
             // 30% xác suất sinh vật phẩm
-            if (rand.nextDouble() < 1) {
+            if (rand.nextDouble() < Constants.RATE_ITEM) {
                 Items newItem = new Items(
                         brick.getX() + brick.getWidth() / 2 - 15,
                         brick.getY() + brick.getHeight() / 2
