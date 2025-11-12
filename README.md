@@ -1,11 +1,11 @@
 # Arkanoid Game - Object-Oriented Programming Project
 
 ## Author
-Group [12] - Class [INT 2204]
-1. [Nguyễn Quang Vinh] - [MSSV 1]
-2. [Đỗ Đức Hưng] - [MSSV 2]
-3. [Trần Việt An] - [MSSV 3]
-4. [Ngô Quang Dũng] - [MSSV 4]
+Group [12] - Class [INT 2204 5]
+1. [Nguyễn Quang Vinh] - [24020365]
+2. [Đỗ Đức Hưng] - [24020149]
+3. [Trần Việt An] - [24020005]
+4. [Ngô Quang Dũng] - [24020086]
 
 **Instructor**: [Kiều Văn Tuyên]  
 **Semester**: [HK1 - 2025]
@@ -78,16 +78,16 @@ The game uses multiple threads to ensure smooth performance:
 7. **Complete the level**: Destroy all destructible bricks to advance.
 
 ### Power-ups
-| Icon | Name | Effect                                      |
-|----|------|---------------------------------------------|
-| ![PaddleExpand.png](src/main/resources/Image/PaddleExpand.png) | PADDLE_EXPAND | Increases paddle width                      |
-| ![PaddleShrink.png](src/main/resources/Image/PaddleShrink.png)| PADDLE_SHRINK | Decreases paddle width                      |
-| ![SpeedUp.png](src/main/resources/Image/SpeedUp.png) | SPEED_UP | Increases ball speed                        |
-| ![SpeedDown.png](src/main/resources/Image/SpeedDown.png) | SPEED_DOWN | Decreases ball speed                        |
-| ![MultiBall.png](src/main/resources/Image/MultiBall.png) | MULTI_BALL | Spawns 2 additional balls                   |
-| ![LaserPaddle.png](src/main/resources/Image/LaserPaddle.png) | LASER_PADDLE | Shoot lasers to destroy bricks for 3 seconds |
-| ![MoltenBall.png](src/main/resources/Image/MoltenBall.png) | MOLTEN_BALL |   |
-| ![Extra_Life.png](src/main/resources/Image/Extra_Life.png) | EXTRA_LIFE |  |
+| Icon | Name | Effect                                                     |
+|----|------|------------------------------------------------------------|
+| ![PaddleExpand.png](src/main/resources/Image/PaddleExpand.png) | PADDLE_EXPAND | Tăng chiều dài của PADDLE                                  |
+| ![PaddleShrink.png](src/main/resources/Image/PaddleShrink.png)| PADDLE_SHRINK | Giảm chiều dài của PADDLE                                  |
+| ![SpeedUp.png](src/main/resources/Image/SpeedUp.png) | SPEED_UP | Tăng tốc độ của bóng                                       |
+| ![SpeedDown.png](src/main/resources/Image/SpeedDown.png) | SPEED_DOWN | Giảm tốc độ của bóng                                       |
+| ![MultiBall.png](src/main/resources/Image/MultiBall.png) | MULTI_BALL | Spawns thêm 2 bóng nữa                                     |
+| ![LaserPaddle.png](src/main/resources/Image/LaserPaddle.png) | LASER_PADDLE | PADDLE bắn laze liên tục trong 3s                          |
+| ![MoltenBall.png](src/main/resources/Image/MoltenBall.png) | MOLTEN_BALL | Bóng "nóng nảy" gây sát thương rất lớn và tốc độ bay nhanh |
+| ![Extra_Life.png](src/main/resources/Image/Extra_Life.png) | EXTRA_LIFE | Tăng thêm 1 mạng cho người chơi                            |
 
 ### Scoring System
 - +10 points per brick
