@@ -17,8 +17,8 @@ import javafx.scene.text.Text;
 
 public class GameState {
     public enum BossState {
-        ENTERING,      // Boss đang đi vào// Boss đã vào, gạch đã tạo, đang đếm ngược
-        ACTIVE         // Game đang chạy
+        ENTERING,      // Boss is entering
+        ACTIVE
     }
 
     private List<Ball> ball;
@@ -38,7 +38,6 @@ public class GameState {
     // Biến lưu thời điểm được phép bắn laze tiếp theo
     private long nextLaserFireTime = 0;
 
-    //
     private boolean moltenBallActive = false;
     private long moltenBallEndTime = 0;
 
@@ -92,12 +91,12 @@ public class GameState {
         this.isGameOver = false;
         this.isGameWon = false;
 
-        this.moltenBallActive = false; // Đảm bảo được khởi tạo
-        this.paddleHasLaser = false;     // Đảm bảo được khởi tạo
-        this.moltenBallEndTime = 0;      // Đảm bảo được khởi tạo
-        this.laserEndTime = 0;           // Đảm bảo được khởi tạo
-        this.nextLaserFireTime = 0;      // Đảm bảo được khởi tạo
-        this.ballLaunched = false;     // Đảm bảo được khởi tạo
+        this.moltenBallActive = false;
+        this.paddleHasLaser = false;
+        this.moltenBallEndTime = 0;
+        this.laserEndTime = 0;
+        this.nextLaserFireTime = 0;
+        this.ballLaunched = false;
         this.allowWinCheck = true;
 
         Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
@@ -107,14 +106,13 @@ public class GameState {
         if (evilMode) {
             setEvilMode(true);
             System.out.println("✅ Evil Mode activated!");
-           // return; // không cần gọi createLevel nữa
         }
-        // THÊM LOGIC BOSS MỚI VÀO ĐÂY
+        // Boss Logic
         else if (difficulty.equals("Boss")) {
             System.out.println("Boss Level selected!");
             this.bricks = new ArrayList<>(); // Không có gạch
 
-            this.boss = new Boss((Constants.SCENE_WIDTH - 224) / 2, -240, 100); // Tạo Boss (giả sử rộng 150, HP 100)
+            this.boss = new Boss((Constants.SCENE_WIDTH - 224) / 2, -240, 100); // Tạo Boss ( rộng 150, HP 100)
             this.minions = this.boss.getMinions(); // Lấy reference đến danh sách minions của boss
             this.bossState = BossState.ENTERING;
         } else {
@@ -313,7 +311,7 @@ public class GameState {
         // Kích thước mỗi viên gạch
         double bw = Constants.BRICK_WIDTH;
         double bh = Constants.BRICK_HEIGHT;
-        double gap = 5; // khoảng cách giữa gạch và boss
+        double gap = Constants.BRICK_GAP;
 
         int bricksLeft = 0;
 

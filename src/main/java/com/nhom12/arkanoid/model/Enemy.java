@@ -69,30 +69,18 @@ public abstract class Enemy {
             // Các lớp con có thể override để vẽ khác đi hoặc thêm thanh HP
         }
     }
-    /**
-     * Kẻ địch nhận sát thương.
-     * @param damage Lượng sát thương nhận vào.
-     */
+
     public void takeDamage(int damage) {
         this.hp -= damage;
         if (this.hp < 0) {
             this.hp = 0;
         }
-        // Thêm hiệu ứng âm thanh/hình ảnh khi nhận sát thương tại đây
     }
 
-    /**
-     * Kiểm tra xem kẻ địch đã bị tiêu diệt chưa.
-     * @return true nếu HP <= 0.
-     */
     public boolean isDestroyed() {
         return this.hp <= 0;
     }
 
-    /**
-     * Lấy vùng giới hạn của kẻ địch để kiểm tra va chạm.
-     * @return Đối tượng Rectangle đại diện cho vùng giới hạn.
-     */
     public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
     }

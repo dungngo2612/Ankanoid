@@ -27,8 +27,8 @@ public class GameEngine {
 
     private final List<Items> items = new ArrayList<>();
 
-    private Boss boss; // THÊM THUỘC TÍNH NÀY
-    private List<Minion> minions; // THÊM THUỘC TÍNH NÀY
+    private Boss boss;
+    private List<Minion> minions;
 
     private static final int MAX_ITEMS = 100; // tối đa 2 vật phẩm trong 1 màn
     private int itemsSpawned = 0; // đếm số vật phẩm đã sinh ra
@@ -128,7 +128,7 @@ public class GameEngine {
                 // Va chạm với Boss (nếu đã được giải phóng / boss có thể di chuyển)
                 if (collisionManager.handleEnemyCollision(ball, boss, gameState.isMoltenBallActive())) {
                     boss.takeDamage(1);
-                    // TODO: play boss_hit sound
+                    SoundManager.getInstance().playEffect("boss_hit");
                 }
 
                 // Va chạm với Minions
@@ -139,8 +139,6 @@ public class GameEngine {
                         minion.takeDamage(1);
                         if (minion.isDestroyed()) {
                             minionCollisionIterator.remove();
-                            gameState.incrementScore(10);
-                            // TODO: play minion_destroyed sound/effect
                         }
                     }
                 }
@@ -190,7 +188,6 @@ public class GameEngine {
                 if (gameState.getRemainingBossProtectionBricks() == 0 && !boss.canMove()) {
                     boss.setCanMove(true);
                     System.out.println("All protection bricks destroyed! Boss is now active!");
-                    // TODO: hiệu ứng/âm thanh
                 }
 
             } else {
