@@ -70,14 +70,14 @@
             </Button>
         </VBox>
 
-        <VBox fx:id="modeSelectionVBox" alignment="CENTER" managed="false" spacing="15" visible="false">
+        <VBox fx:id="modeSelectionVBox" alignment="CENTER" managed="false" spacing="15">
             <padding>
                 <Insets bottom="20" left="20" right="20" top="20" />
             </padding>
 
             <Button onAction="#onChallengeModeClicked" styleClass="image-button">
             <graphic>
-                <ImageView fitWidth="500.0" preserveRatio="true">
+                <ImageView fitHeight="100.0" fitWidth="178.0" preserveRatio="true">
                     <image>
                         <Image url="@../Image/challenge.png" />
                     </image>
@@ -87,7 +87,7 @@
 
             <Button onAction="#onEvilModeClicked" styleClass="image-button">
                 <graphic>
-                    <ImageView fitHeight="109.0" fitWidth="500.0" preserveRatio="false">
+                    <ImageView fitHeight="67.0" fitWidth="185.0" preserveRatio="false">
                         <image>
                             <Image url="@../Image/evil.png" />
                         </image>
@@ -97,7 +97,7 @@
 
             <Button onAction="#onBackToMainClicked" styleClass="image-button" >
                 <graphic>
-                    <ImageView fitHeight="109.0" fitWidth="500.0" preserveRatio="false">
+                    <ImageView fitHeight="72.0" fitWidth="184.0" preserveRatio="false">
                         <image>
                             <Image url="@../Image/back.png" />
                         </image>
