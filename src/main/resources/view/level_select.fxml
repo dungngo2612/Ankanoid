@@ -56,7 +56,7 @@
             </ImageView>
       </graphic></Button>
 
-    <Button fx:id="level4Button" alignment="CENTER" contentDisplay="TOP" layoutX="501.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="126.0" prefWidth="96.0" styleClass="map-level-button" text="Level 4" onAction="#onLevel4Clicked">
+    <Button fx:id="level4Button" alignment="CENTER" contentDisplay="TOP" layoutX="501.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onLevel4Clicked" prefHeight="126.0" prefWidth="96.0" styleClass="map-level-button" text="Level 4">
         <font>
             <Font name="Elephant Italic" size="20.0" />
         </font>
@@ -71,13 +71,12 @@
             </ImageView>
       </graphic></Button>
 
-    <Button layoutX="151.0" layoutY="500.0" mnemonicParsing="false" onAction="#onBackClicked" styleClass="map-level-button"
-            alignment="CENTER">
-        <graphic>
-            <ImageView fitWidth="400.0" preserveRatio="true">
+    <Button alignment="CENTER" contentDisplay="CENTER" layoutX="325.0" layoutY="512.0" mnemonicParsing="false" onAction="#onBackClicked" styleClass="map-level-button">
+      <graphic>
+            <ImageView fitHeight="73.0" fitWidth="184.0" preserveRatio="true">
                 <image>
                     <Image url="@../Image/back.png" /> </image>
             </ImageView>
-        </graphic>
+      </graphic>
     </Button>
 </AnchorPane>

@@ -7,7 +7,7 @@ public class Constants {
     public static final double PADDLE_WIDTH = 200;
     public static final double PADDLE_HEIGHT = 40;
     public static final double PADDLE_START_Y = SCENE_HEIGHT - 50;
-    public static final double PADDLE_SPEED = 5.0;
+    public static final double PADDLE_SPEED = 10.0;
     public static final double MAX_PADDLE_WIDTH = 300;
     public static final double MIN_PADDLE_WIDTH = 40;
     public static final double MAX_PADDLE_HEIGHT = 60;

@@ -7,7 +7,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.media.MediaView?>
 
 <StackPane fx:id="menu" alignment="CENTER" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nhom12.arkanoid.controller.MenuController">
     <ImageView fitHeight="600.0" fitWidth="800.0" preserveRatio="false">
@@ -15,9 +14,6 @@
             <Image url="@../Image/back_ground_menu.png" />
         </image>
     </ImageView>
-    <stylesheets>
-        <URL value="@menu.css" />
-    </stylesheets>
 
 <!--    &lt;!&ndash; Background video &ndash;&gt;-->
 <!--    <MediaView fx:id="mediaView" preserveRatio="true" />-->
@@ -31,7 +27,7 @@
             </padding>
             <Button onAction="#onStartClicked" styleClass="image-button">
                 <graphic>
-                    <ImageView fitWidth="500.0" preserveRatio="true">
+                    <ImageView fitHeight="101.0" fitWidth="257.0" preserveRatio="true">
                         <image>
                             <Image url="@../Image/start.png" />
                         </image>
@@ -41,7 +37,7 @@
 
             <Button onAction="#onHighscoreClicked" styleClass="image-button">
                 <graphic>
-                    <ImageView fitWidth="500.0" preserveRatio="true">
+                    <ImageView fitHeight="103.0" fitWidth="225.0" preserveRatio="true">
                         <image>
                             <Image url="@../Image/highscore.png" />
                         </image>
@@ -51,7 +47,7 @@
 
             <Button onAction="#onSettingsClicked" styleClass="image-button">
                 <graphic>
-                    <ImageView fitWidth="500.0" preserveRatio="true">
+                    <ImageView fitHeight="100.0" fitWidth="299.0" preserveRatio="true">
                         <image>
                             <Image url="@../Image/setting.png" />
                         </image>
@@ -61,7 +57,7 @@
 
             <Button onAction="#onExitClicked" styleClass="image-button">
                 <graphic>
-                    <ImageView fitWidth="500.0" preserveRatio="true">
+                    <ImageView fitHeight="99.0" fitWidth="285.0" preserveRatio="true">
                         <image>
                             <Image url="@../Image/exit.png" />
                         </image>
@@ -70,14 +66,14 @@
             </Button>
         </VBox>
 
-        <VBox fx:id="modeSelectionVBox" alignment="CENTER" managed="false" spacing="15" visible="false">
+        <VBox fx:id="modeSelectionVBox" alignment="CENTER" managed="false" spacing="15">
             <padding>
                 <Insets bottom="20" left="20" right="20" top="20" />
             </padding>
 
             <Button onAction="#onChallengeModeClicked" styleClass="image-button">
             <graphic>
-                <ImageView fitWidth="500.0" preserveRatio="true">
+                <ImageView fitHeight="100.0" fitWidth="178.0" preserveRatio="true">
                     <image>
                         <Image url="@../Image/challenge.png" />
                     </image>
@@ -87,7 +83,7 @@
 
             <Button onAction="#onEvilModeClicked" styleClass="image-button">
                 <graphic>
-                    <ImageView fitHeight="109.0" fitWidth="500.0" preserveRatio="false">
+                    <ImageView fitHeight="67.0" fitWidth="185.0" preserveRatio="false">
                         <image>
                             <Image url="@../Image/evil.png" />
                         </image>
@@ -95,9 +91,9 @@
                 </graphic>
             </Button>
 
-            <Button onAction="#onBackToMainClicked" styleClass="image-button" >
+            <Button onAction="#onBackToMainClicked" styleClass="image-button">
                 <graphic>
-                    <ImageView fitHeight="109.0" fitWidth="500.0" preserveRatio="false">
+                    <ImageView fitHeight="72.0" fitWidth="184.0" preserveRatio="false">
                         <image>
                             <Image url="@../Image/back.png" />
                         </image>
@@ -106,4 +102,7 @@
             </Button>
         </VBox>
     </VBox>
+    <stylesheets>
+        <URL value="@menu.css" />
+    </stylesheets>
 </StackPane>
