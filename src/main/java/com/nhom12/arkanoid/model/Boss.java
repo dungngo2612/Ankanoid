@@ -18,7 +18,7 @@ public class Boss extends Enemy {
     private boolean movingRight = true;
     private List<Minion> minions;
     private double minionSpawnTimer = 0;
-    private final double SPAWN_INTERVAL = 300;
+    private final double SPAWN_INTERVAL = 1000;
     private Random random;
     private boolean isEntering = true; // Trạng thái "đang đi vào"
     private double targetY = 50.0;     // Vị trí Y cuối cùng mong muốn (vị trí cũ)
