@@ -287,10 +287,10 @@ public class GameController {
             }
         }
         if (isRightKeyPressed) {
-            if (paddle.getX() + Constants.PADDLE_WIDTH + Constants.PADDLE_SPEED < Constants.SCENE_WIDTH) {
+            if (paddle.getX() + paddle.getWidth() + Constants.PADDLE_SPEED < Constants.SCENE_WIDTH) {
                 paddle.setX(paddle.getX() + Constants.PADDLE_SPEED);
             } else {
-                paddle.setX(Constants.SCENE_WIDTH - Constants.PADDLE_WIDTH);
+                paddle.setX(Constants.SCENE_WIDTH - paddle.getWidth());
             }
         }
     }

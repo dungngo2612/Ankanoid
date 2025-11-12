@@ -65,7 +65,7 @@ public class Boss extends Enemy {
         if (this.sprites == null || this.sprites.isEmpty()) {
             this.width = 150;
             this.height = 80;
-            System.out.println("Không thể tải ảnh boss_sheet.png hoặc các frame! Sử dụng hình chữ nhật đỏ thay thế.");
+            System.out.println("Không thể tải ảnh boss_sheet.png hoặc các frame!");
         }
 
         this.minions = new ArrayList<>();
@@ -82,9 +82,6 @@ public class Boss extends Enemy {
                 y = targetY; // Khớp vào vị trí cuối cùng
                 isEntering = false; // Kết thúc trạng thái đi vào
             }
-            // Không chạy logic update animation hoặc di chuyển ngang
-            // Bạn có thể cho nó chạy updateAnimation() nếu muốn boss vẫy cánh khi đi vào
-            // updateAnimation();
             return; // Dừng update tại đây cho đến khi vào vị trí
         }
         // Cập nhật hoạt ảnh của Boss
