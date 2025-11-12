@@ -107,7 +107,7 @@ public class GameState {
         if (evilMode) {
             setEvilMode(true);
             System.out.println("✅ Evil Mode activated!");
-            return; // không cần gọi createLevel nữa
+           // return; // không cần gọi createLevel nữa
         }
         // THÊM LOGIC BOSS MỚI VÀO ĐÂY
         else if (difficulty.equals("Boss")) {
