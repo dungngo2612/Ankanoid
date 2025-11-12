@@ -93,7 +93,7 @@ public class GameEngine {
                 }
             }
         }
-        if (gameState.getBoss() != null && gameState.getBossState() != GameState.BossState.ACTIVE) {
+        if (gameState.getBoss() != null) {
             if (!gameState.isBallLaunched()) {
                 gameState.getMainBall().setX(
                         gameState.getPaddle().getX() + gameState.getPaddle().getWidth() / 2
