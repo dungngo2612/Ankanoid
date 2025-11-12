@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-
-<?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<StackPane fx:id="win"
-           xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.nhom12.arkanoid.controller.WinController"
-           alignment="CENTER">
+<StackPane fx:id="win" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="com.nhom12.arkanoid.controller.WinController">
 
     <!--Style-->
     <stylesheets>
-        <URL value="@menu.css"/>
+        <URL value="@menu.css" />
     </stylesheets>
 
-    <ImageView fitWidth="800" fitHeight="600" preserveRatio="false">
+    <ImageView fitHeight="600" fitWidth="800" preserveRatio="false">
         <image>
             <Image url="@../Image/highscr.jpg" />
         </image>
@@ -30,24 +28,18 @@
         <Label text="YOU WIN" textFill="black">
             <style>-fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);</style>
             <font>
-                <Font name="Comic Sans MS" size="48"/>
+                <Font name="Comic Sans MS" size="48" />
             </font>
         </Label>
 
         <!--Text-->
-        <Text fx:id="scoreText" style="-fx-font-size: 30px; -fx-fill: black; -fx-font-family: 'Comic Sans MS';
-                -fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);" />
-        <Text fx:id="timeText" style="-fx-font-size: 30px; -fx-fill: black; -fx-font-family: 'Comic Sans MS';
-                -fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);" />
-
-        <padding>
-            <Insets top="20" right="20" bottom="20" left="20"/>
-        </padding>
+        <Text fx:id="scoreText" style="-fx-font-size: 30px; -fx-fill: black; -fx-font-family: 'Comic Sans MS';                 -fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);" />
+        <Text fx:id="timeText" style="-fx-font-size: 30px; -fx-fill: black; -fx-font-family: 'Comic Sans MS';                 -fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);" />
 
         <!--Các nút bấm-->
         <Button onAction="#onHighscoreClicked" styleClass="image-button">
             <graphic>
-                <ImageView fitWidth="400.0" preserveRatio="true">
+                <ImageView fitHeight="102.0" fitWidth="198.0" preserveRatio="true">
                     <image>
                         <Image url="@../Image/highscore.png" />
                     </image>
@@ -57,7 +49,7 @@
 
         <Button onAction="#onAgainClicked" styleClass="image-button">
             <graphic>
-                <ImageView fitWidth="400.0" preserveRatio="true">
+                <ImageView fitHeight="98.0" fitWidth="226.0" preserveRatio="true">
                     <image>
                         <Image url="@../Image/again.png" />
                     </image>
@@ -67,13 +59,17 @@
 
         <Button onAction="#onMenuClicked" styleClass="image-button">
             <graphic>
-                <ImageView fitWidth="400.0" preserveRatio="true">
+                <ImageView fitHeight="95.0" fitWidth="254.0" preserveRatio="true">
                     <image>
                         <Image url="@../Image/back.png" />
                     </image>
                 </ImageView>
             </graphic>
         </Button>
+
+        <padding>
+            <Insets bottom="20" left="20" right="20" top="20" />
+        </padding>
 
     </VBox>
 </StackPane>
